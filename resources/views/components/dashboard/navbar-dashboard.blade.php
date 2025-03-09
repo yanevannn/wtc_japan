@@ -36,7 +36,7 @@
                             <circle cx="12" cy="10" r="3"/>
                             <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"/>
                         </svg>
-                        <span class="hidden md:block">{{ $name }}</span>
+                        <span class="hidden md:block">{{ Auth::user()->name }}</span>
                     </button>
             
                     <!-- Dropdown Menu -->
