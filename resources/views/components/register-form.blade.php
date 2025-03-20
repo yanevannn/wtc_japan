@@ -1,9 +1,17 @@
 <div class="max-w-md w-full p-6" id="registerForm">
     <h1 class="text-3xl font-semibold mb-6 text-black text-center">Pendaftaran Akun</h1>
-    <h2 class="text-sm text-gray-500">Sudah memiliki akun ? <a href="{{ route('login') }}"
-            class="text-blue-600 hover:underline hover:text-blue-700 font-bold">Masuk</a></h2>
+    <h2 class="text-sm text-gray-500">Sudah memiliki akun ? <a href="{{ route('login') }}" class="text-blue-600 hover:underline hover:text-blue-700 font-bold">Masuk</a></h2>
+            @if($errors->any())
+            <div class="text-red-500 text-sm">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
-    <form action="{{ route('register') }}" method="POST" class="space-y-4">
+    <form action="{{ route('doregister') }}" method="POST" class="space-y-4">
         @csrf
         <div class="space-y-4">
             <div>

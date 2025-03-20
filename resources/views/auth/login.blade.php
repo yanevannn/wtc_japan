@@ -15,4 +15,5 @@
         @include('components.login-form')
     </div>
 </div>
+
 @endsection

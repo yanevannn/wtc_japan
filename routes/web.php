@@ -9,6 +9,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'doLogin'])->name('dologin');
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'doRegister'])->name('doregister');
+    Route::get('/verifyaccount/{token}', [AuthController::class, 'verifyAccount'])->name('verifyaccount');
 });
 
 
