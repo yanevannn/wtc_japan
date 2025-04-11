@@ -29,12 +29,12 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             if (Auth::user()->email_verified_at == null) {
                 Auth::logout();
-                return redirect()->route('login')->with('error', 'Akun belum diverifikasi, silahkan cek email untuk verifikasi akun !');
+                return redirect()->route('login')->with('warning', 'Akun belum diverifikasi, silahkan cek email untuk verifikasi akun !');
             } else {
                 return redirect()->route('dashboard');
             }
         } else {
-            return redirect()->route('login')->withErrors('Email dan Password salah !');
+            return redirect()->route('login')->with('error','Email dan Password salah !');
         }
     }
 
@@ -53,7 +53,8 @@ class AuthController extends Controller
     {
         $request->validate(
             [
-                'name' => 'required|string|max:255',
+                'fname' => 'required|string|max:255',
+                'lname' => 'required|string|max:255',
                 // 'email' => 'required|email|email:rfc,dns|unique:users,email',
                 'email' => 'required|email|unique:users,email',
                 'password' => [
@@ -65,13 +66,22 @@ class AuthController extends Controller
                     'regex:/[0-9]/',       // Harus ada angka
                     'regex:/[@$!%*?&#]/',  // Harus ada karakter spesial
                 ],
+            ],
+            [
+                'email.email' => 'Format email tidak valid !',
+                'email.unique' => 'Email sudah terdaftar !',
+                'email.email' => 'Format email tidak valid !',
+                'password.required' => 'Password tidak boleh kosong !',
+                'password.min' => 'Password minimal 8 karakter !',
+                'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, angka, dan karakter spesial !'
             ]
         );
 
         $token = $this->generateToken();
 
         $data = [
-            'name' => $request->name,
+            'fname' => $request->fname,
+            'lname' => $request->lname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'role' => 'user'
@@ -116,7 +126,7 @@ class AuthController extends Controller
             $email = $cekToken->email;
             $dataUser = User::where('email', $email)->first();
 
-            if ($dataUser->email_verified_at =! null) {
+            if ($dataUser->email_verified_at != null) {
                 return redirect()->route('login')->with('info', 'Akun sudah diverifikasi sebelumnya!');
             } else {
                 $data = [
@@ -129,5 +139,11 @@ class AuthController extends Controller
         } else {
             return redirect()->route('login')->with('info', 'Akun sudah diverifikasi sebelumnya!');
         }
+    }
+
+    function profile()
+    {
+        $user = Auth::user();
+        return view('main.profile', compact('user'));
     }
 }
