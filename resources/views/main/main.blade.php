@@ -1,6 +1,5 @@
 <x-main-layout>
-    <x-slot:title>hello</x-slot:title>
-    @vite(['resources/css/app.css'])
+    <x-slot:title>Dashboard</x-slot:title>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Metric Item Start -->

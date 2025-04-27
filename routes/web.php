@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -14,22 +15,20 @@ Route::middleware('guest')->group(function () {
     Route::get('/verifyaccount/{token}', [AuthController::class, 'verifyAccount'])->name('verifyaccount');
 });
 
-Route::get('/dashboard',
-    function () {
-        return view('main.main');
-    }
-)->name('dashboard');
-Route::get('/profile',
-    function () {
-        return view('main.profile');
-    }
-)->name('profile');
+Route::get('/angkatan', [AngkatanController::class, 'index'])->name('angkatan.index');
+
 
 Route::middleware('auth')->group(function () {
-
-
-    // Route::get('/dashboard/profile', [AuthController::class, 'profile'])->name('profile');
-
+    Route::get('/dashboard',
+        function () {
+            return view('main.main');
+        }
+    )->name('dashboard');
+    Route::get('/profile',
+        function () {
+            return view('main.profile');
+        }
+    )->name('profile');
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
