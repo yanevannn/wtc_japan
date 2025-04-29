@@ -38,6 +38,7 @@
                 <ul class="flex flex-col gap-4 mb-6">
 
                     <x-menu-item href="{{ route('angkatan.index') }}" label="Angkatan" :icon="file_get_contents(public_path('assets/angkatan.svg'))" activePath="angkatan*" />
+                    <x-menu-item href="{{ route('admin.index') }}" label="Admin User" :icon="file_get_contents(public_path('assets/admin.svg'))" activePath="admin*" />
 
                 </ul>
             </div>

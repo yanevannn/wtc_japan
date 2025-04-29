@@ -32,15 +32,5 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'role' => 'user',
         ]);
-
-        // Membuat user dengan role sensei
-        User::create([
-            'fname' => 'Sensei',
-            'lname' => 'User',
-            'email' => 'sensei@mail.com',
-            'password' => bcrypt('sensei'), // Ganti dengan password yang lebih aman
-            'email_verified_at' => now(),
-            'role' => 'sensei',
-        ]);
     }
 }

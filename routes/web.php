@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,13 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'doRegister'])->name('doregister');
     Route::get('/verifyaccount/{token}', [AuthController::class, 'verifyAccount'])->name('verifyaccount');
 });
+
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
+Route::get('/admin/add', [AdminController::class, 'create'])->name('admin.create');
+Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
+Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
+Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
+Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
 
 Route::get('/angkatan', [AngkatanController::class, 'index'])->name('angkatan.index');
 Route::get('/angkatan/add', [AngkatanController::class, 'create'])->name('angkatan.create');
