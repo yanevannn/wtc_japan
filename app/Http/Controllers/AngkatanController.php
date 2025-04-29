@@ -29,6 +29,10 @@ class AngkatanController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'angkatan' => 'required|unique:tb_angkatan,angkatan',
+            'tahun' => 'required|integer|min:2020|max:2100',
+        ]);
         $data = [
             'angkatan' => $request->input('angkatan'),
             'tahun' => $request->input('tahun'),
@@ -53,8 +57,8 @@ class AngkatanController extends Controller
     public function update(Request $request, String $id)
     {
         $request->validate([
-            'angkatan' => 'required',
-            'tahun' => 'required',
+            'angkatan' => 'required|unique:tb_angkatan,angkatan,' . $id,
+            'tahun' => 'required|integer|min:2020|max:2100',
         ]);
         $data = [
             'angkatan' => $request->input('angkatan'),
