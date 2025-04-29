@@ -11,6 +11,7 @@
     </title>
     <link rel="icon" href="favicon.ico">
     @vite(['resources/css/app.css'])
+
 </head>
 
 <body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false, 'isProfileInfoModal': false, 'isProfileAddressModal': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
@@ -76,6 +77,43 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
     </div>
     <!-- ===== Page Wrapper End ===== -->
     <script defer src="{{ asset('js/bundle.js') }}"></script>
+    <script src="{{ asset('js/swal.js') }}"></script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: true,
+                timer: 3000
+            });
+        </script>
+    @endif
+
+    @if (session('info'))
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Info',
+                text: '{{ session('info') }}',
+                showConfirmButton: true,
+                timer: 3000
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}',
+                showConfirmButton: true,
+                timer: 3000
+            });
+        </script>
+    @endif
 </body>
 
 </html>

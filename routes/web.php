@@ -16,6 +16,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::get('/angkatan', [AngkatanController::class, 'index'])->name('angkatan.index');
+Route::get('/angkatan/add', [AngkatanController::class, 'create'])->name('angkatan.create');
+Route::post('/angkatan', [AngkatanController::class, 'store'])->name('angkatan.store');
+Route::get('/angkatan/edit/{id}', [AngkatanController::class, 'edit'])->name('angkatan.edit');
+Route::put('/angkatan/{id}', [AngkatanController::class, 'update'])->name('angkatan.update');
+Route::delete('/angkatan/{id}', [AngkatanController::class, 'destroy'])->name('angkatan.destroy');
 
 
 Route::middleware('auth')->group(function () {

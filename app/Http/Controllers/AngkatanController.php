@@ -12,7 +12,8 @@ class AngkatanController extends Controller
      */
     public function index()
     {
-        return view('main.angkatan');
+        $data = Angkatan::all();
+        return view('main.angkatan.index', compact('data'));
     }
 
     /**
@@ -20,7 +21,7 @@ class AngkatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('main.angkatan.create');
     }
 
     /**
@@ -28,38 +29,52 @@ class AngkatanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'angkatan' => $request->input('angkatan'),
+            'tahun' => $request->input('tahun'),
+        ];
+        Angkatan::create($data);
+        return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Angkatan $angkatan)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Angkatan $angkatan)
+    public function edit(Angkatan $angkatan, String $id)
     {
-        //
+        $data = Angkatan::find($id);
+        return view('main.angkatan.edit', compact('data'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Angkatan $angkatan)
+    public function update(Request $request, String $id)
     {
-        //
+        $request->validate([
+            'angkatan' => 'required',
+            'tahun' => 'required',
+        ]);
+        $data = [
+            'angkatan' => $request->input('angkatan'),
+            'tahun' => $request->input('tahun'),
+        ];
+        Angkatan::where('id', $id)->update($data);
+        return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Angkatan $angkatan)
+    public function destroy($id)
     {
-        //
+        $angkatan = Angkatan::find($id);
+        if ($angkatan) {
+            $angkatan->delete();
+            return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Dihapus');
+        } else {
+            return redirect()->route('angkatan.index')->with('error', 'Data Angkatan Tidak Ditemukan');
+        }
     }
 }

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_angkatan', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->string('nama_angkatan');
+            $table->id();
+            $table->string('angkatan');
             $table->integer('tahun');
             $table->timestamps();
         });
