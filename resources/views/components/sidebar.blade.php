@@ -38,14 +38,14 @@
                 <ul class="flex flex-col gap-4 mb-6">
 
                     @if (auth()->user()->role == 'admin')
-                        {{-- <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
-                            activePath="dashboard*" /> --}}
+                        <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
+                            activePath="dashboard*" />
                         <x-menu-item href="{{ route('angkatan.index') }}" label="Angkatan" :icon="file_get_contents(public_path('assets/angkatan.svg'))"
                             activePath="angkatan*" />
                         <x-menu-item href="{{ route('admin.index') }}" label="Admin User" :icon="file_get_contents(public_path('assets/admin.svg'))"
                             activePath="admin*" />
 
-                        <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/dashboard.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
+                        <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
 
                             <x-menu-item href="{{ route('status-pendaftaran.index') }}" label="Status Pendaftaran"
                                 activePath="status-pendaftaran*" />

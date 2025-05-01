@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('tb_status_pendaftaran')->insert([
-            ['status' => 'Belum Lengkao', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Belum Lengkap', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Menunggu Verifikasi', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Ditolak', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Diterima', 'created_at' => now(), 'updated_at' => now()],
