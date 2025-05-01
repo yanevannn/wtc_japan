@@ -35,18 +35,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('tb_status_pendaftaran')->insert([
-            ['status' => 'belum_lengkap', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'menunggu_verifikasi', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'ditolak', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'diterima', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Belum Lengkao', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Menunggu Verifikasi', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Ditolak', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Diterima', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         DB::table('tb_status_siswa')->insert([
-            ['status' => 'pendaftaran', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'seleksi', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'pelatihan', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'berhenti', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'lulus', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Pendaftaran', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Seleksi', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Pelatihan', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Berhenti', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Lulus', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }
