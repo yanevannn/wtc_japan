@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_status_pendaftaran', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['belum_lengkap', 'menunggu_verifikasi', 'ditolak', 'diterima']);
+            $table->string('status', 50);
             $table->timestamps();
         });
     }

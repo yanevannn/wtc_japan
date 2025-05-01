@@ -9,17 +9,15 @@ class Siswa extends Model
     protected $table = 'tb_siswa';
 
     protected $fillable = [
-        'tempat_tanggal_lahir',
+        'tanggal_lahir',
         'nis',
-        'umur',
         'jenis_kelamin',
         'alamat',
         'no_ktp',
         'tinggi_badan',
         'berat_badan',
         'golongan_darah',
-        'status_perkawinan',
-        'hobi',
+        // 'status_perkawinan',
         'agama',
         'wa',
         'instagram',
@@ -28,4 +26,14 @@ class Siswa extends Model
         'status_siswa_id',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function statusPendaftaran()
+    {
+        return $this->belongsTo(StatusPendaftaran::class, 'status_pendaftaran_id');
+    }
 }

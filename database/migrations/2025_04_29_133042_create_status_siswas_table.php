@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_status_siswa', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['pendaftaran', 'seleksi', 'pelatihan', 'berhenti', 'lulus']);
+            $table->string('status', 50);
             $table->timestamps();
         });
     }

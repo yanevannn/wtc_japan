@@ -5,7 +5,10 @@ use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\StatusPendaftaranController;
+use App\Http\Controllers\StatusSiswaController;
+use App\Models\StatusSiswa;
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -30,18 +33,22 @@ Route::get('/angkatan/edit/{id}', [AngkatanController::class, 'edit'])->name('an
 Route::put('/angkatan/{id}', [AngkatanController::class, 'update'])->name('angkatan.update');
 Route::delete('/angkatan/{id}', [AngkatanController::class, 'destroy'])->name('angkatan.destroy');
 
+Route::get('/datadiri', [SiswaController::class, 'index'])->name('siswa.data');
+Route::post('/datadiri', [SiswaController::class, 'store'])->name('siswa.store');
+
+
+Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])->name('status-pendaftaran.index');
+
+Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard',
+    Route::get(
+        '/dashboard',
         function () {
             return view('main.main');
         }
     )->name('dashboard');
-    Route::get('/profile',
-        function () {
-            return view('main.profile');
-        }
-    )->name('profile');
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

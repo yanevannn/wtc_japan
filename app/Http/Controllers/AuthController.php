@@ -29,12 +29,12 @@ class AuthController extends Controller
         if (Auth::attempt($data)) {
             if (Auth::user()->email_verified_at == null) {
                 Auth::logout();
-                return redirect()->route('login')->with('warning', 'Akun belum diverifikasi, silahkan cek email untuk verifikasi akun !');
+                return redirect()->route('login')->withInput()->with('warning', 'Akun belum diverifikasi, silahkan cek email untuk verifikasi akun !');
             } else {
                 return redirect()->route('dashboard');
             }
         } else {
-            return redirect()->route('login')->with('error','Email dan Password salah !');
+            return redirect()->route('login')->withInput()->with('error', 'Email dan Password salah !');
         }
     }
 
@@ -144,6 +144,10 @@ class AuthController extends Controller
     function profile()
     {
         $user = Auth::user();
+        if ($user->role === 'user' && $user->siswa === null) {
+            return redirect()->route('siswa.data')
+                ->with('info', 'Silakan lengkapi data diri Anda terlebih dahulu.');
+        }
         return view('main.profile', compact('user'));
     }
 }
