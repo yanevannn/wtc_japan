@@ -1,4 +1,4 @@
-@props(['href', 'label', 'icon', 'activePath' => ''])
+@props(['href', 'label', 'icon'=>null, 'activePath' => ''])
 
 <li>
     <a href="{{ $href }}" 

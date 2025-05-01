@@ -10,45 +10,52 @@ use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
 use App\Models\StatusSiswa;
 
+// ===================== GUEST ROUTES =====================
 Route::middleware('guest')->group(function () {
+    // Auth Routes
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'doLogin'])->name('dologin');
 
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'doRegister'])->name('doregister');
+
     Route::get('/verifyaccount/{token}', [AuthController::class, 'verifyAccount'])->name('verifyaccount');
 });
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin/add', [AdminController::class, 'create'])->name('admin.create');
-Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
-Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
-Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
-Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.destroy');
-
-Route::get('/angkatan', [AngkatanController::class, 'index'])->name('angkatan.index');
-Route::get('/angkatan/add', [AngkatanController::class, 'create'])->name('angkatan.create');
-Route::post('/angkatan', [AngkatanController::class, 'store'])->name('angkatan.store');
-Route::get('/angkatan/edit/{id}', [AngkatanController::class, 'edit'])->name('angkatan.edit');
-Route::put('/angkatan/{id}', [AngkatanController::class, 'update'])->name('angkatan.update');
-Route::delete('/angkatan/{id}', [AngkatanController::class, 'destroy'])->name('angkatan.destroy');
-
-Route::get('/datadiri', [SiswaController::class, 'index'])->name('siswa.data');
-Route::post('/datadiri', [SiswaController::class, 'store'])->name('siswa.store');
-
-
-Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])->name('status-pendaftaran.index');
-
-Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
-
+// ===================== AUTH ROUTES =====================
 Route::middleware('auth')->group(function () {
-    Route::get(
-        '/dashboard',
-        function () {
-            return view('main.main');
-        }
-    )->name('dashboard');
+    // Dashboard & Profile
+    Route::get('/dashboard', fn() => view('main.main'))->name('dashboard');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-});
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    // ===================== ADMIN =====================
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+        Route::get('/add', [AdminController::class, 'create'])->name('create');
+        Route::post('/', [AdminController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AdminController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AdminController::class, 'destroy'])->name('destroy');
+    });
+
+    // ===================== ANGKATAN =====================
+    Route::prefix('angkatan')->name('angkatan.')->group(function () {
+        Route::get('/', [AngkatanController::class, 'index'])->name('index');
+        Route::get('/add', [AngkatanController::class, 'create'])->name('create');
+        Route::post('/', [AngkatanController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [AngkatanController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [AngkatanController::class, 'update'])->name('update');
+        Route::delete('/{id}', [AngkatanController::class, 'destroy'])->name('destroy');
+    });
+
+    // ===================== SISWA =====================
+    Route::prefix('datadiri')->name('siswa.')->group(function () {
+        Route::get('/', [SiswaController::class, 'index'])->name('data');
+        Route::post('/', [SiswaController::class, 'store'])->name('store');
+    });
+
+    // ===================== STATUS =====================
+    Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])->name('status-pendaftaran.index');
+    Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
+});
