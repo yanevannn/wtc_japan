@@ -10,7 +10,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['No', 'Angkatan', 'Tahun']" :aligns="['left', 'left', 'left', 'center']" />
+                    <x-table-header :columns="['Angkatan', 'Tahun']" :aligns="['left', 'left']" />
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
