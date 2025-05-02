@@ -9,95 +9,30 @@
                 <x-button type="add" route="{{ route('angkatan.create') }}" />
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
-                <!-- ====== Table Six Start -->
-                <div
-                    class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-                    <div class="max-w-full overflow-x-auto">
-                        <table class="min-w-full" id="myTable">
-                            <!-- table header start -->
-                            <thead>
-                                <tr 
-                                class="border-b border-gray-100 dark:border-gray-800">
-                                    <th class="px-5 py-3 sm:px-6 w-3">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                No
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Angkatan
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Tahun
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6 w-10">
-                                        <div class="flex items-center justify-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Aksi
-                                            </p>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <!-- table header end -->
-                            <!-- table body start -->
-                            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                                @if ($data->isEmpty())
-                                    <tr>
-                                        <td colspan="4" class="px-5 py-4 sm:px-6 text-center">
-                                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                Data Kosong
-                                            </p>
-                                        </td>
-                                    </tr>
-                                @else
-                                @endif
+                <x-table>
+                    <x-table-header :columns="['No', 'Angkatan', 'Tahun']" :aligns="['left', 'left', 'left', 'center']" />
+                    <x-table-body>
+                        @if ($data->isEmpty())
+                            <x-table-empty-row />
+                        @else
+                            @foreach ($data as $angkatan)
                                 <tr>
-                                    @foreach ($data as $angkatan)
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $loop->iteration }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $angkatan->angkatan }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $angkatan->tahun }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex justify-center gap-2">
-                                                <x-button type="edit" route="{{ route('angkatan.edit', $angkatan->id) }}" />
-                                                <x-button type="delete"
-                                                    route="{{ route('angkatan.destroy', $angkatan->id) }}" />
-                                            </div>
-                                        </td>
+                                    <x-table-cell>{{ $loop->iteration }}</x-table-cell>
+                                    <x-table-cell>{{ $angkatan->angkatan }}</x-table-cell>
+                                    <x-table-cell>{{ $angkatan->tahun }}</x-table-cell>
+                                    <x-table-cell>
+                                        <div class="flex justify-center gap-2">
+                                            <x-button type="edit"
+                                                route="{{ route('angkatan.edit', $angkatan->id) }}" />
+                                            <x-button type="delete"
+                                                route="{{ route('angkatan.destroy', $angkatan->id) }}" />
+                                        </div>
+                                    </x-table-cell>
                                 </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- ====== Table Six End -->
+                            @endforeach
+                        @endif
+                    </x-table-body>
+                </x-table>
             </div>
         </div>
     </div>
