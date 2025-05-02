@@ -9,109 +9,31 @@
                 <x-button type="add" route="{{ route('admin.create') }}" />
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
-                <!-- ====== Table Six Start -->
-                <div
-                    class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
-                    <div class="max-w-full overflow-x-auto">
-                        <table class="min-w-full" id="myTable">
-                            <!-- table header start -->
-                            <thead>
-                                <tr 
-                                class="border-b border-gray-100 dark:border-gray-800">
-                                    <th class="px-5 py-3 sm:px-6 w-3">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                No
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Name
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Email
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6">
-                                        <div class="flex items-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Role
-                                            </p>
-                                        </div>
-                                    </th>
-                                    <th class="px-5 py-3 sm:px-6 w-10">
-                                        <div class="flex items-center justify-center">
-                                            <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
-                                                Aksi
-                                            </p>
-                                        </div>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <!-- table header end -->
-                            <!-- table body start -->
-                            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-                                @if ($data->isEmpty())
-                                    <tr>
-                                        <td colspan="4" class="px-5 py-4 sm:px-6 text-center">
-                                            <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                Data Kosong
-                                            </p>
-                                        </td>
-                                    </tr>
-                                @else
-                                @endif
+                <x-table>
+                    <x-table-header :columns="['Name', 'Email', 'Role']" :aligns="['left', 'left', 'left']" />
+                    <x-table-body>
+                        @if ($data->isEmpty())
+                            <x-table-empty-row />
+                        @else
+                            @foreach ($data as $admin)
                                 <tr>
-                                    @foreach ($data as $admin)
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $loop->iteration }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $admin->fname .' '. $admin->lname }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $admin->email }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex items-center">
-                                                <p class="text-gray-500 text-theme-sm dark:text-gray-400">
-                                                    {{ $admin->role }}
-                                                </p>
-                                            </div>
-                                        </td>
-                                        <td class="px-5 py-4 sm:px-6">
-                                            <div class="flex justify-center gap-2">
-                                                <x-button type="edit" route="{{ route('admin.edit', $admin->id) }}" />
-                                                <x-button type="delete"
-                                                    route="{{ route('admin.destroy', $admin->id) }}" />
-                                            </div>
-                                        </td>
+                                    <x-table-cell>{{ $loop->iteration }}</x-table-cell>
+                                    <x-table-cell>{{ $admin->fname . ' ' . $admin->lname }}</x-table-cell>
+                                    <x-table-cell>{{ $admin->email }}</x-table-cell>
+                                    <x-table-cell>{{ $admin->role }}</x-table-cell>
+                                    <x-table-cell>
+                                        <div class="flex justify-center gap-2">
+                                            <x-button type="edit" route="{{ route('angkatan.edit', $admin->id) }}" />
+                                            <x-button type="delete"
+                                                route="{{ route('angkatan.destroy', $admin->id) }}" />
+                                        </div>
+                                    </x-table-cell>
                                 </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <!-- ====== Table Six End -->
+                            @endforeach
+                        @endif
+                    </x-table-body>
+                </x-table>
+
             </div>
         </div>
     </div>
