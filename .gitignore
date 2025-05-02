@@ -23,4 +23,5 @@ yarn-error.log
 /.zed
 .DS_Store
 /resources/views/build
-
+/public/css/
+/resources/css
