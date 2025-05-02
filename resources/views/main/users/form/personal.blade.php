@@ -11,7 +11,7 @@
 
                 <div
                     class="overflow-hiden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <form action="{{ route('siswa.store') }}" method="POST" class="flex flex-col gap-4 mt-4">
+                    <form action="{{ route('form.personal.store') }}" method="POST" class="flex flex-col gap-4 mt-4">
                         @csrf
 
                         <x-input-form label="NIK" name="no_ktp" type="number"
