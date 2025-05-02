@@ -23,9 +23,9 @@
                                     <x-table-cell>{{ $admin->role }}</x-table-cell>
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
-                                            <x-button type="edit" route="{{ route('angkatan.edit', $admin->id) }}" />
+                                            <x-button type="edit" route="{{ route('admin.edit', $admin->id) }}" />
                                             <x-button type="delete"
-                                                route="{{ route('angkatan.destroy', $admin->id) }}" />
+                                                route="{{ route('admin.destroy', $admin->id) }}" />
                                         </div>
                                     </x-table-cell>
                                 </tr>

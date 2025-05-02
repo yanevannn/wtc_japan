@@ -9,24 +9,20 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
 
-                <div
-                    class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <form action="{{ route('admin.update', $data->id) }}" method="POST" class="flex flex-col gap-4 mt-4">
-                        @csrf
-                        @method('PUT')
-                        <x-input-form label="First Name" name="fname" placeholder="inut firstname"
+                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
+                    <x-form :action="route('admin.update', $data->id)" method="PUT">
+                        <x-form-input label="First Name" name="fname" placeholder="inut firstname"
                             value="{{ $data->fname }}" />
-                        <x-input-form label="Last Name" name="lname" placeholder="input lastname"
+                        <x-form-input label="Last Name" name="lname" placeholder="input lastname"
                             value="{{ $data->lname }}" />
-                        <x-input-form label="Email" name="email" type="email" placeholder="input email"
+                        <x-form-input label="Email" name="email" type="email" placeholder="input email"
                             value="{{ $data->email }}" />
-                        <x-input-form label="Password" name="password" type="password" placeholder="input password" />
+                        <x-form-input label="Password" name="password" type="password" placeholder="input password" />
                         <p class="ml-1 text-red-600">Kosongkan jika tidak ingin mengubah password !</p>
                         <x-button type="save"></x-button>
-                    </form>
+                    </x-form>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </x-main-layout>

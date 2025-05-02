@@ -14,15 +14,15 @@
                     <form action="{{ route('form.personal.store') }}" method="POST" class="flex flex-col gap-4 mt-4">
                         @csrf
 
-                        <x-input-form label="NIK" name="no_ktp" type="number"
+                        <x-form-input label="NIK" name="no_ktp" type="number"
                             placeholder="Masukkan Nomor Induk Kependudukan Anda" />
-                        <x-input-form label="Tanggal Lahir" name="tanggal_lahir" placeholder="" type="date" />
-                        <x-input-form inputType="option" name="jenis_kelamin" label="Gender"
+                        <x-form-input label="Tanggal Lahir" name="tanggal_lahir" placeholder="" type="date" />
+                        <x-form-input inputType="option" name="jenis_kelamin" label="Gender"
                             default="Select Option" :options="[
                                 'Laki-laki' => 'Laki-laki',
                                 'Perempuan' => 'Perempuan',
                             ]" />
-                        <x-input-form inputType="option" name="agama" label="Agama"
+                        <x-form-input inputType="option" name="agama" label="Agama"
                             default="Select Option" :options="[
                                 'Hindu' => 'Hindu',
                                 'Islam' => 'Islam',
@@ -30,21 +30,21 @@
                                 'Protestan' => 'Protestan',
                                 'Konghucu' => 'Konghucu',
                             ]" />
-                        <x-input-form inputType="option" name="golongan_darah" label="Golongan Darah"
+                        <x-form-input inputType="option" name="golongan_darah" label="Golongan Darah"
                             default="Select Option" :options="[
                                 'A' => 'Golongan Darah A',
                                 'B' => 'Golongan Darah B',
                                 'AB' => 'Golongan Darah AB',
                                 'O' => 'Golongan Darah O',
                             ]" />
-                        <x-input-form label="Alamat" name="alamat" placeholder="Masukkan alamat anda" />
-                        <x-input-form label="Tinggi Badan" name="tinggi_badan" placeholder="Masukkan tinggi badan anda"
+                        <x-form-input label="Alamat" name="alamat" placeholder="Masukkan alamat anda" />
+                        <x-form-input label="Tinggi Badan" name="tinggi_badan" placeholder="Masukkan tinggi badan anda"
                             type="number" />
-                        <x-input-form label="Berat Badan" name="berat_badan" placeholder="Masukkan berat badan anda"
+                        <x-form-input label="Berat Badan" name="berat_badan" placeholder="Masukkan berat badan anda"
                             type="number" />
-                        <x-input-form label="Whatsapp" name="wa" placeholder="Masukkan no wa contoh (082xxxx)"
+                        <x-form-input label="Whatsapp" name="wa" placeholder="Masukkan no wa contoh (082xxxx)"
                             type="text" />
-                        <x-input-form label="Instagram" name="instagram"
+                        <x-form-input label="Instagram" name="instagram"
                             placeholder="Masukkan id instagram (ex : @wtcbali)" type="text" />
                         <x-button type="submit"></x-button>
                     </form>
