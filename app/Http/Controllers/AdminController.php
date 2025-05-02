@@ -10,12 +10,12 @@ class AdminController extends Controller
     public function index()
     {
         $data = User::where('role', 'admin')->get();
-        return view('main.admin.index', compact ('data'));
+        return view('main.admin.administrator.index', compact ('data'));
     }
 
     public function create()
     {
-        return view('main.admin.create');
+        return view('main.admin.administrator.create');
     }
 
     public function store(Request $request)
@@ -42,7 +42,7 @@ class AdminController extends Controller
     public function edit($id)
     {
         $data = User::findOrFail($id);
-        return view('main.admin.edit', compact('data'));
+        return view('main.admin.administrator.edit', compact('data'));
     }
 
     public function update(Request $request, $id)

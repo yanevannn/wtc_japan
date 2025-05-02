@@ -9,6 +9,6 @@ class StatusSiswaController extends Controller
 {
     public function index(){
         $data = StatusSiswa::all();
-        return view('main.status_siswa.index', compact('data'));
+        return view('main.admin.status_siswa.index', compact('data'));
     }
 }

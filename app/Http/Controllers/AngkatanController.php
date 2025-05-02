@@ -13,7 +13,7 @@ class AngkatanController extends Controller
     public function index()
     {
         $data = Angkatan::all();
-        return view('main.angkatan.index', compact('data'));
+        return view('main.admin.angkatan.index', compact('data'));
     }
 
     /**
@@ -21,7 +21,7 @@ class AngkatanController extends Controller
      */
     public function create()
     {
-        return view('main.angkatan.create');
+        return view('main.admin.angkatan.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class AngkatanController extends Controller
     public function edit(Angkatan $angkatan, String $id)
     {
         $data = Angkatan::find($id);
-        return view('main.angkatan.edit', compact('data'));
+        return view('main.admin.angkatan.edit', compact('data'));
     }
 
     /**

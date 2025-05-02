@@ -24,16 +24,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Membuat user dengan role user
-        User::create([
-            'fname' => 'Regular',
-            'lname' => 'User',
-            'email' => 'user@mail.com',
-            'password' => bcrypt('user'), // Ganti dengan password yang lebih aman
-            'email_verified_at' => now(),
-            'role' => 'user',
-        ]);
-
         DB::table('tb_status_pendaftaran')->insert([
             ['status' => 'Belum Lengkap', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Menunggu Verifikasi', 'created_at' => now(), 'updated_at' => now()],

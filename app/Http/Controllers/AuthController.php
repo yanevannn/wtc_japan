@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\UserVerify;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,7 +18,7 @@ class AuthController extends Controller
         if (Auth::check()) {
             return redirect()->route('dashboard');
         }
-        return view('auth.login');
+        return view('main.auth.login');
     }
 
     function doLogin(Request $request)
@@ -40,7 +42,7 @@ class AuthController extends Controller
 
     function register()
     {
-        return view('auth.register');
+        return view('main.auth.register');
     }
 
     function generateToken()
@@ -78,8 +80,8 @@ class AuthController extends Controller
         );
 
         $token = $this->generateToken();
-
-        $data = [
+        // Data untuk menyimpan user
+        $userData = [
             'fname' => $request->fname,
             'lname' => $request->lname,
             'email' => $request->email,
@@ -87,22 +89,26 @@ class AuthController extends Controller
             'role' => 'user'
         ];
 
-        User::create($data);
+        // Mulai transaksi untuk menjaga konsistensi data
+        DB::transaction(function () use ($userData, $request, $token) {
+            // Membuat user
+            $user = User::create($userData);
 
-        $cekToken = UserVerify::where('email', $request->email)->first();
-        if ($cekToken) {
-            UserVerify::where('email', $request->email)->delete();
-        }
+            // Membuat record untuk verifikasi email
+            UserVerify::create([
+                'email' => $request->email,
+                'token' => $token
+            ]);
 
-        $data = [
-            'email' => $request->email,
-            'token' => $token
-        ];
-
-        UserVerify::create($data);
+            // Membuat relasi siswa langsung dengan status_pendaftaran_id = 1
+            $user->siswa()->create([
+                'status_siswa_id' => 1,
+                'status_pendaftaran_id' => 1,
+            ]);
+        });
 
         Mail::send(
-            'auth.email-verification',
+            'main.auth.email-verification',
             ['token' => $token],
             function ($message) use ($request) {
                 $message->to($request->email);
@@ -144,10 +150,19 @@ class AuthController extends Controller
     function profile()
     {
         $user = Auth::user();
-        if ($user->role === 'user' && $user->siswa === null) {
-            return redirect()->route('siswa.data')
+        if ($user->role === 'user' && $user->siswa->no_ktp === null) {
+            return redirect()->route('form.personal.index')
                 ->with('info', 'Silakan lengkapi data diri Anda terlebih dahulu.');
         }
-        return view('main.profile', compact('user'));
+        return view('main.users.profile', compact('user'));
+    }
+
+    public function index()
+    {
+        if (Auth::user()->role != 'admin') {
+            return view('main.users.dashboard-users');
+        }
+        $data = Siswa::where('status_siswa_id', 1)->count();
+        return view('main.admin.dashboard-admin', compact('data'));
     }
 }

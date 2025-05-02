@@ -11,7 +11,7 @@ class SiswaController extends Controller
 {
     public function index()
     {
-        return view('main.siswa.create');
+        return view('main.users.form.personal');
     }
 
     public function store(Request $request)

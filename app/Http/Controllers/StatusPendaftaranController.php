@@ -9,6 +9,6 @@ class StatusPendaftaranController extends Controller
 {
     public function index(){
         $data = StatusPendaftaran::all();
-        return view('main.status_pendaftaran.index', compact('data'));
+        return view('main.admin.status_pendaftaran.index', compact('data'));
     }
 }

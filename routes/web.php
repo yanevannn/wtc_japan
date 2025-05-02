@@ -25,7 +25,7 @@ Route::middleware('guest')->group(function () {
 // ===================== AUTH ROUTES =====================
 Route::middleware('auth')->group(function () {
     // Dashboard & Profile
-    Route::get('/dashboard', fn() => view('main.main'))->name('dashboard');
+    Route::get('/dashboard', [AuthController::class, 'index'])->name('dashboard');
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -50,9 +50,9 @@ Route::middleware('auth')->group(function () {
     });
 
     // ===================== SISWA =====================
-    Route::prefix('datadiri')->name('siswa.')->group(function () {
-        Route::get('/', [SiswaController::class, 'index'])->name('data');
-        Route::post('/', [SiswaController::class, 'store'])->name('store');
+    Route::prefix('form')->name('form.')->group(function () {
+        Route::get('/personal', [SiswaController::class, 'index'])->name('personal.index');
+        Route::post('/personal', [SiswaController::class, 'store'])->name('personal.store');
     });
 
     // ===================== STATUS =====================

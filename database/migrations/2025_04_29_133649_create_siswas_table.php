@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('tb_siswa', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tanggal_lahir');
+            $table->dateTime('tanggal_lahir')->nullable();
             $table->string('nis')->unique()->nullable();
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->text('alamat');
-            $table->string('no_ktp');
-            $table->float('tinggi_badan');
-            $table->float('berat_badan');
-            $table->enum('golongan_darah', ['A', 'B', 'AB', 'O', 'Tidak Tahu']);
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->text('alamat')->nullable();
+            $table->string('no_ktp')->nullable();
+            $table->float('tinggi_badan')->nullable();
+            $table->float('berat_badan')->nullable();
+            $table->enum('golongan_darah', ['A', 'B', 'AB', 'O', 'Tidak Tahu'])->nullable();
             // $table->enum('status_perkawinan', ['Belum Menikah', 'Menikah', 'Cerai']);
-            $table->string('agama');
-            $table->string('wa');
+            $table->string('agama')->nullable();
+            $table->string('wa')->nullable();
             $table->string('instagram')->nullable();
 
             // Foreign Keys
