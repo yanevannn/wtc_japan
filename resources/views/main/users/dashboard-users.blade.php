@@ -30,6 +30,10 @@
                 <a href="{{ route('form.personal.index') }}">Klik untuk mengisi Data Diri</a>
             </button>
         </div>
-        <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
+        <div class="mt-4">
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
+            <p class="text-sm text-gray-600 dark:text-white/70 mb-4"> Informasi terkini terkait WTC2JAPAN</p>
+            <x-announcement></x-announcement>
+        </div>
     </div>
 </x-main-layout>
