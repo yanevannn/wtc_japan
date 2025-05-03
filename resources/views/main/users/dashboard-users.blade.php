@@ -33,7 +33,13 @@
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
             <p class="text-sm text-gray-600 dark:text-white/70 mb-4"> Informasi terkini terkait WTC2JAPAN</p>
-            <x-announcement></x-announcement>
+            <div class="flex flex-col gap-4">
+                <x-announcement></x-announcement>
+                <x-announcement></x-announcement>
+                <x-announcement></x-announcement>
+                <x-announcement></x-announcement>
+            </div>
+
         </div>
     </div>
 </x-main-layout>
