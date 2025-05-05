@@ -1,6 +1,7 @@
 @props([
     'columns' => [], // array kolom, contoh: ['No', 'Status', 'Aksi']
     'aligns' => [], // optional, array alignment: 'left', 'center', 'right'
+    'widths' => [],
     'showActionRow' => true, // default tampil tampil
     'showNoRow' => true, // default tampil tampil
 ])
@@ -24,8 +25,9 @@
                     'right' => 'text-right',
                     default => 'text-left',
                 };
+                $width = $widths[$index] ?? '';
             @endphp
-            <th class="px-5 py-3 sm:px-6 {{ $classes }}">
+            <th class="px-5 py-3 sm:px-6 {{ $classes.' '.$width }}">
                 <p class="font-medium text-gray-500 text-theme-xs dark:text-gray-400">
                     {{ $column }}
                 </p>

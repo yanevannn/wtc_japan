@@ -5,13 +5,14 @@ use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
 use App\Models\StatusSiswa;
 
 Route::get('/', function () {
-    return view ('main');
+    return view('main');
 })->name('home');
 
 // ===================== GUEST ROUTES =====================
@@ -62,4 +63,14 @@ Route::middleware('auth')->group(function () {
     // ===================== STATUS =====================
     Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])->name('status-pendaftaran.index');
     Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
+
+    // ===================== Pengumuman =====================
+    Route::prefix('pengumuman')->name('pengumuman.')->group(function () {
+        Route::get('/', [PengumumanController::class, 'index'])->name('index');
+        Route::get('/add', [PengumumanController::class, 'create'])->name('create');
+        Route::post('/', [PengumumanController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [PengumumanController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [PengumumanController::class, 'update'])->name('update');
+        Route::post('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
+    });
 });

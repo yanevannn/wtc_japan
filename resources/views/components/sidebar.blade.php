@@ -44,6 +44,8 @@
                             activePath="angkatan*" />
                         <x-menu-item href="{{ route('admin.index') }}" label="Admin User" :icon="file_get_contents(public_path('assets/admin.svg'))"
                             activePath="admin*" />
+                        <x-menu-item href="{{ route('pengumuman.index') }}" label="Pengumuman" :icon="file_get_contents(public_path('assets/announcement.svg'))"
+                            activePath="pengumuman*" />
 
                         <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
 

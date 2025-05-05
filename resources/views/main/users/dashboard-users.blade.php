@@ -34,10 +34,10 @@
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
             <p class="text-sm text-gray-600 dark:text-white/70 mb-4"> Informasi terkini terkait WTC2JAPAN</p>
             <div class="flex flex-col gap-4">
-                <x-announcement></x-announcement>
-                <x-announcement></x-announcement>
-                <x-announcement></x-announcement>
-                <x-announcement></x-announcement>
+                @foreach ($announcements as $information)
+                    <x-announcement :title="$information->judul" :description="$information->deskripsi" file="{{ asset('storage/pengumuman_files/' . $information->file) }}" date="{{ $information->created_at->diffForHumans() }}" />
+                       
+                @endforeach
             </div>
 
         </div>

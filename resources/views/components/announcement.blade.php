@@ -1,4 +1,4 @@
- @props(['title' => 'Ini Judul Pengumuman', 'description' => 'Ini deskripsi Pengumuman', 'file' => '#'])
+ @props(['title' => 'Ini Judul Pengumuman', 'description' => 'Ini deskripsi Pengumuman', 'file' => '#', 'date' ])
 
  <div class="mx-auto bg-brand-600 shadow-lg rounded-lg w-full">
      <div class="px-6 py-5">
@@ -20,7 +20,7 @@
                      <h2 class="text-xl leading-snug font-extrabold text-gray-50 truncate mb-1 sm:mb-0">
                          {{ $title }}
                      </h2>
-                     <p class="text-sm text-gray-50">10 Maret 2023</p>
+                     <p class="text-sm text-gray-50">{{ $date }}</p>
                  </div>
                  <!-- Card body -->
                  <div class="flex flex-col whitespace-normal">

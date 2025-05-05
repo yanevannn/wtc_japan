@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Siswa;
+use App\Models\Pengumuman;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -160,9 +161,12 @@ class AuthController extends Controller
     public function index()
     {
         if (Auth::user()->role != 'admin') {
-            return view('main.users.dashboard-users');
+            $announcements = Pengumuman::where('is_published', true)
+                ->orderBy('created_at', 'desc')
+                ->get();
+            return view('main.users.dashboard-users', compact('announcements'));
         }
         $data = Siswa::where('status_siswa_id', 1)->count();
-        return view('main.admin.dashboard-admin', compact('data'));
+        return view('main.admin.dashboard-admin', compact('data',));
     }
 }
