@@ -10,6 +10,10 @@ use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
 use App\Models\StatusSiswa;
 
+Route::get('/', function () {
+    return view ('main');
+})->name('home');
+
 // ===================== GUEST ROUTES =====================
 Route::middleware('guest')->group(function () {
     // Auth Routes

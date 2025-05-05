@@ -49,7 +49,6 @@ class SiswaController extends Controller
 
         ];
 
-        Siswa::create($data);
         return redirect()->route('profile')->with('success', 'Data anda berhasil disimpan.');
     }
 }
