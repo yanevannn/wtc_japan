@@ -56,8 +56,8 @@ Route::middleware('auth')->group(function () {
     // ===================== SISWA =====================
     Route::prefix('form')->name('form.')->group(function () {
         Route::get('/personal', [SiswaController::class, 'index'])->name('personal.index');
-        Route::put('/personal/add/{id}', [SiswaController::class, 'store'])->name('personal.store');
-        Route::get('/personal/edit/{id}', [SiswaController::class, 'edit'])->name('personal.edit');
+        Route::put('/personal/add/', [SiswaController::class, 'store'])->name('personal.store');
+        Route::get('/personal/edit', [SiswaController::class, 'edit'])->name('personal.edit');
         Route::put('/personal/{id}', [SiswaController::class, 'update'])->name('personal.update');
     });
 

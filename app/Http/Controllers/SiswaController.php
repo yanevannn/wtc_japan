@@ -14,7 +14,7 @@ class SiswaController extends Controller
         return view('main.users.form.personal');
     }
 
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
         $request->validate([
             'tanggal_lahir' => 'required|date',
@@ -41,14 +41,15 @@ class SiswaController extends Controller
             'wa' => $request->input('wa'),
             'instagram' => $request->input('instagram')
         ];
-        $siswa = Siswa::where('user_id', $id);
+        // Cari data siswa milik user yang login
+        $siswa = Siswa::where('user_id', auth()->id())->firstOrFail();
         $siswa->update($data);
         return redirect()->route('profile')->with('success', 'Data anda berhasil disimpan.');
     }
 
-    public function edit($id)
+    public function edit()
     {
-        $data = Siswa::where('user_id', $id)->first();
+        $data = Siswa::where('user_id', auth()->id())->firstOrFail();
         return view('main.users.form.personal-edit', compact('data'));
     }
 

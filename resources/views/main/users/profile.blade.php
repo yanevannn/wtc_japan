@@ -40,7 +40,7 @@
                 </div>
 
 
-                <a href="{{ route('form.personal.edit', auth()->user()->id) }}">
+                <a href="{{ route('form.personal.edit')}}">
                     <button
                         class="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto">
                         <svg class="fill-current" width="18" height="18" viewBox="0 0 18 18" fill="none"
@@ -65,19 +65,19 @@
                     <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                         <div>
                             <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                                First Name
+                                Nama
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                Musharof
+                                {{ $user->fname . ' ' . $user->lname }}
                             </p>
                         </div>
 
                         <div>
                             <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                                Last Name
+                                Tanggal Lahir
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                Chowdhury
+                                {{ \Carbon\Carbon::parse($user->siswa->tanggal_lahir)->format('d-m-Y') }}
                             </p>
                         </div>
 
@@ -86,7 +86,7 @@
                                 Email address
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                randomuser@pimjo.com
+                                {{ $user->email }}
                             </p>
                         </div>
 
@@ -95,16 +95,56 @@
                                 Phone
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                +09 363 398 46
+                                {{ $user->siswa->wa }}
                             </p>
                         </div>
 
                         <div>
                             <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                                Bio
+                                NIK
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                Team Manager
+                                {{ $user->siswa->no_ktp }}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                Agama
+                            </p>
+                            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                {{ 'Agama ' . $user->siswa->agama }}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                Gender
+                            </p>
+                            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                {{ $user->siswa->jenis_kelamin }}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                Golongan Darah
+                            </p>
+                            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                {{ $user->siswa->golongan_darah }}
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                Tinggi Badan
+                            </p>
+                            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                {{$user->siswa->tinggi_badan}} cm
+                            </p>
+                        </div>
+                        <div>
+                            <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
+                                Berat Badan
+                            </p>
+                            <p class="text-sm font-medium text-gray-800 dark:text-white/90">
+                                {{ $user->siswa->berat_badan }} kg
                             </p>
                         </div>
                     </div>
