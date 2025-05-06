@@ -58,12 +58,6 @@
                     @else
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
                             activePath="dashboard*" />
-                        <x-menu-item href="" label="Data Orang Tua" :icon="file_get_contents(public_path('assets/status.svg'))"
-                            activePath="form.data-orangtua*" />
-                        <x-menu-item href="" label="Nilai " :icon="file_get_contents(public_path('assets/status.svg'))"
-                            activePath="form.data-orangtua*" />
-                        <x-menu-item href="" label="Nilai" :icon="file_get_contents(public_path('assets/status.svg'))"
-                            activePath="form.data-orangtua*" />
                     @endif
 
 

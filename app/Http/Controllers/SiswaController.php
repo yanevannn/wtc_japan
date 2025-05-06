@@ -29,6 +29,8 @@ class SiswaController extends Controller
             'instagram' => 'nullable|string|max:50',
         ]);
 
+        dd($request->all());
+
         $data = [
             'jenis_kelamin' => $request->input('jenis_kelamin'),
             'tanggal_lahir' => $request->input('tanggal_lahir'),
@@ -44,7 +46,7 @@ class SiswaController extends Controller
         // Cari data siswa milik user yang login
         $siswa = Siswa::where('user_id', auth()->id())->firstOrFail();
         $siswa->update($data);
-        return redirect()->route('profile')->with('success', 'Data anda berhasil disimpan.');
+        return redirect()->route('dashboard')->with('success', 'Data anda berhasil disimpan.');
     }
 
     public function edit()

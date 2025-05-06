@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrangTua;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Siswa;
@@ -151,11 +152,14 @@ class AuthController extends Controller
     function profile()
     {
         $user = Auth::user();
+        $siswa = Siswa::where('user_id', $user->id)->first();
         if ($user->role === 'user' && $user->siswa->no_ktp === null) {
             return redirect()->route('form.personal.index')
                 ->with('info', 'Silakan lengkapi data diri Anda terlebih dahulu.');
         }
-        return view('main.users.profile', compact('user'));
+        $orangtua = OrangTua::where('siswa_id', $siswa->id)->first();
+
+        return view('main.users.profile', compact('user', 'orangtua'));
     }
 
     public function index()

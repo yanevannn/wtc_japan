@@ -5,6 +5,7 @@ use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
@@ -59,6 +60,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/personal/add/', [SiswaController::class, 'store'])->name('personal.store');
         Route::get('/personal/edit', [SiswaController::class, 'edit'])->name('personal.edit');
         Route::put('/personal/{id}', [SiswaController::class, 'update'])->name('personal.update');
+        Route::get('/orang-tua', [OrangTuaController::class, 'create'])->name('orang-tua.create');
+        Route::post('/orang-tua', [OrangTuaController::class, 'store'])->name('orang-tua.store');
+        Route::get('/orang-tua/edit', [OrangTuaController::class, 'edit'])->name('orang-tua.edit');
+        Route::put('/orang-tua/{id}', [OrangTuaController::class, 'update'])->name('orang-tua.update');
+    });
+
+    // ===================== STATUS =====================
+    Route::prefix('orang-tua')->name('orang-tua.')->group(function () {
+        Route::get('/', [OrangTuaController::class, 'index'])->name('index');
     });
 
     // ===================== STATUS =====================

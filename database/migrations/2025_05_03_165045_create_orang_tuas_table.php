@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_orang_tua', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('siswa_id');
+            $table->unsignedBigInteger('siswa_id')->unique()->constrained('tb_siswa')->onDelete('cascade');
             $table->string('nama_ayah');
             $table->string('nama_ibu');
             $table->text('alamat_ayah');
