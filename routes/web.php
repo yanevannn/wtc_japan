@@ -9,7 +9,6 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
-use App\Models\StatusSiswa;
 
 Route::get('/', function () {
     return view('main');
@@ -57,7 +56,9 @@ Route::middleware('auth')->group(function () {
     // ===================== SISWA =====================
     Route::prefix('form')->name('form.')->group(function () {
         Route::get('/personal', [SiswaController::class, 'index'])->name('personal.index');
-        Route::post('/personal', [SiswaController::class, 'store'])->name('personal.store');
+        Route::put('/personal/add/{id}', [SiswaController::class, 'store'])->name('personal.store');
+        Route::get('/personal/edit/{id}', [SiswaController::class, 'edit'])->name('personal.edit');
+        Route::put('/personal/{id}', [SiswaController::class, 'update'])->name('personal.update');
     });
 
     // ===================== STATUS =====================

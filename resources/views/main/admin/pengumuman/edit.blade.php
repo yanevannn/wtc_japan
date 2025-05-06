@@ -17,7 +17,7 @@
                         <x-form-input label="Deskripsi" name="deskripsi" placeholder="Deskripsi Pengumuman"
                             value="{{ $data->deskripsi }}" />
                         <x-form-input label="Status" name="is_published" inputType="option">
-                            <x-form-option value='' disabled>Select OPtion</x-form-option>
+                            <x-form-option value='' disabled>Select Option</x-form-option>
                             <x-form-option value="0" :selected="$data->is_published">Unpublish</x-form-option>
                             <x-form-option value="1" :selected="$data->is_published">Publish</x-form-option>
                         </x-form-input>
@@ -25,7 +25,6 @@
                         <a href="{{ asset('storage/pengumuman_files/' . $data->file) }}"
                             class="text-sm font-medium text-gray-700 dark:text-gray-400 ml-1">File Sebelumnya <span
                                 class="text-md ml-1 text-blue-600 underline underline-offset-2 hover:text-blue-800 ">{{ $data->file }}</span></a>
-                        <p class="ml-1 text-red-600">Kosongkan jika tidak ingin mengubah password !</p>
                         <x-button type="save"></x-button>
                     </x-form>
                 </div>

@@ -19,6 +19,7 @@
             </div>
         </div>
 
+        @if(auth()->user()->siswa && auth()->user()->siswa->no_ktp === null)
         <!-- Info Card -->
         <div
             class="md:col-span-3 bg-brand-600 text-white rounded-xl shadow p-6 flex flex-col justify-center items-center h-[200px]">
@@ -27,9 +28,10 @@
             </p>
             <button
                 class="items-center gap-2 px-2 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
-                <a href="{{ route('form.personal.index') }}">Klik untuk mengisi Data Diri</a>
+                <a href="{{ route('form.personal.index')}}">Klik untuk mengisi Data Diri</a>
             </button>
         </div>
+        @endif
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
             <p class="text-sm text-gray-600 dark:text-white/70 mb-4"> Informasi terkini terkait WTC2JAPAN</p>
