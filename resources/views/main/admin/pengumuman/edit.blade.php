@@ -9,15 +9,22 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
 
-                <div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('admin.update', $data->id)" method="PUT">
-                        <x-form-input label="First Name" name="fname" placeholder="inut firstname"
-                            value="{{ $data->fname }}" />
-                        <x-form-input label="Last Name" name="lname" placeholder="input lastname"
-                            value="{{ $data->lname }}" />
-                        <x-form-input label="Email" name="email" type="email" placeholder="input email"
-                            value="{{ $data->email }}" />
-                        <x-form-input label="Password" name="password" type="password" placeholder="input password" />
+                <div
+                    class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
+                    <x-form :action="route('pengumuman.update', $data->id)" method="PUT" hasFile="true">
+                        <x-form-input label="Judul" name="judul" placeholder="Masukkan judul pengumuman"
+                            value="{{ $data->judul }}" />
+                        <x-form-input label="Deskripsi" name="deskripsi" placeholder="Deskripsi Pengumuman"
+                            value="{{ $data->deskripsi }}" />
+                        <x-form-input label="Status" name="is_published" inputType="option">
+                            <x-form-option value='' disabled>Select OPtion</x-form-option>
+                            <x-form-option value="0" :selected="$data->is_published">Unpublish</x-form-option>
+                            <x-form-option value="1" :selected="$data->is_published">Publish</x-form-option>
+                        </x-form-input>
+                        <x-form-input label="File" name="file" inputType="file" />
+                        <a href="{{ asset('storage/pengumuman_files/' . $data->file) }}"
+                            class="text-sm font-medium text-gray-700 dark:text-gray-400 ml-1">File Sebelumnya <span
+                                class="text-md ml-1 text-blue-600 underline underline-offset-2 hover:text-blue-800 ">{{ $data->file }}</span></a>
                         <p class="ml-1 text-red-600">Kosongkan jika tidak ingin mengubah password !</p>
                         <x-button type="save"></x-button>
                     </x-form>

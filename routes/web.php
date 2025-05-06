@@ -71,6 +71,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [PengumumanController::class, 'store'])->name('store');
         Route::get('/edit/{id}', [PengumumanController::class, 'edit'])->name('edit');
         Route::put('/{id}', [PengumumanController::class, 'update'])->name('update');
-        Route::post('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
     });
 });
