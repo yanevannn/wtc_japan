@@ -5,6 +5,7 @@ use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GelombangController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
@@ -42,6 +43,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [AdminController::class, 'edit'])->name('edit');
         Route::put('/{id}', [AdminController::class, 'update'])->name('update');
         Route::delete('/{id}', [AdminController::class, 'destroy'])->name('destroy');
+    });
+
+    // ===================== GELOMBANG =====================
+    Route::prefix('gelombang')->name('gelombang.')->group(function () {
+        Route::get('/', [GelombangController::class, 'index'])->name('index');
+        Route::get('/add', [GelombangController::class, 'create'])->name('create');
+        Route::post('/', [GelombangController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [GelombangController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [GelombangController::class, 'update'])->name('update');
+        Route::delete('/{id}', [GelombangController::class, 'destroy'])->name('destroy');
     });
 
     // ===================== ANGKATAN =====================
