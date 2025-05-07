@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrangTua;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Siswa;
+use App\Models\OrangTua;
+use App\Models\Gelombang;
 use App\Models\Pengumuman;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
@@ -91,8 +92,15 @@ class AuthController extends Controller
             'role' => 'user'
         ];
 
+        // $gelombangAktif = Gelombang::where('status', 'open')->first();
+        $gelombangAktif = Gelombang::where('status', 'open')->latest('created_at')->first();
+
+        if (!$gelombangAktif) {
+            return redirect()->back()->with('error', 'Saat ini belum ada gelombang pendaftaran yang dibuka.')->withInput();
+        }
+
         // Mulai transaksi untuk menjaga konsistensi data
-        DB::transaction(function () use ($userData, $request, $token) {
+        DB::transaction(function () use ($userData, $request, $token, $gelombangAktif) {
             // Membuat user
             $user = User::create($userData);
 
@@ -106,6 +114,7 @@ class AuthController extends Controller
             $user->siswa()->create([
                 'status_siswa_id' => 1,
                 'status_pendaftaran_id' => 1,
+                'gelombang_id' => $gelombangAktif->id,
             ]);
         });
 

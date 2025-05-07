@@ -10,7 +10,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Nama Gelombang', 'Tahun', 'Status']" :aligns="['left', 'left', 'center']" :widths="['', '', 'w-20']" />
+                    <x-table-header :columns="['Nama Gelombang', 'Tahun', 'Jumlah Pendaftar', 'Status']" :aligns="['left', 'left','left','center']" :widths="['', '', '', 'w-20']" />
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
@@ -20,6 +20,7 @@
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
                                     <x-table-cell>{{ $gelombang->nama_gelombang }}</x-table-cell>
                                     <x-table-cell>{{ $gelombang->tahun }}</x-table-cell>
+                                    <x-table-cell>{{ $gelombang->jumlah_pendaftar }}</x-table-cell>
                                     <x-table-cell>
                                         @if ($gelombang->status === 'open')
                                             <x-badge>open</x-badge>

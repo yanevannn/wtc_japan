@@ -9,7 +9,7 @@ class GelombangController extends Controller
 {
    public function index()
    {
-       $data = Gelombang::all();
+        $data = Gelombang::withCount('siswa as jumlah_pendaftar')->latest()->get();
        return view('main.admin.gelombang_pendaftaran.index', compact('data'));
    }
 

@@ -24,6 +24,7 @@ class Siswa extends Model
         'angkatan_id',
         'status_pendaftaran_id',
         'status_siswa_id',
+        'gelombang_id',
         'user_id',
     ];
 

@@ -44,12 +44,9 @@ class DatabaseSeeder extends Seeder
                 'nama_gelombang' => 'Gelombang 1',
                 'tahun' => 2025,
                 'status' => 'open',
-            ],
-            [
-                'nama_gelombang' => 'Gelombang 2',
-                'tahun' => 2025,
-                'status' => 'closed',
-            ],
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
         ]);
 
         DB::table('tb_pengumuman')->insert([
@@ -72,7 +69,5 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
-
-
     }
 }
