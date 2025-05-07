@@ -16,7 +16,7 @@
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">WAYAN EVAN ADA MUNAYANA</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
-                    <span class="text-gray-700 dark:text-gray-400 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
+                    <span class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
                 </p>
             </div>
         </div>

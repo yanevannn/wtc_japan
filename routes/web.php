@@ -81,7 +81,7 @@ Route::middleware('auth')->group(function () {
         //dokumen controller
         Route::get('/dokumen', [DokumenController::class, 'create'])->name('dokumen.create');
         Route::post('/dokumen', [DokumenController::class, 'store'])->name('dokumen.store');
-        Route::get('/dokumen/edit', [DokumenController::class, 'edit'])->name('dokumen.edit');
+        Route::get('/dokumen/edit/{id}', [DokumenController::class, 'edit'])->name('dokumen.edit');
         Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
     });
 

@@ -20,14 +20,16 @@
                             @foreach ($data as $dokumen)
                                 <tr>
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
-                                    <x-table-cell>{{ $dokumen->jenis_dokumen }}</x-table-cell>
+                                    <x-table-cell>{{ \App\Models\Dokumen::getJenisDokumenHumanReadable($dokumen->jenis_dokumen) }}</x-table-cell>
                                     <x-table-cell>
-                                        <a href=""> {{ $dokumen->file_path }}</a>
+                                        <a href="{{ asset('storage/' . $dokumen->file_path) }}" target="_blank"
+                                            class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2">
+                                            Lihat Dokumen</a>
                                     </x-table-cell>
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
-                                             <x-button type="delete"
-                                                route="{{ route('gelombang.destroy', $dokumen->id) }}" />
+                                            <x-button type="edit"
+                                                route="{{ route('form.dokumen.edit', $dokumen->id) }}" />
                                         </div>
                                     </x-table-cell>
                                 </tr>

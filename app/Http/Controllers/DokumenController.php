@@ -76,9 +76,15 @@ class DokumenController extends Controller
         return redirect()->route('dokumen.index')->with('success', 'Dokumen berhasil diupload.');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        //
+        $siswaId = auth()->user()->siswa->id;
+
+        // Ambil dokumen yang id & siswa_id sesuai
+        $data = Dokumen::where('id', $id)
+            ->where('siswa_id', $siswaId)
+            ->firstOrFail();
+        return view('main.users.form.dokumen-edit', compact('data'));
     }
 
 
