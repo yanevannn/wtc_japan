@@ -6,7 +6,7 @@
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">
                     Tabel Status Pendaftaran
                 </h3>
-                <x-button type="add" route="{{ route('admin.create') }}" />
+                <x-button type="add" route="{{ route('status-pendaftaran.create') }}" />
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
@@ -21,9 +21,9 @@
                                     <x-table-cell>{{ $status->status }}</x-table-cell>
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
-                                            <x-button type="edit" route="{{ route('angkatan.edit', $status->id) }}" />
+                                            <x-button type="edit" route="{{ route('status-pendaftaran.edit', $status->id) }}" />
                                             <x-button type="delete"
-                                                route="{{ route('angkatan.destroy', $status->id) }}" />
+                                                route="{{ route('status-pendaftaran.destroy', $status->id) }}" />
                                         </div>
                                     </x-table-cell>
                                 </tr>

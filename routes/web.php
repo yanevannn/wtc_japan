@@ -11,6 +11,7 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
+use App\Models\StatusPendaftaran;
 
 Route::get('/', function () {
     return view('main');
@@ -77,13 +78,22 @@ Route::middleware('auth')->group(function () {
         Route::put('/orang-tua/{id}', [OrangTuaController::class, 'update'])->name('orang-tua.update');
     });
 
-    // ===================== STATUS =====================
+    // ===================== ORANG TUA =====================
     Route::prefix('orang-tua')->name('orang-tua.')->group(function () {
         Route::get('/', [OrangTuaController::class, 'index'])->name('index');
     });
 
-    // ===================== STATUS =====================
-    Route::get('/status-pendaftaran', [StatusPendaftaranController::class, 'index'])->name('status-pendaftaran.index');
+    // ===================== STATUS PENDAFTARAN =====================
+    Route::prefix('status-pendaftaran')->name('status-pendaftaran.')->group(function () {
+        Route::get('/', [StatusPendaftaranController::class, 'index'])->name('index');
+        Route::get('/add', [StatusPendaftaranController::class, 'create'])->name('create');
+        Route::post('/', [StatusPendaftaranController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [StatusPendaftaranController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [StatusPendaftaranController::class, 'update'])->name('update');
+        Route::delete('/{id}', [StatusPendaftaranController::class, 'destroy'])->name('destroy');
+    });
+
+    // ===================== STATUS PENDAFTARAN  =====================
     Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
 
     // ===================== Pengumuman =====================
