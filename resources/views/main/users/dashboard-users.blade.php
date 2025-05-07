@@ -31,6 +31,7 @@
                     <a href="{{ route('form.personal.index') }}">Klik untuk mengisi Data Diri</a>
                 </button>
             </div>
+            {{-- null dipakai karena hasOne / belongsTo --}}
         @elseif(auth()->user()->siswa && auth()->user()->siswa->orangTua === null)
             <!-- Info isi data orang tua -->
             <div
@@ -42,6 +43,21 @@
                     <button
                         class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
                         Klik untuk mengisi Data Orang Tua
+                    </button>
+                </a>
+            </div>
+            {{-- null dipakai karena hasMany / belongsToMany (collection) --}}
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->dokumen->isEmpty())
+            <!-- Info isi data orang tua -->
+            <div
+                class="md:col-span-3 bg-brand-600 text-white rounded-xl shadow p-6 flex flex-col justify-center items-center h-[200px]">
+                <p class="sm:col-span-2 text-center text-white font-medium ">
+                    Data pribadi & Orang Tua sudah lengkap. Selanjutnya lengkapi data dokumen Anda.
+                </p>
+                <a href="{{ route('form.dokumen.create') }}">
+                    <button
+                        class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
+                        Klik untuk mengisi Data Dokumen
                     </button>
                 </a>
             </div>

@@ -5,13 +5,13 @@ use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\GelombangController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
-use App\Models\StatusPendaftaran;
 
 Route::get('/', function () {
     return view('main');
@@ -66,21 +66,33 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [AngkatanController::class, 'destroy'])->name('destroy');
     });
 
-    // ===================== SISWA =====================
+    // ===================== SISWA FORM =====================
     Route::prefix('form')->name('form.')->group(function () {
+        //siswa controller
         Route::get('/personal', [SiswaController::class, 'index'])->name('personal.index');
         Route::put('/personal/add/', [SiswaController::class, 'store'])->name('personal.store');
         Route::get('/personal/edit', [SiswaController::class, 'edit'])->name('personal.edit');
         Route::put('/personal/{id}', [SiswaController::class, 'update'])->name('personal.update');
+        //orang0tua controller
         Route::get('/orang-tua', [OrangTuaController::class, 'create'])->name('orang-tua.create');
         Route::post('/orang-tua', [OrangTuaController::class, 'store'])->name('orang-tua.store');
         Route::get('/orang-tua/edit', [OrangTuaController::class, 'edit'])->name('orang-tua.edit');
         Route::put('/orang-tua/{id}', [OrangTuaController::class, 'update'])->name('orang-tua.update');
+        //dokumen controller
+        Route::get('/dokumen', [DokumenController::class, 'create'])->name('dokumen.create');
+        Route::post('/dokumen', [DokumenController::class, 'store'])->name('dokumen.store');
+        Route::get('/dokumen/edit', [DokumenController::class, 'edit'])->name('dokumen.edit');
+        Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
     });
 
     // ===================== ORANG TUA =====================
     Route::prefix('orang-tua')->name('orang-tua.')->group(function () {
         Route::get('/', [OrangTuaController::class, 'index'])->name('index');
+    });
+
+    // ===================== Dokumen =====================
+    Route::prefix('dokumen')->name('dokumen.')->group(function () {
+        Route::get('/', [DokumenController::class, 'index'])->name('index');
     });
 
     // ===================== STATUS PENDAFTARAN =====================

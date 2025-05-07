@@ -47,4 +47,10 @@ class Siswa extends Model
     {
         return $this->belongsTo(Gelombang::class, 'gelombang_id');
     }
+
+    // Relasi ke model Document (tb_dokumen)
+    public function dokumen()
+    {
+        return $this->hasMany(Dokumen::class, 'siswa_id');
+    }
 }

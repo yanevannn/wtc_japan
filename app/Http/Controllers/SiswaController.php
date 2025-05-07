@@ -29,7 +29,7 @@ class SiswaController extends Controller
             'instagram' => 'nullable|string|max:50',
         ]);
 
-        dd($request->all());
+        // dd($request->all());
 
         $data = [
             'jenis_kelamin' => $request->input('jenis_kelamin'),
