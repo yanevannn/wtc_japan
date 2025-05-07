@@ -38,12 +38,35 @@ class StatusPendaftaranController extends Controller
 
     public function edit($id)
     {
-        // 
+        $data = StatusPendaftaran::findOrFail($id);
+        return view('main.admin.status_pendaftaran.edit', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
-        // 
+        // Validasi input
+        $request->validate([
+            'status' => 'required|string|max:255',
+        ]);
+
+        // Daftar status yang dilindungi (tidak boleh diedit)
+        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Diterima'];
+
+        // Ambil data
+        $statusPendaftaran = StatusPendaftaran::findOrFail($id);
+
+        // Cek apakah status ini termasuk yang dilindungi
+        if (in_array($statusPendaftaran->status, $protectedStatuses)) {
+            return redirect()->route('status-pendaftaran.index')->with('error', 'Status ini tidak dapat diedit karena merupakan status bawaan sistem.');
+        }
+
+        // Update data
+        $statusPendaftaran->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('status-pendaftaran.index')
+            ->with('success', 'Status pendaftaran berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -52,7 +75,7 @@ class StatusPendaftaranController extends Controller
         $statusPendaftaran = StatusPendaftaran::findOrFail($id);
 
         // Daftar status yang dilindungi (tidak boleh dihapus)
-        $protectedStatuses = ['Menunggu Verifikasi', 'Ditolak', 'Diterima'];
+        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Diterima'];
 
         // Cek apakah status termasuk yang dilindungi
         if (in_array($statusPendaftaran->status, $protectedStatuses)) {
