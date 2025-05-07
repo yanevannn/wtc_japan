@@ -39,7 +39,9 @@
 
                     @if (auth()->user()->role == 'admin')
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
-                            activePath="dashboard*" />
+                        activePath="dashboard*" />
+                        <x-menu-item href="{{ route('angkatan.index') }}" label="Gelombang" :icon="file_get_contents(public_path('assets/gelombang.svg'))"
+                            activePath="gelombang*" />
                         <x-menu-item href="{{ route('angkatan.index') }}" label="Angkatan" :icon="file_get_contents(public_path('assets/angkatan.svg'))"
                             activePath="angkatan*" />
                         <x-menu-item href="{{ route('admin.index') }}" label="Admin User" :icon="file_get_contents(public_path('assets/admin.svg'))"
