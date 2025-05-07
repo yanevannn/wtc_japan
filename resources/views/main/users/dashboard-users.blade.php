@@ -15,7 +15,9 @@
             <div class="text-center">
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">WAYAN EVAN ADA MUNAYANA</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
-                <p class="text-gray-700 dark:text-gray-400 mt-2">Belum Memiliki Nomor Induk Siswa</p>
+                <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
+                    <span class="text-gray-700 dark:text-gray-400 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
+                </p>
             </div>
         </div>
 
@@ -60,6 +62,20 @@
                         Klik untuk mengisi Data Dokumen
                     </button>
                 </a>
+            </div>
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->statusPendaftaran->status === 'Menunggu Verifikasi')
+            <!-- Info isi data orang tua (Versi Lebih Menarik) -->
+            <div
+                class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mb-4 text-white drop-shadow" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12l2 2l4-4m7 2a9 9 0 11-18 0a9 9 0 0118 0z" />
+                </svg>
+                <h3 class="text-xl font-semibold mb-2">Data Sudah Lengkap</h3>
+                <p class="text-center text-sm sm:text-base max-w-md">
+                    Menunggu verifikasi dari Admin. Silakan cek secara berkala untuk melihat status pendaftaran Anda.
+                </p>
             </div>
         @endif
         <div class="mt-4">

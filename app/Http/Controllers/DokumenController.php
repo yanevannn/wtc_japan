@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dokumen;
 use App\Models\Document;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -68,7 +69,9 @@ class DokumenController extends Controller
                 ]);
             }
         }
-
+        Siswa::where('id', auth()->user()->siswa->id)->update([
+            'status_pendaftaran_id' => 2, // Update status pendaftaran ke "Menunggu Verifikasi"
+        ]);
         // Redirect ke halaman dokumen setelah berhasil
         return redirect()->route('dokumen.index')->with('success', 'Dokumen berhasil diupload.');
     }
