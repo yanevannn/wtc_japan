@@ -58,6 +58,12 @@
                     @else
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
                             activePath="dashboard*" />
+                        <x-menu-item href="" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))" activePath="" />
+                        <x-menu-item href="" label="Pembayaran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))" activePath="" />
+                        <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
+                            <x-menu-item href="" label="Nilai Seleksi" activePath="status-pendaftaran*" />
+                            <x-menu-item href="" label="Nilai Pelatihan" activePath="status-siswa*" />
+                        </x-sidebar-dropdown>
                     @endif
 
 
