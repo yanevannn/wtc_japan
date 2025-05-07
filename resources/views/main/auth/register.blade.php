@@ -11,7 +11,7 @@
             </p>
         </div>
         <div>
-            <form action="{{ route('doregister') }}" method="POST">
+            <form action="{{ route('doregister') }}" method="POST" x-on:submit="loaded = true">
                 @csrf
                 <div class="space-y-5">
                     <x-alert-any-error></x-alert-any-error>

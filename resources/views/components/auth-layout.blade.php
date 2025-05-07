@@ -14,13 +14,25 @@
 
 <body x-data="{ page: 'comingSoon', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }" x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
 $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))" :class="{ 'dark bg-gray-900': darkMode === true }">
-    <!-- ===== Preloader Start ===== -->
+    {{-- <!-- ===== Preloader Start ===== -->
     <div x-show="loaded" x-init="window.addEventListener('DOMContentLoaded', () => { setTimeout(() => loaded = false, 500) })"
         class="fixed left-0 top-0 z-999999 flex h-screen w-screen items-center justify-center bg-white dark:bg-black">
         <div class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-brand-500 border-t-transparent">
         </div>
     </div>
+    <!-- ===== Preloader End ===== --> --}}
 
+    <!-- ===== Preloader Start ===== -->
+    <div x-show="loaded" x-init="window.addEventListener('DOMContentLoaded', () => { setTimeout(() => loaded = false, 500) })"
+        class="fixed left-0 top-0 z-999999 flex h-screen w-screen flex-col items-center justify-center bg-white dark:bg-black transition-opacity duration-300">
+
+        <div
+            class="h-16 w-16 animate-spin rounded-full border-4 border-solid border-brand-500 border-t-transparent mb-4">
+        </div>
+        <p class="text-gray-600 dark:text-gray-300 text-lg font-medium animate-pulse">
+            Sedang memproses, mohon tunggu...
+        </p>
+    </div>
     <!-- ===== Preloader End ===== -->
 
     <!-- ===== Page Wrapper Start ===== -->
@@ -46,10 +58,10 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                 <div class="flex items-center justify-center z-1">
                     <!-- ===== Common Grid Shape Start ===== -->
                     <div class="absolute right-0 top-0 -z-1 w-full max-w-[250px] xl:max-w-[450px]">
-                        <img src="{{ asset("src/images/shape/grid-01.svg") }}" alt="grid" />
+                        <img src="{{ asset('src/images/shape/grid-01.svg') }}" alt="grid" />
                     </div>
                     <div class="absolute bottom-0 left-0 -z-1 w-full max-w-[250px] rotate-180 xl:max-w-[450px]">
-                        <img src="{{ asset("src/images/shape/grid-01.svg") }}" alt="grid" />
+                        <img src="{{ asset('src/images/shape/grid-01.svg') }}" alt="grid" />
                     </div>
 
                     <div class="flex flex-col items-center max-w-xs">
