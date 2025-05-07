@@ -12,6 +12,7 @@ class Gelombang extends Model
         'nama_gelombang',
         'tahun',
         'status',
+        'link_grup',
     ];
 
     public function siswa()
