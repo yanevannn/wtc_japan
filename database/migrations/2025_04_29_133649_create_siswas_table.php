@@ -30,11 +30,13 @@ return new class extends Migration
             $table->unsignedBigInteger('angkatan_id')->nullable();
             $table->unsignedBigInteger('status_pendaftaran_id')->nullable();
             $table->unsignedBigInteger('status_siswa_id')->nullable();
+            $table->unsignedBigInteger('gelombang_id')->nullable();
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('angkatan_id')->references('id')->on('tb_angkatan')->onDelete('set null');
             $table->foreign('status_pendaftaran_id')->references('id')->on('tb_status_pendaftaran')->onDelete('set null');
             $table->foreign('status_siswa_id')->references('id')->on('tb_status_siswa')->onDelete('set null');
+            $table->foreign('gelombang_id')->references('id')->on('tb_gelombang')->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();

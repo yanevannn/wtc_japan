@@ -38,5 +38,41 @@ class DatabaseSeeder extends Seeder
             ['status' => 'Berhenti', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Lulus', 'created_at' => now(), 'updated_at' => now()],
         ]);
+
+        DB::table('tb_gelombang')->insert([
+            [
+                'nama_gelombang' => 'Gelombang 1',
+                'tahun' => 2025,
+                'status' => 'open',
+            ],
+            [
+                'nama_gelombang' => 'Gelombang 2',
+                'tahun' => 2025,
+                'status' => 'closed',
+            ],
+        ]);
+
+        DB::table('tb_pengumuman')->insert([
+            [
+                'judul' => 'Pengumuman 1',
+                'deskripsi' => 'Deskripsi Pengumuman 1',
+                'file' => 'file1.pdf',
+                'created_by' => 1,
+                'is_published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'judul' => 'Pengumuman 2',
+                'deskripsi' => 'Deskripsi Pengumuman 2',
+                'file' => 'file2.pdf',
+                'created_by' => 1,
+                'is_published' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+
+
     }
 }

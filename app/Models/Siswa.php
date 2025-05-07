@@ -36,8 +36,14 @@ class Siswa extends Model
     {
         return $this->belongsTo(StatusPendaftaran::class, 'status_pendaftaran_id');
     }
+
     public function orangTua()
     {
         return $this->hasOne(OrangTua::class, 'siswa_id');
+    }
+
+    public function gelombang()
+    {
+        return $this->belongsTo(Gelombang::class, 'gelombang_id');
     }
 }
