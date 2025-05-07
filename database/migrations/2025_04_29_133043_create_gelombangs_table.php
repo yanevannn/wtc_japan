@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_gelombang');
             $table->year('tahun');
             $table->enum('status', ['open', 'closed']);
+            $table->string('link_grup')->nullable();
             $table->timestamps();
         });
     }

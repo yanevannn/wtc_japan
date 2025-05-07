@@ -24,6 +24,7 @@ class GelombangController extends Controller
             'nama_gelombang' => 'required|string|max:255',
             'tahun' => 'required|integer|min:2024|max:2099',
             'status' => 'required|in:open,closed',
+            'link_grup' => 'nullable|url|max:255',
         ]);
 
         // Jika status yang dipilih adalah 'open'
@@ -36,6 +37,7 @@ class GelombangController extends Controller
             'nama_gelombang' => $request->input('nama_gelombang'),
             'tahun' => $request->input('tahun'),
             'status' => $request->input('status'),
+            'link_grup' => $request->input('link_grup'),
         ];
 
         Gelombang::create($data);
@@ -57,6 +59,7 @@ class GelombangController extends Controller
             'nama_gelombang' => 'required|string|max:255',
             'tahun' => 'required|integer|min:2024|max:2099',
             'status' => 'required|in:open,closed',
+            'link_grup' => 'required|url|max:255',
         ]);
 
         // Kalau status yang dimasukkan adalah 'open'
@@ -85,6 +88,7 @@ class GelombangController extends Controller
             'nama_gelombang' => $request->nama_gelombang,
             'tahun' => $request->tahun,
             'status' => $request->status,
+            'link_grup' => $request->link_grup,
         ]);
 
         return redirect()->route('gelombang.index')->with('success', 'Gelombang updated successfully.');

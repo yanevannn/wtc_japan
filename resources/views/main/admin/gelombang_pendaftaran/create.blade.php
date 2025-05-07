@@ -15,6 +15,8 @@
                         @csrf
                         <x-form-input label="Nama gelombang pendafatraan" name="nama_gelombang"
                             placeholder="Masukkan nama gelombang" />
+                        <x-form-input label="Grup Whatsapp" name="link_grup"
+                            placeholder="Masukkan link grup" />
                         <x-form-input label="Tahun" name="tahun" inputType="year"
                             placeholder="Masukkan tahun untuk golmbang ini" />
                         <x-form-input label="Status" name="status" inputType="option">

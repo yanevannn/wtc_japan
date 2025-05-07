@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
                 'nama_gelombang' => 'Gelombang 1',
                 'tahun' => 2025,
                 'status' => 'open',
+                'link_grup' => 'https://example.com/grup-gelombang-1',
                 'created_at' => now(),
                 'updated_at' => now()
             ]
