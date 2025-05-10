@@ -69,9 +69,9 @@ class DokumenController extends Controller
                 ]);
             }
         }
-        Siswa::where('id', auth()->user()->siswa->id)->update([
-            'status_pendaftaran_id' => 2, // Update status pendaftaran ke "Menunggu Verifikasi"
-        ]);
+        // Siswa::where('id', auth()->user()->siswa->id)->update([
+        //     'status_pendaftaran_id' => 2, // Update status pendaftaran ke "Menunggu Verifikasi"
+        // ]);
         // Redirect ke halaman dokumen setelah berhasil
         return redirect()->route('dokumen.index')->with('success', 'Dokumen berhasil diupload.');
     }
