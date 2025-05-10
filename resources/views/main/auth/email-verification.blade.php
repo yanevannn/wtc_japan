@@ -178,22 +178,12 @@
                                     <tr>
                                         <td align="center"
                                             style="font-size:0px;padding:10px 25px;word-break:break-word;">
-
-                                            <table align="center" border="0" cellpadding="0" cellspacing="0"
-                                                role="presentation"
-                                                style="border-collapse:collapse;border-spacing:0px;">
-                                                <tbody>
-                                                    <tr>
-                                                        <td style="width:64px;">
-
-                                                            <img height="auto" src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg"
-                                                                style="border:0;display:block;outline:none;text-decoration:none;width:100%;"
-                                                                width="64" />
-
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div>
+                                                <h1
+                                                    style="font-size: 2rem; font-weight: bold; color: #000; font-family: sans-serif;">
+                                                    WTC<span style="color: #d3e227;">2</span>JAPAN
+                                                </h1>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -244,8 +234,7 @@
                                                     <td align="center" bgcolor="#2F67F6" role="presentation"
                                                         style="border:none;border-radius:3px;color:#ffffff;cursor:auto;padding:15px 25px;"
                                                         valign="middle">
-                                                        <a
-                                                            href="{{ route('verifyaccount', ['token' => $token]) }}"
+                                                        <a href="{{ route('verifyaccount', ['token' => $token]) }}"
                                                             style="background:#2F67F6;color:#ffffff;font-family:'Helvetica Neue',Arial,sans-serif;font-size:15px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;">
                                                             Confirm Your Email
                                                         </a>
@@ -375,7 +364,8 @@
 
                                                             <div
                                                                 style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
-                                                                Jl. Cempaka No. 1 Paya, Kec. Karangasem, Kabupaten Karangasem, Bali 80811
+                                                                Jl. Cempaka No. 1 Paya, Kec. Karangasem, Kabupaten
+                                                                Karangasem, Bali 80811
                                                             </div>
 
                                                         </td>
