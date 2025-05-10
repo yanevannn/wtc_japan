@@ -12,6 +12,8 @@ use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
+use App\Http\Controllers\VerifikasiDokumenController;
+use App\Http\Controllers\VerifikasiPembayaranController;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -83,6 +85,17 @@ Route::middleware('auth')->group(function () {
         Route::post('/dokumen', [DokumenController::class, 'store'])->name('dokumen.store');
         Route::get('/dokumen/edit/{id}', [DokumenController::class, 'edit'])->name('dokumen.edit');
         Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
+    });
+    // ===================== Verifikasi=====================
+    Route::prefix('verfikasi')->name('verifikasi.')->group(function () {
+        //Verfikasi Dokumen
+        Route::get('/dokumen', [VerifikasiDokumenController::class, 'index'])->name('dokumen.index');
+        Route::get('/dokumen/edit/{id}', [VerifikasiDokumenController::class, 'edit'])->name('dokumen.edit');
+        Route::put('/dokumen/{id}', [VerifikasiDokumenController::class, 'update'])->name('dokumen.update');
+        //Verfikasi Pembayaran
+        Route::get('/pembayaran-pendaftaran', [VerifikasiPembayaranController::class, 'indexPendaftaran'])->name('pembayaran-pendaftaran.index');
+        Route::get('/pembayaran-pendaftaran/edit/{id}', [VerifikasiPembayaranController::class, 'editPendaftaran'])->name('pembayaran-pendaftaran.edit');
+        Route::put('/pembayaran-pendaftaran/{id}', [VerifikasiPembayaranController::class, 'updatePendaftaran'])->name('pembayaran-pendaftaran.update');
     });
 
     // ===================== ORANG TUA =====================

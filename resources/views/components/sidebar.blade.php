@@ -39,7 +39,7 @@
 
                     @if (auth()->user()->role == 'admin')
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
-                        activePath="dashboard*" />
+                            activePath="dashboard*" />
                         <x-menu-item href="{{ route('gelombang.index') }}" label="Gelombang" :icon="file_get_contents(public_path('assets/gelombang.svg'))"
                             activePath="gelombang*" />
                         <x-menu-item href="{{ route('angkatan.index') }}" label="Angkatan" :icon="file_get_contents(public_path('assets/angkatan.svg'))"
@@ -48,30 +48,32 @@
                             activePath="admin*" />
                         <x-menu-item href="{{ route('pengumuman.index') }}" label="Pengumuman" :icon="file_get_contents(public_path('assets/announcement.svg'))"
                             activePath="pengumuman*" />
-
+                        <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="['verfikasi/dokumen*', 'verfikasi/pembayaran*']">
+                            <x-menu-item href="{{ route('verifikasi.dokumen.index') }}" label="Dokumen"
+                                activePath="verfikasi/dokumen*" />
+                            <x-menu-item href="" label="Pembayaran Pendaftaran"
+                                activePath="verfikasi/pembayaran*" />
+                            <x-menu-item href="" label="Pembayaran Pelatihan" activePath="" />
+                        </x-sidebar-dropdown>
                         <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
-
                             <x-menu-item href="{{ route('status-pendaftaran.index') }}" label="Status Pendaftaran"
                                 activePath="status-pendaftaran*" />
                             <x-menu-item href="{{ route('status-siswa.index') }}" label="Status Siswa"
                                 activePath="status-siswa*" />
-
                         </x-sidebar-dropdown>
                     @else
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
                             activePath="dashboard*" />
-                        <x-menu-item href="{{ route('dokumen.index') }}" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))" activePath="" />
+                        <x-menu-item href="{{ route('dokumen.index') }}" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))"
+                            activePath="" />
                         <x-menu-item href="" label="Pembayaran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))" activePath="" />
                         <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
                             <x-menu-item href="" label="Nilai Seleksi" activePath="status-pendaftaran*" />
                             <x-menu-item href="" label="Nilai Pelatihan" activePath="status-siswa*" />
                         </x-sidebar-dropdown>
                     @endif
-
-
                 </ul>
             </div>
-
         </nav>
         <!-- Sidebar Menu -->
     </div>
