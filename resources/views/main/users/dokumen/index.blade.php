@@ -12,7 +12,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Jenis Dokumen', 'File']" :aligns="['left', 'left']" :widths="['w-18', '']" />
+                    <x-table-header :columns="['Jenis Dokumen', 'Status verifikasi', 'File']" :widths="['w-18', '', '']" />
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
@@ -21,6 +21,7 @@
                                 <tr>
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
                                     <x-table-cell>{{ \App\Models\Dokumen::getJenisDokumenHumanReadable($dokumen->jenis_dokumen) }}</x-table-cell>
+                                    <x-table-cell>{{ $dokumen->status }}</x-table-cell>
                                     <x-table-cell>
                                         <a href="{{ asset('storage/' . $dokumen->file_path) }}" target="_blank"
                                             class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2">
@@ -37,6 +38,19 @@
                         @endif
                     </x-table-body>
                 </x-table>
+                <div class="mt-5 text-gray-800 dark:text-white/90">
+                    <h2>Catatan :</h2>
+                    <ul class="list-disc pl-5 text-base">
+                        <li>Pastikan dokumen yang diunggah jelas dan terbaca dengan baik.</li>
+                        <li>Pastikan Jenis dokumen sesuai dengan file yang di upload.</li>
+                        <li>Jika status dokumen adalah <strong>pending</strong>, berarti dokumen sedang menunggu
+                            verifikasi
+                            dari admin.</li>
+                        <li>Jika status dokumen adalah <strong>rejected</strong>, silakan unggah ulang dokumen yang
+                            ditolak.
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

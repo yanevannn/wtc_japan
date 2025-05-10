@@ -15,7 +15,7 @@ class VerifikasiDokumenController extends Controller
     }
     public function edit($id)
     {
-        // return view('verifikasi-dokumen.edit', compact('id'));
+        
     }
 
     public function update(Request $request, $id)

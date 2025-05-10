@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('siswa_id')->constrained('tb_siswa')->onDelete('cascade');
             $table->enum('jenis_dokumen', ['ktp', 'kk', 'akta', 'ijazah_sd', 'ijazah_smp', 'ijazah_sma', 'ijazah_s1','paspor']);
             $table->string('file_path');
+            $table->enum('status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->timestamp('uploaded_at')->nullable();
             $table->timestamps();
         });

@@ -25,7 +25,7 @@
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
                                             <x-button type="edit"
-                                                route="{{ route('gelombang.edit', $siswa->id) }}" />
+                                                route="{{ route('verifikasi.dokumen.edit', $siswa->id) }}" />
                                         </div>
                                     </x-table-cell>
                                 </tr>
