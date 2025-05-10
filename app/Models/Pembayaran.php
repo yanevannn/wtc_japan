@@ -12,7 +12,6 @@ class Pembayaran extends Model
         'siswa_id',
         'jenis_pembayaran',
         'status',
-        'jumlah',
         'bukti_pembayaran',
         'tanggal_bayar',
         'verified_by',

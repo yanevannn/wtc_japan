@@ -20,8 +20,8 @@
 
                         <x-form-input label="Gender" name="jenis_kelamin" inputType="option">
                             <x-form-option value='' disabled>Select Option</x-form-option>
-                            <x-form-option value="Laki-laki" name="gender">Laki-laki</x-form-option>
-                            <x-form-option value="Perempuan" name="gender">Perempuan</x-form-option>
+                            <x-form-option value="Laki-laki" name="jenis_kelamin">Laki-laki</x-form-option>
+                            <x-form-option value="Perempuan" name="jenis_kelamin">Perempuan</x-form-option>
                         </x-form-input>
 
                         <x-form-input label="Agama" name="agama" inputType="option">

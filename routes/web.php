@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\GelombangController;
 use App\Http\Controllers\OrangTuaController;
+use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
@@ -87,7 +88,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
     });
     // ===================== Verifikasi=====================
-    Route::prefix('verfikasi')->name('verifikasi.')->group(function () {
+    Route::prefix('verifikasi')->name('verifikasi.')->group(function () {
         //Verfikasi Dokumen
         Route::get('/dokumen', [VerifikasiDokumenController::class, 'index'])->name('dokumen.index');
         Route::get('/dokumen/edit/{id}', [VerifikasiDokumenController::class, 'edit'])->name('dokumen.edit');
@@ -117,6 +118,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}', [StatusPendaftaranController::class, 'update'])->name('update');
         Route::delete('/{id}', [StatusPendaftaranController::class, 'destroy'])->name('destroy');
     });
+
+    Route::get('pembayaran-pendaftaran', [PembayaranController::class, 'index'])->name('pembayaran-pendaftaran');
+    Route::get('pembayaran-pendaftaran/add', [PembayaranController::class, 'create'])->name('pembayaran-pendaftaran.create');
+    Route::post('pembayaran-pendaftaran/', [PembayaranController::class, 'store'])->name('pembayaran-pendaftaran.store');
+    Route::get('pembayaran-pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pembayaran-pendaftaran.edit');
+    Route::put('pembayaran-pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pembayaran-pendaftaran.update');
 
     // ===================== STATUS PENDAFTARAN  =====================
     Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');

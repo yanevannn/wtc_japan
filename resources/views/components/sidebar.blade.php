@@ -50,9 +50,9 @@
                             activePath="pengumuman*" />
                         <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="['verfikasi/dokumen*', 'verfikasi/pembayaran*']">
                             <x-menu-item href="{{ route('verifikasi.dokumen.index') }}" label="Dokumen"
-                                activePath="verfikasi/dokumen*" />
+                                activePath="verifikasi/dokumen*" />
                             <x-menu-item href="" label="Pembayaran Pendaftaran"
-                                activePath="verfikasi/pembayaran*" />
+                                activePath="verifikasi/pembayaran*" />
                             <x-menu-item href="" label="Pembayaran Pelatihan" activePath="" />
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">

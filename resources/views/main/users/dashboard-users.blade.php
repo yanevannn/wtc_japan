@@ -16,7 +16,8 @@
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">WAYAN EVAN ADA MUNAYANA</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
-                    <span class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
+                    <span
+                        class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
                 </p>
             </div>
         </div>
@@ -60,6 +61,21 @@
                     <button
                         class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
                         Klik untuk mengisi Data Dokumen
+                    </button>
+                </a>
+            </div>
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->pembayaran->isEmpty())
+            <!-- Info isi data orang tua -->
+            <div
+                class="md:col-span-3 bg-brand-600 text-white rounded-xl shadow p-6 flex flex-col justify-center items-center h-[200px]">
+                <p class="sm:col-span-2 text-center text-white font-medium ">
+                    Seluruh data pribadi, Orang Tua, dan Dokumen telah lengkap. Silakan melanjutkan ke tahap pembayaran
+                    pendaftaran.
+                </p>
+                <a href="{{ route('pembayaran-pendaftaran') }}">
+                    <button
+                        class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
+                        Klik untuk Melakukan Pembayaran
                     </button>
                 </a>
             </div>
