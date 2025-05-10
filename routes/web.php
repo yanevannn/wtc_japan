@@ -14,8 +14,8 @@ use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
 
 Route::get('/', function () {
-    return view('main');
-})->name('home');
+    return redirect('/login');
+});
 
 // ===================== GUEST ROUTES =====================
 Route::middleware('guest')->group(function () {
