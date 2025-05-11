@@ -25,8 +25,8 @@ class Dokumen extends Model
     {
         $options = [
             'ktp' => 'KTP',
-            'kk' => 'KK',
-            'akta' => 'Akta',
+            'kk' => 'Kartu Keluarga',
+            'akta' => 'Akta Kelahiran',
             'ijazah_sd' => 'Ijazah SD',
             'ijazah_smp' => 'Ijazah SMP',
             'ijazah_sma' => 'Ijazah SMA',

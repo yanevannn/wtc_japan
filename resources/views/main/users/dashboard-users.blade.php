@@ -89,8 +89,9 @@
                         d="M9 12l2 2l4-4m7 2a9 9 0 11-18 0a9 9 0 0118 0z" />
                 </svg>
                 <h3 class="text-xl font-semibold mb-2">Data Sudah Lengkap</h3>
-                <p class="text-center text-sm sm:text-base max-w-md">
-                    Menunggu verifikasi dari Admin. Silakan cek secara berkala untuk melihat status pendaftaran Anda.
+                <p class="text-center text-sm sm:text-base max-w-lg">
+                    Menunggu verifikasi pembayaran & dokumen dari Admin. <br>
+                    Silakan cek secara berkala untuk melihat status pendaftaran Anda.
                 </p>
             </div>
         @endif
