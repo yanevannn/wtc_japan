@@ -25,3 +25,4 @@ yarn-error.log
 /resources/views/build
 /public/css/
 /resources/css
+resources/views/main/admin/detail-siswa/index.blade.php
