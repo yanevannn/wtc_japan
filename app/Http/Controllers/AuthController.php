@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Angkatan;
+use App\Models\Dokumen;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\OrangTua;
 use App\Models\Gelombang;
+use App\Models\Pembayaran;
 use App\Models\Pengumuman;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
@@ -179,7 +182,17 @@ class AuthController extends Controller
                 ->get();
             return view('main.users.dashboard-users', compact('announcements'));
         }
-        $data = Siswa::where('status_siswa_id', 1)->count();
-        return view('main.admin.dashboard-admin', compact('data',));
+        $data = [
+            'jumlah_angkatan' => Angkatan::count(),
+            'jumlah_gelombang' => Gelombang::count(),
+            'jumlah_pendaftar_terbaru' => Siswa::whereIn('gelombang_id', Gelombang::where('status', 'open')->pluck('id'))->count(),
+            'verif_dokumen' => Siswa::whereHas('dokumen', function ($query) {
+                $query->where('status', 'pending');
+            })->count(),
+            'verif_pembayaran_pendaftaran' => Pembayaran::where('jenis_pembayaran', 'pendaftaran')->where('status', 'pending')->count(),
+            'verif_pembayaran_pelatihan' => Pembayaran::where('jenis_pembayaran', 'pelatihan')->where('status', 'pending')->count(),
+        ];
+
+        return view('main.admin.dashboard-admin', compact('data'));
     }
 }
