@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\GelombangController;
+use App\Http\Controllers\NilaiSeleksiController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
@@ -57,6 +58,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit/{id}', [GelombangController::class, 'edit'])->name('edit');
         Route::put('/{id}', [GelombangController::class, 'update'])->name('update');
         Route::delete('/{id}', [GelombangController::class, 'destroy'])->name('destroy');
+        //Data Siswa Seleksi Gelombang
+        Route::prefix('data-siswa')->name('data-siswa.')->group(function () {
+            Route::get('/{id}', [NilaiSeleksiController::class, 'index'])->name('index');
+        });
     });
 
     // ===================== ANGKATAN =====================
@@ -87,6 +92,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dokumen/edit/{id}', [DokumenController::class, 'edit'])->name('dokumen.edit');
         Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
     });
+
     // ===================== Verifikasi=====================
     Route::prefix('verifikasi')->name('verifikasi.')->group(function () {
         //Verfikasi Dokumen
@@ -118,6 +124,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}', [StatusPendaftaranController::class, 'update'])->name('update');
         Route::delete('/{id}', [StatusPendaftaranController::class, 'destroy'])->name('destroy');
     });
+
     Route::prefix('pembayaran/')->name('pembayaran')->group(function () {
         Route::get('pendaftaran', [PembayaranController::class, 'index'])->name('pendaftaran');
         Route::get('pendaftaran/add', [PembayaranController::class, 'create'])->name('pendaftaran.create');
@@ -125,6 +132,7 @@ Route::middleware('auth')->group(function () {
         Route::get('pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pendaftaran.edit');
         Route::put('pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pendaftaran.update');
     });
+
     // ===================== STATUS PENDAFTARAN  =====================
     Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
 

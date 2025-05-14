@@ -10,7 +10,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Nama Gelombang', 'Tahun', 'Jumlah Pendaftar', 'Grup WA', 'Status']" :aligns="['left', 'left', 'center', 'left', 'center']" :widths="['', '', 'w-18', '', 'w-20']" />
+                    <x-table-header :columns="['Nama Gelombang', 'Tahun', 'Jumlah Pendaftar', 'Status', 'Grup WA', 'Data Pendaftar']" :aligns="['left', 'left', 'center', 'center', 'center', 'center']" :widths="['', '', 'w-18', '', 'w-20', '']" />
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
@@ -22,12 +22,7 @@
                                     <x-table-cell>{{ $gelombang->tahun }}</x-table-cell>
                                     <x-table-cell
                                         class="justify-center">{{ $gelombang->jumlah_pendaftar }}</x-table-cell>
-                                    <x-table-cell>
-                                        <a class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2"
-                                            target="_blank"
-                                            href="{{ $gelombang->link_grup }}">{{ $gelombang->link_grup }}</a>
-                                    </x-table-cell>
-                                    <x-table-cell>
+                                    <x-table-cell class="justify-center">
                                         @if ($gelombang->status === 'open')
                                             <x-badge>open</x-badge>
                                         @else
@@ -35,7 +30,18 @@
                                         @endif
                                     </x-table-cell>
                                     <x-table-cell>
+                                        <a class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2"
+                                            target="_blank"
+                                            href="{{ $gelombang->link_grup }}">{{ $gelombang->link_grup }}</a>
+                                    </x-table-cell>
+                                    <x-table-cell class="justify-center">
+                                        <a class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2"
+                                            href="{{ route('gelombang.data-siswa.index', $gelombang->id) }}">Lihat
+                                            Data</a>
+                                    </x-table-cell>
+                                    <x-table-cell>
                                         <div class="flex justify-center gap-2">
+
                                             <x-button type="edit"
                                                 route="{{ route('gelombang.edit', $gelombang->id) }}" />
                                             <x-button type="delete"
