@@ -10,4 +10,9 @@ class StatusPendaftaran extends Model
     protected $fillable = [
         'status',
     ];
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }

@@ -6,8 +6,8 @@ use App\Models\Siswa;
 use App\Models\Gelombang;
 use Illuminate\Http\Request;
 use App\Imports\NilaiSeleksiImport;
-use App\Exports\NilaiTemplateExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\NilaiSeleksiTemplateExport;
 
 class NilaiSeleksiController extends Controller
 {
@@ -30,6 +30,9 @@ class NilaiSeleksiController extends Controller
 
         // Ambil data siswa yang tergabung dalam gelombang tersebut
         $siswa = Siswa::where('gelombang_id', $id)
+            ->whereHas('statusPendaftaran', function ($query) {
+                $query->where('status', 'Diterima'); // Menggunakan kolom nama_status di tabel status_pendaftaran
+            })
             ->with('user:id,fname,lname') // Menambahkan data user
             ->get();
 
@@ -46,7 +49,7 @@ class NilaiSeleksiController extends Controller
         });
 
         // Ekspor data ke Excel dan kembalikan file untuk diunduh
-        return Excel::download(new NilaiTemplateExport($data), 'template_nilai.xlsx');
+        return Excel::download(new NilaiSeleksiTemplateExport($data), 'template_nilai.xlsx');
     }
 
     public function uploadNilai(Request $request, $id)

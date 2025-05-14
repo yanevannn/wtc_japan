@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">WAYAN EVAN ADA MUNAYANA</h2>
+                <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">{{ auth()->user()->fname.' '.auth()->user()->lname }}</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
                     <span

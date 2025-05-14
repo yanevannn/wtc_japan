@@ -42,7 +42,7 @@
                 <x-table>
                     <x-table-header :columns="[
                         'Nama Siswa',
-                        'Status',
+                        'Status Pendaftaran',
                         'Nilai Bahasa',
                         'Nilai Fisik',
                         'Nilai Matematika',
