@@ -26,7 +26,7 @@
                             <h2 class="text-lg font-bold">Belum Ada Transaksi</h2>
                             <p class="text-base mb-4">Anda belum melakukan pembayaran pendaftaran. Silakan melakukan
                                 pembayaran.</p>
-                            <a href="{{ route('pembayaran-pendaftaran.create') }}">
+                            <a href="{{ route('pembayaranpendaftaran.create') }}">
                                 <button
                                     class="items-center gap-2 px-2 py-2 text-sm font-medium text-white transition rounded-lg 
                                     bg-blue-500 shadow-theme-xs hover:bg-blue-700">Lakukan
@@ -39,20 +39,22 @@
                             <h2 class="text-lg font-bold">Status Pembayaran</h2>
                             <p class="text-base mb-4">Pembayaran Anda telah diterima.</p>
                             <p class="text-base mb-4">Status <br>
-                                @if($data->status == 'pending')
-                                <x-badge type="warning">Menunggu verifikasi</x-badge>
+                                @if ($data->status == 'pending')
+                                    <x-badge type="warning">Menunggu verifikasi</x-badge>
                                 @elseif($data->status == 'verified')
-                                <x-badge>Terverifikasi</x-badge>
-                                @else 
-                                <x-badge type="error">Rejected</x-badge>
+                                    <x-badge>Terverifikasi</x-badge>
+                                @else
+                                    <x-badge type="error">Rejected</x-badge>
                                 @endif
                             </p>
-                            <p class="text-base mb-4">Tanggal Pembayaran : <span class=" text-sm font-bold">{{ $data->tanggal_bayar }}</span></p>
+                            <p class="text-base mb-4">Tanggal Pembayaran : <span
+                                    class=" text-sm font-bold">{{ $data->tanggal_bayar }}</span></p>
                             <p class="text-base mb-4">Bukti Pembayaran</p>
-                            <img src="{{ asset('storage/'.$data->bukti_pembayaran) }}" alt="Bukti Pembayaran"
+                            <img src="{{ asset('storage/' . $data->bukti_pembayaran) }}" alt="Bukti Pembayaran"
                                 class="w-[400px] h-auto mt-2 border border-gray-300 rounded mx-auto mb-3">
+                            @if ($data->status == "pending" || $data->status == "rejected")
                                 <div class="mx-auto">
-                                    <a href="{{ route('pembayaran-pendaftaran.edit') }}" >
+                                    <a href="{{ route('pembayaranpendaftaran.edit') }}">
                                         <button
                                             class="items-center gap-2 px-2 py-2 text-sm font-medium text-white transition rounded-lg 
                                             bg-orange-400 shadow-theme-xs hover:bg-orange-500">Upload
@@ -60,6 +62,7 @@
                                         </button>
                                     </a>
                                 </div>
+                            @endif
                         </div>
                     @endif
                 </div>

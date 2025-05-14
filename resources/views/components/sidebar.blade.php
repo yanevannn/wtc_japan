@@ -68,10 +68,14 @@
                             activePath="dashboard*" />
                         <x-menu-item href="{{ route('dokumen.index') }}" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))"
                             activePath="" />
-                        <x-menu-item href="" label="Pembayaran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))" activePath="" />
+                        <x-sidebar-dropdown label="Pembayaran" menuKey="pembayran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))" :activePaths="['pembayaran/*']">
+                            <x-menu-item href="{{ route('pembayaranpendaftaran') }}" label="Pendaftaran" activePath="pembayaran/pendaftaran*" />
+                            <x-menu-item href="" label="Pelatihan" activePath="status-siswa*" />
+                        </x-sidebar-dropdown>
                         <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
                             <x-menu-item href="" label="Nilai Seleksi" activePath="status-pendaftaran*" />
                             <x-menu-item href="" label="Nilai Pelatihan" activePath="status-siswa*" />
+                            <x-menu-item href="" label="Hasil Interview" activePath="status-siswa*" />
                         </x-sidebar-dropdown>
                     @endif
                 </ul>

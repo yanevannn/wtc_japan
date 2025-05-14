@@ -13,7 +13,7 @@
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('pembayaran-pendaftaran.update',$data->id)" hasFile="true" method="put">
+                    <x-form :action="route('pembayaranpendaftaran.update',$data->id)" hasFile="true" method="put">
                         <p class="text-gray-800 dark:text-white/90 text-center">
                             Bukti Pembayaran saat ini
                         </p>

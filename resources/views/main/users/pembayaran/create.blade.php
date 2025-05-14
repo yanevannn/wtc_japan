@@ -13,7 +13,7 @@
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('pembayaran-pendaftaran.store')" hasFile="true">
+                    <x-form :action="route('pembayaranpendaftaran.store')" hasFile="true">
                         <x-form-input label="Tanggal Pembayaran" name="tanggal_bayar" inputType="date" />
                         <x-form-input label="Upload Bukti Pembayran" name="bukti_pembayaran" inputType="file" />
                         <x-button type="submit">Submit</x-button>

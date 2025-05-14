@@ -27,7 +27,7 @@ class PembayaranController extends Controller
         if (!$cekPembayaran) {
             return view('main.users.pembayaran.create');
         } else {
-            return redirect()->route('pembayaran-pendaftaran')->with('info', "Anda Sudah melaukan pembayaran pendaftaran. Silahkan mengcek status pembayaran !");
+            return redirect()->route('pembayaranpendaftaran')->with('info', "Anda Sudah melaukan pembayaran pendaftaran. Silahkan mengcek status pembayaran !");
         }
     }
 
@@ -56,7 +56,7 @@ class PembayaranController extends Controller
         Siswa::where('id', auth()->user()->siswa->id)->update([
             'status_pendaftaran_id' => 2, // Update status pendaftaran ke "Menunggu Verifikasi"
         ]);
-        return redirect()->route('pembayaran-pendaftaran')->with('success', "Upload bukti pembayaran berhasil, silahkan cek status pembayaran secara berkala !");
+        return redirect()->route('pembayaranpendaftaran')->with('success', "Upload bukti pembayaran berhasil, silahkan cek status pembayaran secara berkala !");
     }
 
     public function edit(){

@@ -118,13 +118,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}', [StatusPendaftaranController::class, 'update'])->name('update');
         Route::delete('/{id}', [StatusPendaftaranController::class, 'destroy'])->name('destroy');
     });
-
-    Route::get('pembayaran-pendaftaran', [PembayaranController::class, 'index'])->name('pembayaran-pendaftaran');
-    Route::get('pembayaran-pendaftaran/add', [PembayaranController::class, 'create'])->name('pembayaran-pendaftaran.create');
-    Route::post('pembayaran-pendaftaran/', [PembayaranController::class, 'store'])->name('pembayaran-pendaftaran.store');
-    Route::get('pembayaran-pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pembayaran-pendaftaran.edit');
-    Route::put('pembayaran-pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pembayaran-pendaftaran.update');
-
+    Route::prefix('pembayaran/')->name('pembayaran')->group(function () {
+        Route::get('pendaftaran', [PembayaranController::class, 'index'])->name('pendaftaran');
+        Route::get('pendaftaran/add', [PembayaranController::class, 'create'])->name('pendaftaran.create');
+        Route::post('pendaftaran/', [PembayaranController::class, 'store'])->name('pendaftaran.store');
+        Route::get('pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pendaftaran.edit');
+        Route::put('pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pendaftaran.update');
+    });
     // ===================== STATUS PENDAFTARAN  =====================
     Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
 

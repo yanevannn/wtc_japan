@@ -66,7 +66,7 @@ class VerifikasiDokumenController extends Controller
             if ($pembayaranAda) {
                 // Jika dua-duanya memenuhi, update status_pendaftaran_id siswa
                 $siswa = Siswa::findOrFail($id);
-                $siswa->status_pendaftaran_id = 3; // <-- sesuaikan ID "verified"
+                $siswa->status_pendaftaran_id = 5; // <-- sesuaikan ID "verified"
                 $siswa->save();
             }
         }
