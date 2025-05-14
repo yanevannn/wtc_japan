@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Siswa;
+use App\Models\Dokumen;
+use App\Models\OrangTua;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 
@@ -10,6 +12,22 @@ class PembayaranController extends Controller
 {
     public function index()
     {
+        $siswaId = auth()->user()->siswa->id;
+        $siswa = Siswa::where('id', $siswaId)->first();
+        if ($siswa->no_ktp == null) {
+            return redirect()->route('form.personal.index')->with("error", "Silahkan Isi data diri terlebih dahulu");
+        }
+        $orangtua = OrangTua::where('siswa_id', $siswaId)->first();
+        if ($orangtua == null) {
+            return redirect()->route('form.orang-tua.create')->with("error", "Silahkan Isi data orang tua terlebih dahulu");
+        }
+
+        $dokumen = Dokumen::where('siswa_id', $siswaId)->get();
+        if ($dokumen->isEmpty()) {
+            return redirect()->route('form.dokumen.create')
+                ->with('error', 'Silahkan upload dokumen terlebih dahulu.');
+        }
+
         $data = Pembayaran::where([
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pendaftaran'

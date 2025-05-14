@@ -19,6 +19,7 @@
                     <span
                         class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
                 </p>
+                @if (auth()->user()->siswa && auth()->user()->siswa->statusPendaftaran->status === 'Diterima')
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Grup Whatsapp</p>
                 
                 <a href="{{ auth()->user()->siswa->gelombang->link_grup }}" target="_blank">
@@ -27,6 +28,7 @@
                         Klik untuk bergabung ke {{ auth()->user()->siswa->gelombang->nama_gelombang }}
                     </button>
                 </a>
+                @endif
             </div>
         </div>
 
@@ -80,7 +82,7 @@
                     Seluruh data pribadi, Orang Tua, dan Dokumen telah lengkap. Silakan melanjutkan ke tahap pembayaran
                     pendaftaran.
                 </p>
-                <a href="{{ route('pembayaran-pendaftaran') }}">
+                <a href="{{ route('pembayaranpendaftaran') }}">
                     <button
                         class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-4">
                         Klik untuk Melakukan Pembayaran
