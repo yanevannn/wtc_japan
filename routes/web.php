@@ -16,6 +16,7 @@ use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
 use App\Http\Controllers\VerifikasiDokumenController;
 use App\Http\Controllers\VerifikasiPembayaranController;
+use App\Models\NilaiSeleksi;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -133,6 +134,11 @@ Route::middleware('auth')->group(function () {
         Route::post('pendaftaran/', [PembayaranController::class, 'store'])->name('pendaftaran.store');
         Route::get('pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pendaftaran.edit');
         Route::put('pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pendaftaran.update');
+    });
+
+    Route::prefix('nilai')->name('nilai')->group(function () {
+        Route::get('/seleksi', [NilaiSeleksiController::class, 'indexSiswa'])->name('seleksi.index');
+        Route::get('/seleksi2', [NilaiSeleksiController::class, 'indexSiswa2'])->name('seleksi2.index');
     });
 
     // ===================== STATUS PENDAFTARAN  =====================

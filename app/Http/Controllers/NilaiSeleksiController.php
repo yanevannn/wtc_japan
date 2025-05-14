@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Imports\NilaiSeleksiImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NilaiSeleksiTemplateExport;
+use App\Models\NilaiSeleksi;
 
 class NilaiSeleksiController extends Controller
 {
@@ -65,5 +66,22 @@ class NilaiSeleksiController extends Controller
         Excel::import(new NilaiSeleksiImport($id), $file);
 
         return redirect()->back()->with('success', 'Data nilai berhasil diperbarui.');
+    }
+
+
+    //Siswa
+    public function indexSiswa(){
+        $data = NilaiSeleksi::with([
+            'siswa.user:id,fname,lname,email'
+        ])->where('siswa_id', auth()->user()->siswa->id)->first();
+
+        return view('main.users.nilai.seleksi', compact('data'));
+    }
+    public function indexSiswa2(){
+        $data = NilaiSeleksi::with([
+            'siswa.user:id,fname,lname,email'
+        ])->where('siswa_id', auth()->user()->siswa->id)->first();
+
+        return view('main.users.nilai.a4seleksi', compact('data'));
     }
 }
