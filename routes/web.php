@@ -61,6 +61,8 @@ Route::middleware('auth')->group(function () {
         //Data Siswa Seleksi Gelombang
         Route::prefix('data-siswa')->name('data-siswa.')->group(function () {
             Route::get('/{id}', [NilaiSeleksiController::class, 'index'])->name('index');
+            Route::get('/gelombang/{id}/download-template', [NilaiSeleksiController::class, 'downloadTemplate'])->name('download-template');
+            Route::post('/gelombang/{id}/upload-nilai', [NilaiSeleksiController::class, 'uploadNilai'])->name('upload-nilai');
         });
     });
 
