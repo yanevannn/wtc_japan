@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
 use App\Models\Gelombang;
+use App\Models\NilaiSeleksi;
 use Illuminate\Http\Request;
 use App\Imports\NilaiSeleksiImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NilaiSeleksiTemplateExport;
-use App\Models\NilaiSeleksi;
 
 class NilaiSeleksiController extends Controller
 {
@@ -77,11 +78,12 @@ class NilaiSeleksiController extends Controller
 
         return view('main.users.nilai.seleksi', compact('data'));
     }
-    public function indexSiswa2(){
+    public function showNilaiSeleksiPdf(){
         $data = NilaiSeleksi::with([
             'siswa.user:id,fname,lname,email'
         ])->where('siswa_id', auth()->user()->siswa->id)->first();
+        $pdf = PDF::loadView('main.users.nilai.document.a4seleksi', compact('data'));
 
-        return view('main.users.nilai.a4seleksi', compact('data'));
+        return $pdf->stream('data-nilai-seleksi.pdf');
     }
 }

@@ -138,7 +138,7 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('nilai')->name('nilai')->group(function () {
         Route::get('/seleksi', [NilaiSeleksiController::class, 'indexSiswa'])->name('seleksi.index');
-        Route::get('/seleksi2', [NilaiSeleksiController::class, 'indexSiswa2'])->name('seleksi2.index');
+        Route::get('/seleksi/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
     });
 
     // ===================== STATUS PENDAFTARAN  =====================

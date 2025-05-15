@@ -60,6 +60,7 @@
                         @endif
                     </x-table-body>
                 </x-table>
+                <a href="{{ route('nilaiseleksi.pdf') }}">Lihat Nilai</a>
             </div>
         </div>
     </div>
