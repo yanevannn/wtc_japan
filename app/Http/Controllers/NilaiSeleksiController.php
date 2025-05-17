@@ -78,6 +78,7 @@ class NilaiSeleksiController extends Controller
       
         return view('main.users.nilai.seleksi', compact('data'));
     }
+    
     public function showNilaiSeleksiPdf(){
         $data = NilaiSeleksi::with([
             'siswa.user:id,fname,lname,email'

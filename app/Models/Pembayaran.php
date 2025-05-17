@@ -29,4 +29,10 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(User::class, 'verified_by');
     }
+
+    // Relasi ke pembayaran pendaftaran untuk pengecekan
+    public function pembayaranPelatihan()
+    {
+        return $this->hasOne(Pembayaran::class)->where('jenis_pembayaran', 'pelatihan');
+    }
 }

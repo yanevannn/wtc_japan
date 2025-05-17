@@ -129,11 +129,18 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('pembayaran/')->name('pembayaran')->group(function () {
-        Route::get('pendaftaran', [PembayaranController::class, 'index'])->name('pendaftaran');
-        Route::get('pendaftaran/add', [PembayaranController::class, 'create'])->name('pendaftaran.create');
-        Route::post('pendaftaran/', [PembayaranController::class, 'store'])->name('pendaftaran.store');
-        Route::get('pendaftaran/edit', [PembayaranController::class, 'edit'])->name('pendaftaran.edit');
-        Route::put('pendaftaran/{id}', [PembayaranController::class, 'update'])->name('pendaftaran.update');
+        //Pembayran Pendaftaran (Seleksi)
+        Route::get('pendaftaran', [PembayaranController::class, 'indexPendaftaran'])->name('pendaftaran');
+        Route::get('pendaftaran/add', [PembayaranController::class, 'createPendaftaran'])->name('pendaftaran.create');
+        Route::post('pendaftaran/', [PembayaranController::class, 'storePendaftaran'])->name('pendaftaran.store');
+        Route::get('pendaftaran/edit', [PembayaranController::class, 'editPendaftaran'])->name('pendaftaran.edit');
+        Route::put('pendaftaran/{id}', [PembayaranController::class, 'updatePendaftaran'])->name('pendaftaran.update');
+        //Pembayran Pelatihan
+        Route::get('pelatihan', [PembayaranController::class, 'indexPelatihan'])->name('pelatihan.index');
+        Route::get('pelatihan/add', [PembayaranController::class, 'createPelatihan'])->name('pelatihan.create');
+        Route::post('pelatihan/', [PembayaranController::class, 'storePelatihan'])->name('pelatihan.store');
+        Route::get('pelatihan/edit', [PembayaranController::class, 'editPelatihan'])->name('pelatihan.edit');
+        Route::put('pelatihan/{id}', [PembayaranController::class, 'updatePelatihan'])->name('pelatihan.update');
     });
 
     Route::prefix('nilai')->name('nilai')->group(function () {

@@ -29,7 +29,9 @@ class NilaiSeleksiImport implements ToModel
         // Jika siswa ditemukan, lanjutkan dengan menyimpan nilai
         if ($siswa) {
             // Log::info('Siswa ditemukan:', ['id' => $siswa->id]); // Log jika siswa ditemukan
-
+            // Update status menjadi "pelatihan"
+            $siswa->status_siswa_id = 3; //3 = pelatihan
+            $siswa->save();
             // Menggunakan updateOrCreate untuk menyimpan atau memperbarui nilai seleksi siswa
             NilaiSeleksi::updateOrCreate(
                 ['siswa_id' => $siswa->id],  // Syarat pencarian berdasarkan siswa_id

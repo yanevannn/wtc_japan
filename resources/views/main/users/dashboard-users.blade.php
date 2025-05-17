@@ -111,16 +111,16 @@
             <div
                 class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
                 <div class="flex items-center justify-center gap-2 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-                         stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M12 16v-4"/>
-                      <path d="M12 8h.01"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
                     </svg>
                     <h3 class="text-xl font-semibold leading-none">Data Sudah Lengkap</h3>
-                  </div>
-                  
+                </div>
+
 
                 @if (auth()->user()->siswa->statusPendaftaran->status === 'Gagal Verifikasi Dokumen')
                     <p class="text-center text-sm sm:text-base max-w-lg mb-4">
@@ -139,6 +139,29 @@
                         Perbaiki Pembayaran
                     </a>
                 @endif
+            </div>
+        @elseif(auth()->user()->siswa &&
+                auth()->user()->siswa->status_siswa_id === 3 &&
+                !auth()->user()->siswa->pembayaranPelatihan)
+            <div
+                class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    <h3 class="text-xl font-semibold leading-none">Pembayaran Pelatihan Belum Dilakukan</h3>
+                </div>
+                <p class="text-center text-sm sm:text-base max-w-lg mb-4">
+                    Silakan melakukan pembayaran pelatihan untuk mengikuti kegiatan pelatihan di WTC.
+                </p>
+                <a href="{{ route('pembayaranpelatihan.create') }}"
+                    class="inline-block bg-white text-yellow-600 px-6 py-2 rounded font-semibold hover:bg-yellow-100 transition">
+                    Bayar Pelatihan
+                </a>
             </div>
         @endif
 
