@@ -13,21 +13,22 @@
                 </div>
             </div>
             <div class="text-center">
-                <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">{{ auth()->user()->fname.' '.auth()->user()->lname }}</h2>
+                <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">
+                    {{ auth()->user()->fname . ' ' . auth()->user()->lname }}</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
                     <span
                         class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
                 </p>
                 @if (auth()->user()->siswa && auth()->user()->siswa->statusPendaftaran->status === 'Diterima')
-                <p class="text-gray-700 dark:text-gray-400 mt-2">Grup Whatsapp</p>
-                
-                <a href="{{ auth()->user()->siswa->gelombang->link_grup }}" target="_blank">
-                    <button
-                        class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-2 mb-2">
-                        Klik untuk bergabung ke {{ auth()->user()->siswa->gelombang->nama_gelombang }}
-                    </button>
-                </a>
+                    <p class="text-gray-700 dark:text-gray-400 mt-2">Grup Whatsapp</p>
+
+                    <a href="{{ auth()->user()->siswa->gelombang->link_grup }}" target="_blank">
+                        <button
+                            class="items-center gap-2 px-4 py-2 text-sm font-medium text-white uppercase transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600 mt-2 mb-2">
+                            Klik untuk bergabung ke {{ auth()->user()->siswa->gelombang->nama_gelombang }}
+                        </button>
+                    </a>
                 @endif
             </div>
         </div>
@@ -104,7 +105,43 @@
                     Silakan cek secara berkala untuk melihat status pendaftaran Anda.
                 </p>
             </div>
+        @elseif(
+            (auth()->user()->siswa && auth()->user()->siswa->statusPendaftaran->status === 'Gagal Verifikasi Pembayaran') ||
+                auth()->user()->siswa->statusPendaftaran->status === 'Gagal Verifikasi Dokumen')
+            <div
+                class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
+                         stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M12 16v-4"/>
+                      <path d="M12 8h.01"/>
+                    </svg>
+                    <h3 class="text-xl font-semibold leading-none">Data Sudah Lengkap</h3>
+                  </div>
+                  
+
+                @if (auth()->user()->siswa->statusPendaftaran->status === 'Gagal Verifikasi Dokumen')
+                    <p class="text-center text-sm sm:text-base max-w-lg mb-4">
+                        Verifikasi dokumen gagal. Silakan perbaiki dokumen Anda.
+                    </p>
+                    <a href="{{ route('dokumen.index') }}"
+                        class="inline-block bg-white text-yellow-600 px-6 py-2 rounded font-semibold hover:bg-yellow-100 transition">
+                        Perbaiki Data Dokumen
+                    </a>
+                @elseif(auth()->user()->siswa->statusPendaftaran->status === 'Gagal Verifikasi Pembayaran')
+                    <p class="text-center text-sm sm:text-base max-w-lg mb-4">
+                        Verifikasi pembayaran gagal. Silakan upload ulang bukti pembayaran Anda.
+                    </p>
+                    <a href="{{ route('pembayaranpendaftaran') }}"
+                        class="inline-block bg-white text-yellow-600 px-6 py-2 rounded font-semibold hover:bg-yellow-100 transition">
+                        Perbaiki Pembayaran
+                    </a>
+                @endif
+            </div>
         @endif
+
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
             <p class="text-sm text-gray-600 dark:text-white/70 mb-4"> Informasi terkini terkait WTC2JAPAN</p>

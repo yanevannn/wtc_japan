@@ -25,10 +25,10 @@
 
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('form.dokumen.store')" hasFile="true">
+                    <x-form :action="route('form.dokumen.update', $data->id)" hasFile="true" method="put">
                         <x-form-input
                             label="{{ \App\Models\Dokumen::getJenisDokumenHumanReadable($data->jenis_dokumen) }}"
-                            name="ktp" inputType="file" />
+                            name="{{ $data->jenis_dokumen }}" inputType="file" />
                         <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Dokumen {{ \App\Models\Dokumen::getJenisDokumenHumanReadable($data->jenis_dokumen) }} saat
                             ini:

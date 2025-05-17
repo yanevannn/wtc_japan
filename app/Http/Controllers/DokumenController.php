@@ -82,26 +82,78 @@ class DokumenController extends Controller
         return redirect()->route('dokumen.index')->with('success', 'Dokumen berhasil diupload.');
     }
 
-    public function edit($id)
+    public function edit($jenisDokumen)
     {
         $siswaId = auth()->user()->siswa->id;
-
-        // Ambil dokumen yang id & siswa_id sesuai
-        $data = Dokumen::where('id', $id)
+        // Cari dokumen berdasarkan jenis dokumen dan siswa_id
+        $data = Dokumen::where('jenis_dokumen', $jenisDokumen)
             ->where('siswa_id', $siswaId)
             ->firstOrFail();
         return view('main.users.form.dokumen-edit', compact('data'));
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $dokumen = Dokumen::findOrFail($id);
+        $jenisDokumen = $dokumen->jenis_dokumen;
 
+        $request->validate([
+            $jenisDokumen => 'required|file|mimes:pdf|max:1024',
+        ]);
 
-    public function destroy()
-    {
-        //
+        $file = $request->file($jenisDokumen);
+
+        // Format nama file
+        $formattedName = strtolower(str_replace(' ', '', auth()->user()->fname . auth()->user()->lname));
+        $fileName = time() . "-{$jenisDokumen}-{$formattedName}.pdf";
+
+        // Tentukan folder berdasarkan jenis dokumen
+        $folderPath = 'dokumen/' . $jenisDokumen;
+
+        // Hapus file lama jika ada
+        if ($dokumen->file_path && Storage::disk('public')->exists($dokumen->file_path)) {
+            Storage::disk('public')->delete($dokumen->file_path);
+        }
+
+        // Simpan file baru ke folder yang sesuai
+        Storage::makeDirectory($folderPath);
+        $filePath = $file->storeAs($folderPath, $fileName, 'public');
+
+        // Update data dokumen
+        $dokumen->update([
+            'file_path' => $filePath,
+            'uploaded_at' => now(),
+            'status' => 'pending',
+        ]);
+
+        // Ambil data siswa
+        $siswa = auth()->user()->siswa;
+
+        if ($siswa) {
+            if ($siswa->status_pendaftaran_id == 3) {
+                // Gagal Verifikasi Dokumen → cek dokumen reject lainnya
+                $adaDokumenRejectLain = Dokumen::where('siswa_id', $siswa->id)
+                    ->where('id', '!=', $dokumen->id)
+                    ->where('status', 'rejected')
+                    ->exists();
+
+                if (!$adaDokumenRejectLain) {
+                    $siswa->update(['status_pendaftaran_id' => 2]); // Menunggu Verifikasi
+                }
+            } elseif ($siswa->status_pendaftaran_id == 5) {
+                // Gagal Verifikasi Dokumen & Pembayaran
+                $adaDokumenRejectLain = Dokumen::where('siswa_id', $siswa->id)
+                    ->where('id', '!=', $dokumen->id)
+                    ->where('status', 'rejected')
+                    ->exists();
+
+                if (!$adaDokumenRejectLain) {
+                    $siswa->update(['status_pendaftaran_id' => 4]); // Gagal Verifikasi Pembayaran
+                }
+            }
+        }
+
+        return redirect()->route('dokumen.index')->with('success', 'Dokumen berhasil diperbarui. Silakan tunggu verifikasi.');
     }
 }

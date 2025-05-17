@@ -7,6 +7,7 @@ use App\Models\Dokumen;
 use App\Models\OrangTua;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PembayaranController extends Controller
 {
@@ -84,5 +85,50 @@ class PembayaranController extends Controller
         ])->first();
 
         return view('main.users.pembayaran.edit', compact('data'));
+    }
+    
+    public function update(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'tanggal_bayar' => 'required|date',
+            'bukti_pembayaran' => 'required|mimes:jpg,jpeg,png|max:1024',
+        ]);
+
+        // Ambil data pembayaran
+        $pembayaran = Pembayaran::findOrFail($id);
+
+        // Hapus file lama jika ada
+        if ($pembayaran->bukti_pembayaran && Storage::disk('public')->exists($pembayaran->bukti_pembayaran)) {
+            Storage::disk('public')->delete($pembayaran->bukti_pembayaran);
+        }
+
+        // Proses file baru
+        $extension = $request->file('bukti_pembayaran')->getClientOriginalExtension();
+        $formattedName = strtolower(str_replace(' ', '', auth()->user()->fname . auth()->user()->lname));
+        $timestamp = time();
+        $fileName = $timestamp . $formattedName . '.' . $extension;
+
+        // Simpan file
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pendaftaran', $fileName, 'public');
+
+        // Update data di database
+        $pembayaran->update([
+            'tanggal_bayar' => $request->input('tanggal_bayar'),
+            'bukti_pembayaran' => $filePath,
+            'status' => 'pending', 
+        ]);
+
+        // Cek status_pendaftaran siswa dan ubah jika perlu
+        $siswa = auth()->user()->siswa;
+        if ($siswa) {
+            if ($siswa->status_pendaftaran_id == 4) {
+                $siswa->update(['status_pendaftaran_id' => 2]);
+            } elseif ($siswa->status_pendaftaran_id == 5) {
+                $siswa->update(['status_pendaftaran_id' => 3]);
+            }
+        }
+
+        return redirect()->route('pembayaranpendaftaran')->with('success', 'Upload bukti pembayaran berhasil, silakan cek status pembayaran secara berkala!');
     }
 }

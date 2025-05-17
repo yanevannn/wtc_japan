@@ -13,6 +13,7 @@ class Dokumen extends Model
         'jenis_dokumen',
         'file_path',
         'uploaded_at',
+        'status',
     ];
 
     public function siswa()

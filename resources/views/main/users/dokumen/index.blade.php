@@ -30,7 +30,7 @@
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
                                             <x-button type="edit"
-                                                route="{{ route('form.dokumen.edit', $dokumen->id) }}" />
+                                                route="{{ route('form.dokumen.edit', $dokumen->jenis_dokumen) }}" />
                                         </div>
                                     </x-table-cell>
                                 </tr>

@@ -70,12 +70,12 @@ class NilaiSeleksiController extends Controller
     }
 
 
-    //Siswa
-    public function indexSiswa(){
+    //Nilai seleksi User (Siswa)
+    public function indexSeleksiSiswa(){
         $data = NilaiSeleksi::with([
-            'siswa.user:id,fname,lname,email'
+            'siswa'
         ])->where('siswa_id', auth()->user()->siswa->id)->first();
-
+      
         return view('main.users.nilai.seleksi', compact('data'));
     }
     public function showNilaiSeleksiPdf(){

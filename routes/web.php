@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
         //dokumen controller
         Route::get('/dokumen', [DokumenController::class, 'create'])->name('dokumen.create');
         Route::post('/dokumen', [DokumenController::class, 'store'])->name('dokumen.store');
-        Route::get('/dokumen/edit/{id}', [DokumenController::class, 'edit'])->name('dokumen.edit');
+        Route::get('/dokumen/edit/{jenisDokumen}', [DokumenController::class, 'edit'])->name('dokumen.edit');
         Route::put('/dokumen/{id}', [DokumenController::class, 'update'])->name('dokumen.update');
     });
 
@@ -137,8 +137,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('nilai')->name('nilai')->group(function () {
-        Route::get('/seleksi', [NilaiSeleksiController::class, 'indexSiswa'])->name('seleksi.index');
+        Route::get('/seleksi', [NilaiSeleksiController::class, 'indexSeleksiSiswa'])->name('seleksi.index');
         Route::get('/seleksi/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
+        // Route::get('/pelatihan', [NilaiSeleksiController::class, 'indexPelatihanSiswa'])->name('seleksi.index');
+        // Route::get('/pelatihan/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
     });
 
     // ===================== STATUS PENDAFTARAN  =====================

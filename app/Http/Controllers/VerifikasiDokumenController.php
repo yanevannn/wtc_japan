@@ -29,6 +29,9 @@ class VerifikasiDokumenController extends Controller
 
     public function update(Request $request, $id)
     {
+        $siswa = Siswa::findOrFail($id);
+        $statusPendaftaranSaatIni = $siswa->status_pendaftaran_id;
+
         // Ambil semua dokumen terkait siswa
         $dokumenList = Dokumen::where('siswa_id', $id)->pluck('jenis_dokumen');
 
@@ -48,25 +51,29 @@ class VerifikasiDokumenController extends Controller
                 ->update(['status' => $status]);
         }
 
-        // ====== Tambahkan logika pengecekan ======
+        // Cek apakah ada dokumen yang rejected
+        $adaRejected = Dokumen::where('siswa_id', $id)
+            ->where('status', 'rejected')
+            ->exists();
 
-        // Cek apakah semua dokumen siswa sudah "verified"
-        $allVerified = Dokumen::where('siswa_id', $id)
-            ->where('status', '!=', 'verified')
-            ->doesntExist(); // artinya tidak ada yang selain verified
-
-            
-        if ($allVerified) {
-            // Cek apakah pembayaran pendaftaran sudah ada dan statusnya verified
-            $pembayaranAda = Pembayaran::where('siswa_id', $id)
+        if ($adaRejected) {
+            // Jika status sebelumnya adalah "Gagal Verifikasi Pembayaran" (4)
+            if ($statusPendaftaranSaatIni == 4) {
+                $siswa->status_pendaftaran_id = 5; // Gagal Verifikasi Dokumen & Pembayaran
+            } else {
+                $siswa->status_pendaftaran_id = 3; // Gagal Verifikasi Dokumen
+            }
+            $siswa->save();
+        } else {
+            // Jika semua dokumen sudah verified
+            $pembayaranVerified = Pembayaran::where('siswa_id', $id)
                 ->where('jenis_pembayaran', 'pendaftaran')
                 ->where('status', 'verified')
                 ->exists();
 
-            if ($pembayaranAda) {
-                // Jika dua-duanya memenuhi, update status_pendaftaran_id siswa
-                $siswa = Siswa::findOrFail($id);
-                $siswa->status_pendaftaran_id = 5; // <-- sesuaikan ID "verified"
+            if ($pembayaranVerified) {
+                $siswa->status_pendaftaran_id = 6; // Diterima
+                $siswa->status_siswa_id = 2;       // Seleksi
                 $siswa->save();
             }
         }

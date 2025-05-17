@@ -4,7 +4,11 @@
         <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
             <div class="px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between">
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">
-                    Hasil Seleksi {{ $data->siswa->gelombang->nama_gelombang }} - {{ $data->siswa->user->fname.' '.$data->siswa->user->lname }}
+                    @if ($data)
+                    Hasil Seleksi {{ $data->siswa->gelombang->nama_gelombang }} -  {{ auth()->user()->fname . ' ' . auth()->user()->lname }}
+                    @else
+                    Anda belum mengikuti seleksi
+                    @endif
                 </h3>
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
@@ -60,7 +64,14 @@
                         @endif
                     </x-table-body>
                 </x-table>
-                <a href="{{ route('nilaiseleksi.pdf') }}">Lihat Nilai</a>
+
+                @if ($data)
+                <div class="mt-5 flex justify-end">
+                    <a href="{{ route('nilaiseleksi.pdf') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Download Nilai
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </div>
