@@ -30,6 +30,7 @@ class VerifikasiPembayaranController extends Controller
         // dd($data);
         return view('main.admin.verifikasi.pembayaran.pendaftaran.edit', compact('data'));
     }
+    
     public function updatePendaftaran(Request $request, $id)
     {
         // Validasi input: status hanya boleh 'verified' atau 'rejected'
@@ -37,22 +38,19 @@ class VerifikasiPembayaranController extends Controller
             'status' => 'required|in:verified,rejected',
         ]);
 
-        // Ambil data pembayaran berdasarkan ID
+        // Ambil data pembayaran dan siswa terkait
         $pembayaran = Pembayaran::findOrFail($id);
-
-        // Ambil siswa terkait
         $siswa = Siswa::findOrFail($pembayaran->siswa_id);
 
         $statusPendaftaranSaatIni = $siswa->status_pendaftaran_id;
 
-        // Cek apakah semua dokumen siswa sudah berstatus 'verified'
+        // Cek apakah semua dokumen siswa sudah terverifikasi
         $semuaDokumenTerverifikasi = !Dokumen::where('siswa_id', $siswa->id)
             ->where('status', '!=', 'verified')
             ->exists();
 
         // Update status pembayaran
         $pembayaran->status = $request->status;
-        $pembayaran->save();
 
         // === LOGIKA PENYESUAIAN STATUS PENDAFTARAN ===
         if ($request->status === 'rejected') {
@@ -63,15 +61,19 @@ class VerifikasiPembayaranController extends Controller
                 // Jika belum pernah gagal dokumen → gagal verifikasi pembayaran
                 $siswa->status_pendaftaran_id = 4; // Gagal Verifikasi Pembayaran
             }
-            $siswa->save();
         }
 
-        // Jika semua dokumen verified dan pembayaran juga verified → Diterima
         if ($request->status === 'verified' && $semuaDokumenTerverifikasi) {
+            // Semua dokumen dan pembayaran terverifikasi → Diterima
             $siswa->status_pendaftaran_id = 6; // Diterima
             $siswa->status_siswa_id = 2; // Seleksi
-            $siswa->save();
+            $pembayaran->verified_by = auth()->id();
+            $pembayaran->updated_at = now(); // bisa dihilangkan jika pakai timestamp default
         }
+
+        // Simpan perubahan
+        $siswa->save();
+        $pembayaran->save();
 
         return redirect()->route('verifikasi.pembayaran-pendaftaran.index')
             ->with('success', 'Status pembayaran berhasil diperbarui.');
