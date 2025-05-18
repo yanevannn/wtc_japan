@@ -39,6 +39,13 @@ class StatusPendaftaranController extends Controller
     public function edit($id)
     {
         $data = StatusPendaftaran::findOrFail($id);
+        // Daftar status yang dilindungi (tidak boleh diedit)
+        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Gagal Verifikasi Dokumen', 'Gagal Verifikasi Pembayaran', 'Gagal Verifikasi Pembayaran & Dokumen', 'Diterima'];
+        // Cek apakah status ini termasuk yang dilindungi
+        if (in_array($data->status, $protectedStatuses)) {
+            return redirect()->route('status-pendaftaran.index')->with('error', 'Status ini tidak dapat diedit karena merupakan status bawaan sistem.');
+        }
+
         return view('main.admin.status_pendaftaran.edit', compact('data'));
     }
 
@@ -50,7 +57,7 @@ class StatusPendaftaranController extends Controller
         ]);
 
         // Daftar status yang dilindungi (tidak boleh diedit)
-        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Diterima'];
+        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Gagal Verifikasi Dokumen', 'Gagal Verifikasi Pembayaran', 'Gagal Verifikasi Pembayaran & Dokumen', 'Diterima'];
 
         // Ambil data
         $statusPendaftaran = StatusPendaftaran::findOrFail($id);
@@ -75,7 +82,7 @@ class StatusPendaftaranController extends Controller
         $statusPendaftaran = StatusPendaftaran::findOrFail($id);
 
         // Daftar status yang dilindungi (tidak boleh dihapus)
-        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Diterima'];
+        $protectedStatuses = ['Belum Lengkap', 'Menunggu Verifikasi', 'Ditolak', 'Gagal Verifikasi Dokumen', 'Gagal Verifikasi Pembayaran', 'Gagal Verifikasi Pembayaran & Dokumen', 'Diterima'];
 
         // Cek apakah status termasuk yang dilindungi
         if (in_array($statusPendaftaran->status, $protectedStatuses)) {

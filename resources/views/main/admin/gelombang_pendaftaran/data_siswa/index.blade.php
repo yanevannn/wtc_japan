@@ -57,9 +57,10 @@
                                 $statusList = [
                                     1 => 'Belum Lengkap',
                                     2 => 'Menunggu Verifikasi',
-                                    3 => 'Gagal Verifikasi',
-                                    4 => 'Ditolak',
-                                    5 => 'Diterima',
+                                    3 => 'Gagal Verifikasi Dokumen',
+                                    4 => 'Gagal Verifikasi Pembayaran',
+                                    5 => 'Gagal Verifikasi Pembayaran & Dokumen',
+                                    6 => 'Diterima',
                                 ];
                             @endphp
                             @foreach ($data as $siswa)
