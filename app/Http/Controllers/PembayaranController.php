@@ -38,7 +38,7 @@ class PembayaranController extends Controller
         return view('main.users.pembayaran.pendaftaran.index', compact('data'));
     }
 
-    public function createxPendaftaran()
+    public function createPendaftaran()
     {
         $cekPembayaran = $data = Pembayaran::where([
             'siswa_id' => auth()->user()->siswa->id,
@@ -51,7 +51,7 @@ class PembayaranController extends Controller
         }
     }
 
-    public function storexPendaftaran(Request $request)
+    public function storePendaftaran(Request $request)
     {
         $request->validate([
             'tanggal_bayar' => "required",
@@ -79,7 +79,7 @@ class PembayaranController extends Controller
         return redirect()->route('pembayaranpendaftaran')->with('success', "Upload bukti pembayaran berhasil, silahkan cek status pembayaran secara berkala !");
     }
 
-    public function editxPendaftaran(){
+    public function editPendaftaran(){
         $data = Pembayaran::where([
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pendaftaran'
@@ -88,7 +88,7 @@ class PembayaranController extends Controller
         return view('main.users.pembayaran.pendaftaran.edit', compact('data'));
     }
     
-    public function updatexPendaftaran(Request $request, $id)
+    public function updatePendaftaran(Request $request, $id)
     {
         // Validasi input
         $request->validate([
