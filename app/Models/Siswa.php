@@ -59,6 +59,11 @@ class Siswa extends Model
         return $this->hasMany(Pembayaran::class, 'siswa_id');
     }
 
+    public function pembayaranPelatihan()
+    {
+        return $this->hasOne(Pembayaran::class, 'siswa_id')->where('jenis_pembayaran', 'pelatihan');
+    }
+
     public function nilaiSeleksi()
     {
         return $this->hasOne(NilaiSeleksi::class, 'siswa_id');

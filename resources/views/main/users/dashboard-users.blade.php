@@ -140,30 +140,61 @@
                     </a>
                 @endif
             </div>
-        @elseif(auth()->user()->siswa &&
-                auth()->user()->siswa->status_siswa_id === 3 &&
-                !auth()->user()->siswa->pembayaranPelatihan)
-            <div
-                class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
-                <div class="flex items-center justify-center gap-2 mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M12 16v-4" />
-                        <path d="M12 8h.01" />
-                    </svg>
-                    <h3 class="text-xl font-semibold leading-none">Pembayaran Pelatihan Belum Dilakukan</h3>
+            @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 3)
+            @php
+                $pembayaran = auth()->user()->siswa->pembayaranPelatihan;
+            @endphp
+        
+            @if (!$pembayaran)
+                {{-- Belum melakukan pembayaran --}}
+                <div
+                    class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
+                    <div class="flex items-center justify-center gap-2 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="lucide lucide-info-icon lucide-info">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 16v-4" />
+                            <path d="M12 8h.01" />
+                        </svg>
+                        <h3 class="text-xl font-semibold leading-none">Pembayaran Pelatihan Belum Dilakukan</h3>
+                    </div>
+                    <p class="text-center text-sm sm:text-base max-w-lg mb-4">
+                        Silakan melakukan pembayaran pelatihan untuk mengikuti kegiatan pelatihan di WTC.
+                    </p>
+                    <a href="{{ route('pembayaranpelatihan.create') }}"
+                        class="inline-block bg-white text-yellow-600 px-6 py-2 rounded font-semibold hover:bg-yellow-100 transition">
+                        Bayar Pelatihan
+                    </a>
                 </div>
-                <p class="text-center text-sm sm:text-base max-w-lg mb-4">
-                    Silakan melakukan pembayaran pelatihan untuk mengikuti kegiatan pelatihan di WTC.
-                </p>
-                <a href="{{ route('pembayaranpelatihan.create') }}"
-                    class="inline-block bg-white text-yellow-600 px-6 py-2 rounded font-semibold hover:bg-yellow-100 transition">
-                    Bayar Pelatihan
-                </a>
-            </div>
+        
+            @elseif ($pembayaran->status === 'pending')
+                {{-- Sudah bayar tapi menunggu verifikasi --}}
+                <div
+                    class="md:col-span-3 bg-brand-600 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-brand-600/90">
+                    <h3 class="text-xl font-semibold mb-2">Menunggu Verifikasi</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Bukti pembayaran pelatihan Anda sedang diverifikasi.
+                        Silakan cek secara berkala verifikasi bukti pembayaran Anda.
+                    </p>
+                </div>
+        
+            @elseif ($pembayaran->status === 'rejected')
+                {{-- Gagal verifikasi --}}
+                <div
+                    class="md:col-span-3 bg-red-600  text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-red-600/90 ">
+                    <h3 class="text-xl font-semibold mb-2">Pembayaran Ditolak</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg mb-4">
+                        Bukti pembayaran pelatihan ditolak. Silakan upload ulang bukti yang benar.
+                    </p>
+                    <a href="{{ route('pembayaranpelatihan.index') }}"
+                        class="inline-block bg-white text-red-600 px-6 py-2 rounded font-semibold hover:bg-red-100 transition">
+                        Upload Ulang Bukti
+                    </a>
+                </div>
+            @endif
         @endif
+        
 
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
