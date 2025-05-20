@@ -78,4 +78,30 @@ class VerifikasiPembayaranController extends Controller
         return redirect()->route('verifikasi.pembayaran-pendaftaran.index')
             ->with('success', 'Status pembayaran berhasil diperbarui.');
     }
+
+    public function indexPelatihan()
+    {
+        $data = Pembayaran::with('siswa.user')
+            ->where('jenis_pembayaran', 'pelatihan')
+            ->where('status', 'pending')
+            ->whereNotNull('siswa_id')
+            ->get();
+        // dd($data);
+        return view('main.admin.verifikasi.pembayaran.pelatihan.index', compact('data'));
+    }
+
+    public function editPelatihan($id)
+    {
+        $data = Pembayaran::with('siswa.user')
+            ->where('jenis_pembayaran', 'pelatihan')
+            ->where('status', 'pending')
+            ->whereNotNull('siswa_id')
+            ->findOrFail($id);
+        // dd($data);
+        return view('main.admin.verifikasi.pembayaran.pelatihan.edit', compact('data'));
+    }
+
+    public function updatePelatihan(Request $request, $id)
+    {
+    }
 }

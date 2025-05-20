@@ -80,6 +80,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/pembayaran-pendaftaran', [VerifikasiPembayaranController::class, 'indexPendaftaran'])->name('pembayaran-pendaftaran.index');
             Route::get('/pembayaran-pendaftaran/edit/{id}', [VerifikasiPembayaranController::class, 'editPendaftaran'])->name('pembayaran-pendaftaran.edit');
             Route::put('/pembayaran-pendaftaran/{id}', [VerifikasiPembayaranController::class, 'updatePendaftaran'])->name('pembayaran-pendaftaran.update');
+            //Verfikasi Pembayaran Pelatihan
+            Route::get('/pembayaran-pelatihan', [VerifikasiPembayaranController::class, 'indexPelatihan'])->name('pembayaran-pelatihan.index');
+            Route::get('/pembayaran-pelatihan/edit/{id}', [VerifikasiPembayaranController::class, 'editPelatihan'])->name('pembayaran-pelatihan.edit');
+            Route::put('/pembayaran-pelatihan/{id}', [VerifikasiPembayaranController::class, 'updatePelatihan'])->name('pembayaran-pelatihan.update');
         });
         //  ANGKATAN 
         Route::prefix('angkatan')->name('angkatan.')->group(function () {

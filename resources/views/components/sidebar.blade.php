@@ -49,12 +49,12 @@
                         <x-menu-item href="{{ route('pengumuman.index') }}" label="Pengumuman" :icon="file_get_contents(public_path('assets/announcement.svg'))"
                             activePath="pengumuman*" />
 
-                        <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="['verifikasi/dokumen*', 'verifikasi/pembayaran-pendaftaran*']">
+                        <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="['verifikasi/dokumen*', 'verifikasi/pembayaran-pendaftaran*', 'verifikasi/pembayaran-pelatihan*']">
                             <x-menu-item href="{{ route('verifikasi.dokumen.index') }}" label="Dokumen"
                                 activePath="verifikasi/dokumen*" />
                             <x-menu-item href="{{ route('verifikasi.pembayaran-pendaftaran.index') }}" label="Pembayaran Pendaftaran"
                                 activePath="verifikasi/pembayaran-pendaftaran*" />
-                            <x-menu-item href="" label="Pembayaran Pelatihan" activePath="" />
+                            <x-menu-item href="{{ route('verifikasi.pembayaran-pelatihan.index') }}" label="Pembayaran Pelatihan" activePath="verifikasi/pembayaran-pelatihan*" />
                         </x-sidebar-dropdown>
 
                         <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
