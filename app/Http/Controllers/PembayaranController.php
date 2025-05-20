@@ -190,9 +190,45 @@ class PembayaranController extends Controller
 
     public function editPelatihan()
     {
+        $data = Pembayaran::where([
+            'siswa_id' => auth()->user()->siswa->id,
+            'jenis_pembayaran' => 'pelatihan'
+        ])->first();
+        return view('main.users.pembayaran.pelatihan.edit', compact('data'));
     }
 
     public function updatePelatihan(Request $request, $id)
     {
+        // Validasi input
+        $request->validate([
+            'tanggal_bayar' => 'required|date',
+            'bukti_pembayaran' => 'required|mimes:jpg,jpeg,png|max:1024',
+        ]);
+
+        // Ambil data pembayaran
+        $pembayaran = Pembayaran::findOrFail($id);
+
+        // Hapus file lama jika ada
+        if ($pembayaran->bukti_pembayaran && Storage::disk('public')->exists($pembayaran->bukti_pembayaran)) {
+            Storage::disk('public')->delete($pembayaran->bukti_pembayaran);
+        }
+
+        // Proses file baru
+        $extension = $request->file('bukti_pembayaran')->getClientOriginalExtension();
+        $formattedName = strtolower(str_replace(' ', '', auth()->user()->fname . auth()->user()->lname));
+        $timestamp = time();
+        $fileName = $timestamp . $formattedName . '.' . $extension;
+
+        // Simpan file
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pelatihan', $fileName, 'public');
+
+        // Update data di database
+        $pembayaran->update([
+            'tanggal_bayar' => $request->input('tanggal_bayar'),
+            'bukti_pembayaran' => $filePath,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('pembayaranpelatihan.index')->with('success', 'Upload bukti pembayaran berhasil, silakan cek status pembayaran secara berkala!');
     }
 }

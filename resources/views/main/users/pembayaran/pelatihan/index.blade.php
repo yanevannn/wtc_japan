@@ -54,7 +54,7 @@
                                 class="w-[400px] h-auto mt-2 border border-gray-300 rounded mx-auto mb-3">
                             @if ($data->status == 'pending' || $data->status == 'rejected')
                                 <div class="mx-auto">
-                                    <a href="{{ route('pembayaranpendaftaran.edit') }}">
+                                    <a href="{{ route('pembayaranpelatihan.edit') }}">
                                         <button
                                             class="items-center gap-2 px-2 py-2 text-sm font-medium text-white transition rounded-lg 
                                         bg-orange-400 shadow-theme-xs hover:bg-orange-500">Upload
