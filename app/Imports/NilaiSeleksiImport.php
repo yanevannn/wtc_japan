@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class NilaiSeleksiImport implements ToModel
 {
-    protected $gelombangId;
+    protected $angkatanID;
 
-    public function __construct($gelombangId)
+    public function __construct($angkatanID)
     {
-        $this->gelombangId = $gelombangId;
+        $this->angkatanID = $angkatanID;
     }
 
     public function model(array $row)
@@ -21,17 +21,23 @@ class NilaiSeleksiImport implements ToModel
         // Log untuk melihat setiap baris data yang diproses
         // Log::info('Row data:', $row); // Log data per baris
 
-        // Mencari siswa berdasarkan ID yang ada di Excel dan gelombang yang relevan
+        // Mencari siswa berdasarkan ID yang ada di Excel dan angkatan yang relevan
         $siswa = Siswa::where('id', $row[0])  // Asumsi kolom pertama adalah ID siswa
-            ->where('gelombang_id', $this->gelombangId)  // Memastikan siswa berada di gelombang yang benar
+            ->where('angkatan_id', $this->angkatanID)  // Memastikan siswa berada di angkatan yang benar
             ->first();
 
         // Jika siswa ditemukan, lanjutkan dengan menyimpan nilai
         if ($siswa) {
-            // Log::info('Siswa ditemukan:', ['id' => $siswa->id]); // Log jika siswa ditemukan
-            // Update status menjadi "pelatihan"
-            $siswa->status_siswa_id = 3; //3 = pelatihan
-            $siswa->save();
+
+            // Ambil nilai dari kolom Excel
+            $hurufJepang = floatval($row[2]);
+            $fisik = floatval($row[3]);
+            $matematika = floatval($row[4]);
+            $koran = floatval($row[5]);
+
+            // Hitung rata-rata
+            $rataRata = ($hurufJepang + $fisik + $matematika + $koran) / 4;
+            
             // Menggunakan updateOrCreate untuk menyimpan atau memperbarui nilai seleksi siswa
             NilaiSeleksi::updateOrCreate(
                 ['siswa_id' => $siswa->id],  // Syarat pencarian berdasarkan siswa_id
@@ -42,6 +48,16 @@ class NilaiSeleksiImport implements ToModel
                     'koran' => $row[5],  // Nilai koran dari Excel (kolom ke-6)
                 ]
             );
+
+            // Update status siswa berdasarkan rata-rata
+            if ($rataRata < 70) {
+                $siswa->status_siswa_id = 6; // misal: 7 = Tidak Lulus Seleksi
+            } else {
+                $siswa->status_siswa_id = 3; // 3 = Pelatihan (default jika lulus)
+            }
+
+            $siswa->save();
+
         } else {
             // Log::warning('Siswa tidak ditemukan:', ['id' => $row[0]]);  // Log jika siswa tidak ditemukan
         }

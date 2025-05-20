@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('tb_angkatan', function (Blueprint $table) {
             $table->id();
-            $table->string('angkatan');
-            $table->integer('tahun');
+            $table->unsignedSmallInteger('nomor_angkatan')->unique();
+            $table->year('tahun');
+            $table->enum('status', ['open', 'closed'])->default('open');
+            $table->string('link_grup')->nullable();
             $table->timestamps();
         });
     }

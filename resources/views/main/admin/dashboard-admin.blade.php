@@ -2,17 +2,6 @@
     <x-slot:title>Dashboard</x-slot:title>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <x-dashboard-card 
-        route="{{ route('gelombang.index') }}" 
-        title="Jumlah Gelombang" 
-        value="{{ $data['jumlah_gelombang'] }}" 
-        :icon="file_get_contents(public_path('assets/verfikasi.svg'))" />
-
-        <x-dashboard-card 
-        title="Jumlah Pendaftar Gelombang terbaru" 
-        value="{{ $data['jumlah_pendaftar_terbaru'] }}"
-        :icon="file_get_contents(public_path('assets/verfikasi.svg'))" />
-
-        <x-dashboard-card 
         route="{{ route('angkatan.index') }}" 
         title="Jumlah Angkatan" 
         value="{{ $data['jumlah_angkatan'] }}" 

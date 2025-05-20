@@ -27,7 +27,7 @@
                                     </li>
                                     <li class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                         <span class="font-medium">Gelombang Pendaftaran:</span>
-                                        <span>{{ $data->siswa->gelombang->nama_gelombang }}</span>
+                                        <span>{{ $data->siswa->angkatan->nomor_angkatan }}</span>
                                     </li>
                                     <li class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                         <span class="font-medium">Tanggal Pembayaran:</span>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="mt-8 flex justify-center space-x-4">
                             <!-- Tombol Verifikasi dan Tolak -->
-                            <form action="{{ route('verifikasi.pembayaran-pendaftaran.update', $data->id) }}"
+                            <form action="{{ route('verifikasi.pembayaran-pelatihan.update', $data->id) }}"
                                 method="POST">
                                 @csrf
                                 @method('PUT')
@@ -52,7 +52,7 @@
                                 </button>
                             </form>
 
-                            <form action="{{ route('verifikasi.pembayaran-pendaftaran.update', $data->id) }}"
+                            <form action="{{ route('verifikasi.pembayaran-pelatihan.update', $data->id) }}"
                                 method="POST">
                                 @csrf
                                 @method('PUT')

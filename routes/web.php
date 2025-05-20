@@ -55,21 +55,6 @@ Route::middleware('auth')->group(function () {
         });
         //  STATUS PENDAFTARAN  
         Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
-        //  GELOMBANG 
-        Route::prefix('gelombang')->name('gelombang.')->group(function () {
-            Route::get('/', [GelombangController::class, 'index'])->name('index');
-            Route::get('/add', [GelombangController::class, 'create'])->name('create');
-            Route::post('/', [GelombangController::class, 'store'])->name('store');
-            Route::get('/edit/{id}', [GelombangController::class, 'edit'])->name('edit');
-            Route::put('/{id}', [GelombangController::class, 'update'])->name('update');
-            Route::delete('/{id}', [GelombangController::class, 'destroy'])->name('destroy');
-            //Data Siswa Seleksi Gelombang
-            Route::prefix('data-siswa')->name('data-siswa.')->group(function () {
-                Route::get('/{id}', [NilaiSeleksiController::class, 'index'])->name('index');
-                Route::get('/gelombang/{id}/download-template', [NilaiSeleksiController::class, 'downloadTemplate'])->name('download-template');
-                Route::post('/gelombang/{id}/upload-nilai', [NilaiSeleksiController::class, 'uploadNilai'])->name('upload-nilai');
-            });
-        });
         //  VERIFIKASI
         Route::prefix('verifikasi')->name('verifikasi.')->group(function () {
             //Verfikasi Dokumen
@@ -93,6 +78,16 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [AngkatanController::class, 'edit'])->name('edit');
             Route::put('/{id}', [AngkatanController::class, 'update'])->name('update');
             Route::delete('/{id}', [AngkatanController::class, 'destroy'])->name('destroy');
+            //data siswa 
+            Route::prefix('data-siswa')->name('data-siswa.')->group(function () {
+                Route::get('/{id}', [AngkatanController::class, 'indexData'])->name('index');
+            });
+            //Data Siswa Seleksi Pendaftaran
+            Route::prefix('nilai-seleksi')->name('data-nilai-seleksi.')->group(function () {
+                Route::get('/{id}', [NilaiSeleksiController::class, 'index'])->name('index');
+                Route::get('/gelombang/{id}/download-template', [NilaiSeleksiController::class, 'downloadTemplate'])->name('download-template');
+                Route::post('/gelombang/{id}/upload-nilai', [NilaiSeleksiController::class, 'uploadNilai'])->name('upload-nilai');
+            });
         });
         //  PENGUMUMAN 
         Route::prefix('pengumuman')->name('pengumuman.')->group(function () {

@@ -18,7 +18,7 @@
                                 <tr>
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
                                     <x-table-cell>{{ $siswa->user->fname.' '.$siswa->user->lname }}</x-table-cell>
-                                    <x-table-cell>{{ $siswa->gelombang->nama_gelombang }}</x-table-cell>
+                                    <x-table-cell>{{ $siswa->angkatan->nomor_angkatan }}</x-table-cell>
                                     <x-table-cell
                                         class="justify-center">{{ $siswa->statusPendaftaran->status }}</x-table-cell>
 

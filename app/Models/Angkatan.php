@@ -10,7 +10,14 @@ class Angkatan extends Model
     protected $table = 'tb_angkatan';
 
     protected $fillable = [
-        'angkatan',
+        'nomor_angkatan',
         'tahun',
+        'status',
+        'link_grup',
     ];
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class, 'angkatan_id');
+    }
 }

@@ -4,34 +4,34 @@ namespace App\Http\Controllers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Siswa;
-use App\Models\Gelombang;
 use App\Models\NilaiSeleksi;
 use Illuminate\Http\Request;
 use App\Imports\NilaiSeleksiImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\NilaiSeleksiTemplateExport;
+use App\Models\Angkatan;
 
 class NilaiSeleksiController extends Controller
 {
     public function index($id)
     {
-        $gelombang = Gelombang::findOrFail($id);
+        $angkatan = Angkatan::findOrFail($id);
         $data = Siswa::with([
             'user:id,fname,lname,email',
             'nilaiSeleksi'
         ]) // memuat relasi user
-            ->where('gelombang_id', $id)
+            ->where('angkatan_id', $id)
             ->get();
-        return view('main.admin.gelombang_pendaftaran.data_siswa.index', compact('data', 'gelombang'));
+        return view('main.admin.angkatan.data-nilai-seleksi.index', compact('data', 'angkatan'));
     }
 
     public function downloadTemplate($id)
     {
-        // Ambil data gelombang berdasarkan ID
-        $gelombang = Gelombang::findOrFail($id);
+        // Ambil data angkatan berdasarkan ID
+        $angkatan = Angkatan::findOrFail($id);
 
-        // Ambil data siswa yang tergabung dalam gelombang tersebut
-        $siswa = Siswa::where('gelombang_id', $id)
+        // Ambil data siswa yang tergabung dalam angkatan tersebut
+        $siswa = Siswa::where('angkatan_id', $id)
             ->whereHas('statusPendaftaran', function ($query) {
                 $query->where('status', 'Diterima'); // Menggunakan kolom nama_status di tabel status_pendaftaran
             })

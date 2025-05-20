@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Siswa;
 use App\Models\OrangTua;
-use App\Models\Gelombang;
 use App\Models\Pembayaran;
 use App\Models\Pengumuman;
 use App\Models\UserVerify;
@@ -95,15 +94,15 @@ class AuthController extends Controller
             'role' => 'user'
         ];
 
-        // $gelombangAktif = Gelombang::where('status', 'open')->first();
-        $gelombangAktif = Gelombang::where('status', 'open')->latest('created_at')->first();
+        // $angkatanAktif = Angkatan::where('status', 'open')->first();
+        $angkatanAktif = Angkatan::where('status', 'open')->latest('created_at')->first();
 
-        if (!$gelombangAktif) {
+        if (!$angkatanAktif) {
             return redirect()->back()->with('error', 'Saat ini belum ada gelombang pendaftaran yang dibuka.')->withInput();
         }
 
         // Mulai transaksi untuk menjaga konsistensi data
-        DB::transaction(function () use ($userData, $request, $token, $gelombangAktif) {
+        DB::transaction(function () use ($userData, $request, $token, $angkatanAktif) {
             // Membuat user
             $user = User::create($userData);
 
@@ -117,7 +116,7 @@ class AuthController extends Controller
             $user->siswa()->create([
                 'status_siswa_id' => 1,
                 'status_pendaftaran_id' => 1,
-                'gelombang_id' => $gelombangAktif->id,
+                'angkatan_id' => $angkatanAktif->id,
             ]);
         });
 
@@ -184,8 +183,7 @@ class AuthController extends Controller
         }
         $data = [
             'jumlah_angkatan' => Angkatan::count(),
-            'jumlah_gelombang' => Gelombang::count(),
-            'jumlah_pendaftar_terbaru' => Siswa::whereIn('gelombang_id', Gelombang::where('status', 'open')->pluck('id'))->count(),
+            'jumlah_pendaftar_terbaru' => Siswa::whereIn('angkatan_id', Angkatan::where('status', 'open')->pluck('id'))->count(),
             'verif_dokumen' => Siswa::whereHas('dokumen', function ($query) {
                 $query->where('status', 'pending');
             })->count(),

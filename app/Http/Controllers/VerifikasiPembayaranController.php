@@ -68,7 +68,7 @@ class VerifikasiPembayaranController extends Controller
             $siswa->status_pendaftaran_id = 6; // Diterima
             $siswa->status_siswa_id = 2; // Seleksi
             $pembayaran->verified_by = auth()->id();
-            $pembayaran->updated_at = now(); // bisa dihilangkan jika pakai timestamp default
+            $pembayaran->verified_at = now(); // bisa dihilangkan jika pakai timestamp default
         }
 
         // Simpan perubahan
@@ -103,5 +103,55 @@ class VerifikasiPembayaranController extends Controller
 
     public function updatePelatihan(Request $request, $id)
     {
+        // Validasi input
+        $request->validate([
+            'status' => 'required|in:verified,rejected',
+        ]);
+
+        // Ambil data pembayaran dan siswa terkait
+        $pembayaran = Pembayaran::findOrFail($id);
+        $siswa = Siswa::findOrFail($pembayaran->siswa_id);
+
+        // Update status pembayaran
+        $pembayaran->status = $request->status;
+
+        if ($request->status === 'verified') {
+            $pembayaran->verified_by = auth()->id();
+            $pembayaran->verified_at = now();
+
+            // Buat NIS jika siswa belum punya
+            if (empty($siswa->nis)) {
+                $angkatan = $siswa->angkatan;
+
+                $tahun = substr($angkatan->tahun, -2);       // 2 digit tahun, misal: '25'
+                $kodeMagang = '01';                           // Tetap
+                $nomorAngkatan = $angkatan->nomor_angkatan;  // Tanpa formatting
+
+                // Cari NIS terakhir di angkatan ini
+                $lastNis = Siswa::where('angkatan_id', $angkatan->id)
+                    ->whereNotNull('nis')
+                    ->orderByDesc('nis')
+                    ->first();
+
+                $nomorUrut = 800; // Default awal
+                if ($lastNis && preg_match('/\d{4}$/', $lastNis->nis, $matches)) {
+                    $nomorUrut = (int)$matches[0] + 1;
+                }
+
+                $nomorUrutFormatted = str_pad($nomorUrut, 4, '0', STR_PAD_LEFT);
+
+                // Set NIS ke siswa
+                $siswa->nis = "{$tahun}.{$kodeMagang}.{$nomorAngkatan}.{$nomorUrutFormatted}";
+            }
+        }
+
+        // Simpan perubahan
+        $siswa->save();
+        $pembayaran->save();
+
+        // Redirect dengan notifikasi
+        return redirect()
+            ->route('verifikasi.pembayaran-pelatihan.index')
+            ->with('success', 'Status pembayaran berhasil diperbarui.');
     }
 }

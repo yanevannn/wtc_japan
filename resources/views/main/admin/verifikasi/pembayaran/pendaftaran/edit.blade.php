@@ -27,7 +27,7 @@
                                     </li>
                                     <li class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                         <span class="font-medium">Gelombang Pendaftaran:</span>
-                                        <span>{{ $data->siswa->gelombang->nama_gelombang }}</span>
+                                        <span>{{ $data->siswa->angkatan->nomor_angkatan }}</span>
                                     </li>
                                     <li class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                         <span class="font-medium">Tanggal Pembayaran:</span>

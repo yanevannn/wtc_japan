@@ -24,7 +24,6 @@ class Siswa extends Model
         'angkatan_id',
         'status_pendaftaran_id',
         'status_siswa_id',
-        'gelombang_id',
         'user_id',
     ];
 
@@ -43,9 +42,9 @@ class Siswa extends Model
         return $this->hasOne(OrangTua::class, 'siswa_id');
     }
 
-    public function gelombang()
+    public function angkatan()
     {
-        return $this->belongsTo(Gelombang::class, 'gelombang_id');
+        return $this->belongsTo(Angkatan::class, 'angkatan_id');
     }
 
     // Relasi ke model Document (tb_dokumen)

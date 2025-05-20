@@ -10,18 +10,38 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Angkatan', 'Tahun']" :aligns="['left', 'left']" />
+                    <x-table-header :columns="['Nomor angkatan', 'Tahun', 'Jumlah Pendaftar', 'Status', 'Grup WA', 'Data Pendaftar']" :aligns="['left', 'left', 'center', 'center', 'center', 'center']" :widths="['', '', 'w-18', '', 'w-20', '']" />
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
                         @else
-                            @foreach ($data as $angkatan)
+                        @foreach ($data as $angkatan)
                                 <tr>
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
-                                    <x-table-cell>{{ $angkatan->angkatan }}</x-table-cell>
+                                    <x-table-cell>{{ $angkatan->nomor_angkatan }}</x-table-cell>
                                     <x-table-cell>{{ $angkatan->tahun }}</x-table-cell>
+                                    <x-table-cell
+                                        class="justify-center">{{ $angkatan->jumlah_pendaftar }}</x-table-cell>
+                                    <x-table-cell class="justify-center">
+                                        @if ($angkatan->status === 'open')
+                                            <x-badge>open</x-badge>
+                                        @else
+                                            <x-badge type="error">close</x-badge>
+                                        @endif
+                                    </x-table-cell>
+                                    <x-table-cell>
+                                        <a class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2"
+                                            target="_blank"
+                                            href="{{ $angkatan->link_grup }}">{{ $angkatan->link_grup }}</a>
+                                    </x-table-cell>
+                                    <x-table-cell class="justify-center">
+                                        <a class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2"
+                                            href="{{ route('angkatan.data-siswa.index', $angkatan->id) }}">Lihat
+                                            Data</a>
+                                    </x-table-cell>
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
+
                                             <x-button type="edit"
                                                 route="{{ route('angkatan.edit', $angkatan->id) }}" />
                                             <x-button type="delete"

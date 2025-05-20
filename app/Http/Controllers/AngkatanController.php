@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Angkatan;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class AngkatanController extends Controller
@@ -12,7 +13,7 @@ class AngkatanController extends Controller
      */
     public function index()
     {
-        $data = Angkatan::all();
+        $data = Angkatan::withCount('siswa as jumlah_pendaftar')->latest()->get();
         return view('main.admin.angkatan.index', compact('data'));
     }
 
@@ -80,5 +81,19 @@ class AngkatanController extends Controller
         } else {
             return redirect()->route('angkatan.index')->with('error', 'Data Angkatan Tidak Ditemukan');
         }
+    }
+
+    public function indexData($id)
+    {
+        $angkatan = Angkatan::find($id);
+        $data = Siswa::with([
+            'user:id,fname,lname,email',
+            'statusPendaftaran',
+            'angkatan' // Tambahkan eager load angkatan di sini
+        ])
+            ->where('angkatan_id', $id)
+            ->get();
+        
+        return view('main.admin.angkatan.data_siswa.index', compact('data', 'angkatan'));
     }
 }
