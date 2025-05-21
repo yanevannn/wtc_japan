@@ -36,9 +36,13 @@ class DatabaseSeeder extends Seeder
         DB::table('tb_status_siswa')->insert([
             ['status' => 'Pendaftaran', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Seleksi', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Tidak Lulus Seleksi', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Pelatihan', 'created_at' => now(), 'updated_at' => now()],
-            ['status' => 'Berhenti', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Tidak Lulus Pelatihan', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Interview', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Interview Ulang', 'created_at' => now(), 'updated_at' => now()],
             ['status' => 'Lulus', 'created_at' => now(), 'updated_at' => now()],
+            ['status' => 'Berhenti', 'created_at' => now(), 'updated_at' => now()],
         ]);
 
         DB::table('tb_angkatan')->insert([

@@ -51,9 +51,9 @@ class NilaiSeleksiImport implements ToModel
 
             // Update status siswa berdasarkan rata-rata
             if ($rataRata < 70) {
-                $siswa->status_siswa_id = 6; // misal: 7 = Tidak Lulus Seleksi
+                $siswa->status_siswa_id = 3; //  7 = Tidak Lulus Seleksi
             } else {
-                $siswa->status_siswa_id = 3; // 3 = Pelatihan (default jika lulus)
+                $siswa->status_siswa_id = 4; // 4 = Pelatihan 
             }
 
             $siswa->save();

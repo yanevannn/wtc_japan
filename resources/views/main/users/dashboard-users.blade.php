@@ -140,7 +140,7 @@
                     </a>
                 @endif
             </div>
-            @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 3)
+            @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 4)
             @php
                 $pembayaran = auth()->user()->siswa->pembayaranPelatihan;
             @endphp

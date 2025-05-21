@@ -5,7 +5,7 @@
             <div class="px-5 py-4 sm:px-6 sm:py-5 flex items-center justify-between">
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">
                     @if ($data)
-                    Hasil Seleksi {{ $data->siswa->gelombang->nama_gelombang }} -  {{ auth()->user()->fname . ' ' . auth()->user()->lname }}
+                    Hasil Seleksi Pendaftaran {{ auth()->user()->fname . ' ' . auth()->user()->lname }}
                     @else
                     Anda belum mengikuti seleksi
                     @endif

@@ -13,7 +13,7 @@
                         </button>
                     </a>
                 
-                    <a href="">
+                    <a href="{{ route('angkatan.data-nilai-pelatihan.index', $angkatan->id) }}">
                         <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                             Nilai Pelatihan
                         </button>
@@ -52,9 +52,13 @@
                                 $statusSiswaList = [
                                     1 => 'Pendaftaran',
                                     2 => 'Seleksi',
-                                    3 => 'Pelatihan',
-                                    4 => 'Berhenti',
-                                    5 => 'Lulus',
+                                    3 => 'Tidak Lulus Seleksi',
+                                    4 => 'Pelatihan',
+                                    5 => 'Tidak Lulus Pelatihan',
+                                    6 => 'Interview',
+                                    7 => 'Interview Ulang',
+                                    8 => 'Lulus',
+                                    9 => 'Berhenti',
                                 ];
                             @endphp
                             @foreach ($data as $siswa)

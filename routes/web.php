@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\GelombangController;
+use App\Http\Controllers\NilaiPelatihanController;
 use App\Http\Controllers\NilaiSeleksiController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PembayaranController;
@@ -82,11 +83,17 @@ Route::middleware('auth')->group(function () {
             Route::prefix('data-siswa')->name('data-siswa.')->group(function () {
                 Route::get('/{id}', [AngkatanController::class, 'indexData'])->name('index');
             });
-            //Data Siswa Seleksi Pendaftaran
+            //Data Siswa Nilai Seleksi Pendaftaran
             Route::prefix('nilai-seleksi')->name('data-nilai-seleksi.')->group(function () {
                 Route::get('/{id}', [NilaiSeleksiController::class, 'index'])->name('index');
-                Route::get('/gelombang/{id}/download-template', [NilaiSeleksiController::class, 'downloadTemplate'])->name('download-template');
-                Route::post('/gelombang/{id}/upload-nilai', [NilaiSeleksiController::class, 'uploadNilai'])->name('upload-nilai');
+                Route::get('/angkatan/{id}/download-template', [NilaiSeleksiController::class, 'downloadTemplate'])->name('download-template');
+                Route::post('/angkatan/{id}/upload-nilai', [NilaiSeleksiController::class, 'uploadNilai'])->name('upload-nilai');
+            });
+            //Data Siswa Nilai Seleksi Pelatihan
+            Route::prefix('nilai-pelatihan')->name('data-nilai-pelatihan.')->group(function () {
+                Route::get('/{id}', [NilaiPelatihanController::class, 'index'])->name('index');
+                Route::get('/angkatan/{id}/download-template', [NilaiPelatihanController::class, 'downloadTemplate'])->name('download-template');
+                Route::post('/angkatan/{id}/upload-nilai', [NilaiPelatihanController::class, 'uploadNilai'])->name('upload-nilai');
             });
         });
         //  PENGUMUMAN 

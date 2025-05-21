@@ -6,7 +6,7 @@
                 <h3 class="text-base font-medium text-gray-800 dark:text-white/90">
                     Tabel Nilai Pelatihan Siswa Angkatan {{ $angkatan->nomor_angkatan }}
                 </h3>
-                <a href="{{ route('angkatan.data-nilai-seleksi.download-template', $angkatan->id) }}"
+                <a href="{{ route('angkatan.data-nilai-pelatihan.download-template', $angkatan->id) }}"
                     class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                     Download Template Input Nilai
                 </a>
@@ -14,7 +14,7 @@
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <div class="mb-2">
                     <!-- Form untuk Upload File Excel -->
-                    <form action="{{ route('angkatan.data-nilai-seleksi.upload-nilai', $angkatan->id) }}" method="POST"
+                    <form action="{{ route('angkatan.data-nilai-pelatihan.upload-nilai', $angkatan->id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         <!-- File Input Field -->
@@ -42,46 +42,35 @@
                 <x-table>
                     <x-table-header :columns="[
                         'Nama Siswa',
-                        'Status Pendaftaran',
-                        'Nilai Bahasa',
-                        'Nilai Fisik',
-                        'Nilai Matematika',
-                        'Nilai Koran',
-                    ]" :aligns="['left', 'center', 'center', 'center', 'center', 'center']" />
+                        'NIS',
+                        'hiragana',
+                        'katakana',
+                        'kanji',
+                        'bunpou',
+                        'choukai',
+                        'kaiwa',
+                        'dokkai',
+                    ]" :aligns="['left','left', 'center', 'center', 'center', 'center', 'center', 'center', 'center']" />
                     <x-table-body>
                         {{-- {{ dd($data) }} --}}
                         @if ($data->isEmpty())
                             <x-table-empty-row />
                         @else
-                            @php
-                                $statusList = [
-                                    1 => 'Belum Lengkap',
-                                    2 => 'Menunggu Verifikasi',
-                                    3 => 'Gagal Verifikasi Dokumen',
-                                    4 => 'Gagal Verifikasi Pembayaran',
-                                    5 => 'Gagal Verifikasi Pembayaran & Dokumen',
-                                    6 => 'Diterima',
-                                ];
-                            @endphp
                             @foreach ($data as $siswa)
                                 <tr>
                                     <x-table-cell>{{ $loop->iteration }}</x-table-cell>
-                                    <x-table-cell>{{ $siswa->user->fname . ' ' . $siswa->user->lname }}</x-table-cell>
-                                    <x-table-cell class="justify-center">
-                                        {{ $statusList[$siswa->status_pendaftaran_id] ?? 'Status Tidak Diketahui' }}
-                                    </x-table-cell>
-                                    <x-table-cell
-                                        class="justify-center">{{ optional($siswa->nilaiSeleksi)->huruf_jepang ?? 0 }}</x-table-cell>
-                                    <x-table-cell
-                                        class="justify-center">{{ optional($siswa->nilaiSeleksi)->fisik ?? 0 }}</x-table-cell>
-                                    <x-table-cell
-                                        class="justify-center">{{ optional($siswa->nilaiSeleksi)->matematika ?? 0 }}</x-table-cell>
-                                    <x-table-cell
-                                        class="justify-center">{{ optional($siswa->nilaiSeleksi)->koran ?? 0 }}</x-table-cell>
+                                    <x-table-cell>{{ $siswa->user->fname.' ' .$siswa->user->lname }}</x-table-cell>
+                                    <x-table-cell>{{ $siswa->nis}}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->hiragana ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->katakana ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->kanji ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->bunpou ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->choukai ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->kaiwa ?? 0 }}</x-table-cell>
+                                    <x-table-cell class="justify-center">{{ optional($siswa->nilaiPelatihan)->dokkai ?? 0 }}</x-table-cell>
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
-                                            <x-button type="edit"
-                                                route="" />
+                                            <x-button type="edit" route="" />
                                         </div>
                                     </x-table-cell>
                                 </tr>

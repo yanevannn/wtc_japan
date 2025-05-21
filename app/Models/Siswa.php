@@ -67,4 +67,8 @@ class Siswa extends Model
     {
         return $this->hasOne(NilaiSeleksi::class, 'siswa_id');
     }
+    public function nilaiPelatihan()
+    {
+        return $this->hasOne(NilaiPelatihan::class, 'siswa_id');
+    }
 }
