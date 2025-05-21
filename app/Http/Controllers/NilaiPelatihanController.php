@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use App\Models\Angkatan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\NilaiPelatihan;
 use Maatwebsite\Excel\Facades\Excel;
@@ -85,7 +86,7 @@ class NilaiPelatihanController extends Controller
         $data = NilaiPelatihan::with([
             'siswa.user:id,fname,lname,email'
         ])->where('siswa_id', auth()->user()->siswa->id)->first();
-        $pdf = PDF::loadView('main.users.nilai.document.a4seleksi', compact('data'));
+        $pdf = PDF::loadView('main.users.nilai.document.a4pelatihan', compact('data'));
 
         return $pdf->stream('data-nilai-seleksi.pdf');
     }

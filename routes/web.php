@@ -154,8 +154,8 @@ Route::middleware('auth')->group(function () {
         Route::prefix('nilai')->name('nilai')->group(function () {
             Route::get('/seleksi', [NilaiSeleksiController::class, 'indexSeleksiSiswa'])->name('seleksi.index');
             Route::get('/seleksi/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
-            // Route::get('/pelatihan', [NilaiSeleksiController::class, 'indexPelatihanSiswa'])->name('seleksi.index');
-            // Route::get('/pelatihan/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
+            Route::get('/pelatihan', [NilaiPelatihanController::class, 'indexPelatihanSiswa'])->name('pelatihan.index');
+            Route::get('/pelatihan/pdf', [NilaiPelatihanController::class, 'showNilaiPelatihanPdf'])->name('pelatihan.pdf');
         });
     });
 });

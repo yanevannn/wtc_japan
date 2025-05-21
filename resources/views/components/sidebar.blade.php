@@ -70,10 +70,10 @@
                             <x-menu-item href="{{ route('pembayaranpendaftaran') }}" label="Pendaftaran" activePath="pembayaran/pendaftaran*" />
                             <x-menu-item href="{{ route('pembayaranpelatihan.index') }}" label="Pelatihan" activePath="pembayaran/pelatihan*" />
                         </x-sidebar-dropdown>
-                        <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['nilai/seleksi*', 'status-siswa*']">
+                        <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['nilai/seleksi*', 'nilai/pelatihan*']">
                             <x-menu-item href="{{ route('nilaiseleksi.index') }}" label="Nilai Seleksi" activePath="nilai/seleksi*" />
-                            <x-menu-item href="" label="Nilai Pelatihan" activePath="status-siswa*" />
-                            <x-menu-item href="" label="Hasil Interview" activePath="status-siswa*" />
+                            <x-menu-item href="{{ route('nilaipelatihan.index') }}" label="Nilai Pelatihan" activePath="nilai/pelatihan*" />
+                            <x-menu-item href="" label="Hasil Interview" activePath="" />
                         </x-sidebar-dropdown>
                     @endif
                 </ul>
