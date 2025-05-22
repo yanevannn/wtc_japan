@@ -157,5 +157,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/pelatihan', [NilaiPelatihanController::class, 'indexPelatihanSiswa'])->name('pelatihan.index');
             Route::get('/pelatihan/pdf', [NilaiPelatihanController::class, 'showNilaiPelatihanPdf'])->name('pelatihan.pdf');
         });
+        // PROGRESS
+        Route::get('progress', [SiswaController::class, 'progress'])->name('progress');
     });
 });

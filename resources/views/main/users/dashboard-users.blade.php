@@ -16,10 +16,20 @@
                 <h2 class="text-xl font-semibold mt-5 text-gray-800 dark:text-white/90">
                     {{ auth()->user()->fname . ' ' . auth()->user()->lname }}</h2>
                 <p class="text-gray-700 dark:text-gray-400 mt-2">Program Magang Jepang 🇯🇵 </p>
-                <p class="text-gray-700 dark:text-gray-400 mt-2">Status Pendafataran <br>
-                    <span
-                        class="text-gray-700 dark:text-gray-200 font-semibold">{{ auth()->user()->siswa->statusPendaftaran->status }}</span>
+                <p class="text-gray-700 dark:text-gray-400 mt-2">
+                    @if (empty(auth()->user()->siswa->nis))
+                        Status Pendaftaran <br>
+                        <span class="text-gray-700 dark:text-gray-200 font-semibold">
+                            {{ auth()->user()->siswa->statusPendaftaran->status }}
+                        </span>
+                    @else
+                        NIS : 
+                        <span class="text-gray-700 dark:text-gray-200 font-semibold">
+                            {{ auth()->user()->siswa->nis }}
+                        </span>
+                    @endif
                 </p>
+
                 @if (auth()->user()->siswa && auth()->user()->siswa->statusPendaftaran->status === 'Diterima')
                     <p class="text-gray-700 dark:text-gray-400 mt-2">Grup Whatsapp</p>
 
@@ -140,11 +150,11 @@
                     </a>
                 @endif
             </div>
-            @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 4)
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 4)
             @php
                 $pembayaran = auth()->user()->siswa->pembayaranPelatihan;
             @endphp
-        
+
             @if (!$pembayaran)
                 {{-- Belum melakukan pembayaran --}}
                 <div
@@ -167,7 +177,6 @@
                         Bayar Pelatihan
                     </a>
                 </div>
-        
             @elseif ($pembayaran->status === 'pending')
                 {{-- Sudah bayar tapi menunggu verifikasi --}}
                 <div
@@ -178,7 +187,6 @@
                         Silakan cek secara berkala verifikasi bukti pembayaran Anda.
                     </p>
                 </div>
-        
             @elseif ($pembayaran->status === 'rejected')
                 {{-- Gagal verifikasi --}}
                 <div
@@ -194,7 +202,7 @@
                 </div>
             @endif
         @endif
-        
+
 
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>
