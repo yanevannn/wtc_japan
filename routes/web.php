@@ -11,6 +11,7 @@ use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\SesiInterviewController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
@@ -105,6 +106,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [PerusahaanController::class, 'edit'])->name('edit');
             Route::put('/{id}', [PerusahaanController::class, 'update'])->name('update');
             Route::delete('/{id}', [PerusahaanController::class, 'destroy'])->name('destroy');
+        });
+        //  SESI INTERVIEW
+        Route::prefix('sesi-interview')->name('sesi-interview.')->group(function () {
+            Route::get('/', [SesiInterviewController::class, 'index'])->name('index');
+            Route::get('/add', [SesiInterviewController::class, 'create'])->name('create');
+            Route::post('/', [SesiInterviewController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [SesiInterviewController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [SesiInterviewController::class, 'update'])->name('update');
+            Route::delete('/{id}', [SesiInterviewController::class, 'destroy'])->name('destroy');
         });
         //  PENGUMUMAN 
         Route::prefix('pengumuman')->name('pengumuman.')->group(function () {

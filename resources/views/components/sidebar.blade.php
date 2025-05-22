@@ -47,7 +47,9 @@
                         <x-menu-item href="{{ route('pengumuman.index') }}" label="Pengumuman" :icon="file_get_contents(public_path('assets/announcement.svg'))"
                             activePath="pengumuman*" />
                         <x-menu-item href="{{ route('perusahaan.index') }}" label="Perusahaan" :icon="file_get_contents(public_path('assets/company.svg'))"
-                            activePath="pengumuman*" />
+                            activePath="perusahaan*" />
+                        <x-menu-item href="{{ route('sesi-interview.index') }}" label="Jadwal Sesi Interview" :icon="file_get_contents(public_path('assets/interview.svg'))"
+                            activePath="sesi-interview*" />
 
                         <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="[
                             'verifikasi/dokumen*',
