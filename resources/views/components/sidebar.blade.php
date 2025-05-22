@@ -46,13 +46,20 @@
                             activePath="admin*" />
                         <x-menu-item href="{{ route('pengumuman.index') }}" label="Pengumuman" :icon="file_get_contents(public_path('assets/announcement.svg'))"
                             activePath="pengumuman*" />
+                        <x-menu-item href="{{ route('perusahaan.index') }}" label="Perusahaan" :icon="file_get_contents(public_path('assets/company.svg'))"
+                            activePath="pengumuman*" />
 
-                        <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="['verifikasi/dokumen*', 'verifikasi/pembayaran-pendaftaran*', 'verifikasi/pembayaran-pelatihan*']">
+                        <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="[
+                            'verifikasi/dokumen*',
+                            'verifikasi/pembayaran-pendaftaran*',
+                            'verifikasi/pembayaran-pelatihan*',
+                        ]">
                             <x-menu-item href="{{ route('verifikasi.dokumen.index') }}" label="Dokumen"
                                 activePath="verifikasi/dokumen*" />
-                            <x-menu-item href="{{ route('verifikasi.pembayaran-pendaftaran.index') }}" label="Pembayaran Pendaftaran"
-                                activePath="verifikasi/pembayaran-pendaftaran*" />
-                            <x-menu-item href="{{ route('verifikasi.pembayaran-pelatihan.index') }}" label="Pembayaran Pelatihan" activePath="verifikasi/pembayaran-pelatihan*" />
+                            <x-menu-item href="{{ route('verifikasi.pembayaran-pendaftaran.index') }}"
+                                label="Pembayaran Pendaftaran" activePath="verifikasi/pembayaran-pendaftaran*" />
+                            <x-menu-item href="{{ route('verifikasi.pembayaran-pelatihan.index') }}"
+                                label="Pembayaran Pelatihan" activePath="verifikasi/pembayaran-pelatihan*" />
                         </x-sidebar-dropdown>
 
                         <x-sidebar-dropdown label="Status" menuKey="status" :icon="file_get_contents(public_path('assets/status.svg'))" :activePaths="['status-pendaftaran*', 'status-siswa*']">
@@ -69,13 +76,18 @@
 
                         <x-menu-item href="{{ route('dokumen.index') }}" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))"
                             activePath="" />
-                        <x-sidebar-dropdown label="Pembayaran" menuKey="pembayran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))" :activePaths="['pembayaran/*']">
-                            <x-menu-item href="{{ route('pembayaranpendaftaran') }}" label="Pendaftaran" activePath="pembayaran/pendaftaran*" />
-                            <x-menu-item href="{{ route('pembayaranpelatihan.index') }}" label="Pelatihan" activePath="pembayaran/pelatihan*" />
+                        <x-sidebar-dropdown label="Pembayaran" menuKey="pembayran" :icon="file_get_contents(public_path('assets/pembayaran.svg'))"
+                            :activePaths="['pembayaran/*']">
+                            <x-menu-item href="{{ route('pembayaranpendaftaran') }}" label="Pendaftaran"
+                                activePath="pembayaran/pendaftaran*" />
+                            <x-menu-item href="{{ route('pembayaranpelatihan.index') }}" label="Pelatihan"
+                                activePath="pembayaran/pelatihan*" />
                         </x-sidebar-dropdown>
                         <x-sidebar-dropdown label="Nilai" menuKey="nilai" :icon="file_get_contents(public_path('assets/nilai.svg'))" :activePaths="['nilai/seleksi*', 'nilai/pelatihan*']">
-                            <x-menu-item href="{{ route('nilaiseleksi.index') }}" label="Nilai Seleksi" activePath="nilai/seleksi*" />
-                            <x-menu-item href="{{ route('nilaipelatihan.index') }}" label="Nilai Pelatihan" activePath="nilai/pelatihan*" />
+                            <x-menu-item href="{{ route('nilaiseleksi.index') }}" label="Nilai Seleksi"
+                                activePath="nilai/seleksi*" />
+                            <x-menu-item href="{{ route('nilaipelatihan.index') }}" label="Nilai Pelatihan"
+                                activePath="nilai/pelatihan*" />
                             <x-menu-item href="" label="Hasil Interview" activePath="" />
                         </x-sidebar-dropdown>
                     @endif

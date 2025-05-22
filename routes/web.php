@@ -10,6 +10,7 @@ use App\Http\Controllers\NilaiSeleksiController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\StatusPendaftaranController;
 use App\Http\Controllers\StatusSiswaController;
@@ -95,6 +96,15 @@ Route::middleware('auth')->group(function () {
                 Route::get('/angkatan/{id}/download-template', [NilaiPelatihanController::class, 'downloadTemplate'])->name('download-template');
                 Route::post('/angkatan/{id}/upload-nilai', [NilaiPelatihanController::class, 'uploadNilai'])->name('upload-nilai');
             });
+        });
+        //  PERUSAHAAN
+        Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
+            Route::get('/', [PerusahaanController::class, 'index'])->name('index');
+            Route::get('/add', [PerusahaanController::class, 'create'])->name('create');
+            Route::post('/', [PerusahaanController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [PerusahaanController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [PerusahaanController::class, 'update'])->name('update');
+            Route::delete('/{id}', [PerusahaanController::class, 'destroy'])->name('destroy');
         });
         //  PENGUMUMAN 
         Route::prefix('pengumuman')->name('pengumuman.')->group(function () {

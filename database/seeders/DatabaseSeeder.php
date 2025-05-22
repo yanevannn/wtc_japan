@@ -74,5 +74,24 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ],
         ]);
+
+        DB::table('tb_perusahaan')->insert([
+            [
+                'nama_perusahaan' => 'Mitsubishi Corporation',
+                'tipe' => 'industri',
+                'alamat' => '1-3-1 Marunouchi, Chiyoda-ku, Tokyo, Japan',
+                'deskripsi' => 'Perusahaan konglomerat terbesar di Jepang yang bergerak di bidang otomotif, energi, dan logistik.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'nama_perusahaan' => 'Ajinomoto Co., Inc.',
+                'tipe' => 'makanan',
+                'alamat' => '15-1, Kyobashi 1-chome, Chuo-ku, Tokyo, Japan',
+                'deskripsi' => 'Perusahaan makanan dan bioteknologi terkenal dari Jepang, terutama untuk produk bumbu dan penyedap.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
     }
 }

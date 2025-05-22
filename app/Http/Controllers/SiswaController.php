@@ -87,4 +87,8 @@ class SiswaController extends Controller
 
         return redirect()->route('profile')->with('success', 'Status pendaftaran berhasil diperbarui.');
     }
+
+    public function progress(){
+        return view('main.users.progress');
+    }
 }
