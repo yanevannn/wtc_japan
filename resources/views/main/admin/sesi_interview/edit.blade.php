@@ -11,12 +11,20 @@
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
                     <x-form :action="route('sesi-interview.update', $data->id)" method="put">
-                        <x-form-input label="Pilih Perusahaan" name="perusahaan_id" inputType="option">
-                        <x-form-option value='' disabled>Select Option</x-form-option>
-                        @foreach ($perusahaan as $perusahaan)
-                            <x-form-option value="{{ $perusahaan->id }}" :selected="$data->perusahaan_id" >{{ $perusahaan->nama_perusahaan }}</x-form-option>
-                        @endforeach
-                        </x-form-input>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <x-form-input label="Pilih Perusahaan" name="perusahaan_id" inputType="option">
+                                    <x-form-option value='' disabled>Select Option</x-form-option>
+                                    @foreach ($perusahaan as $company)
+                                        <x-form-option
+                                            value="{{ $company->id }}" :selected="$data->perusahaan_id">{{ $company->nama_perusahaan }}</x-form-option>
+                                    @endforeach
+                                </x-form-input>
+                            </div>
+                            <div>
+                                <x-form-input label="Tempat Interview" name="tempat" placeholder="Masukkan tempat pelaksanaan" value="{{ $data->tempat }}"/>
+                            </div>
+                        </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <x-form-input label="Tanggal Interview" name="tanggal" inputType="date" value="{{ $data->tanggal }}"/>
                             <x-form-input label="Kuota" name="kuota" placeholder="Kuota Peserta" type="number" value="{{ $data->kuota }}"/>

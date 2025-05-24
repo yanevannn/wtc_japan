@@ -18,6 +18,7 @@ return new class extends Migration
             $table->time('jam_mulai');
             $table->time('jam_selesai');
             $table->integer('kuota');
+            $table->string('tempat');
             $table->timestamps();
 
             $table->foreign('perusahaan_id')->references('id')->on('tb_perusahaan')->onDelete('cascade');

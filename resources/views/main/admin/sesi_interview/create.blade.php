@@ -11,22 +11,30 @@
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
                     <x-form :action="route('sesi-interview.store')">
-                        <x-form-input label="Pilih Perusahaan" name="perusahaan_id" inputType="option">
-                        <x-form-option value='' disabled>Select Option</x-form-option>
-                        @foreach ($data as $perusahaan)
-                            <x-form-option value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</x-form-option>
-                        @endforeach
-                        </x-form-input>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <x-form-input label="Pilih Perusahaan" name="perusahaan_id" inputType="option">
+                                    <x-form-option value='' disabled>Select Option</x-form-option>
+                                    @foreach ($data as $perusahaan)
+                                        <x-form-option
+                                            value="{{ $perusahaan->id }}">{{ $perusahaan->nama_perusahaan }}</x-form-option>
+                                    @endforeach
+                                </x-form-input>
+                            </div>
+                            <div>
+                                <x-form-input label="Tempat Interview" name="tempat" placeholder="Masukkan tempat pelaksanaan"/>
+                            </div>
+                        </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <x-form-input label="Tanggal Interview" name="tanggal" inputType="date" />
-                            <x-form-input label="Kuota" name="kuota" placeholder="Kuota Peserta" type="number"/>
+                            <x-form-input label="Kuota" name="kuota" placeholder="Kuota Peserta" type="number" />
                         </div>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <x-form-input label="Jam Mulai" name="jam_mulai" inputType="time"/>
+                                <x-form-input label="Jam Mulai" name="jam_mulai" inputType="time" />
                             </div>
                             <div>
-                                <x-form-input label="Jam Selesai" name="jam_selesai" inputType="time"/>
+                                <x-form-input label="Jam Selesai" name="jam_selesai" inputType="time" />
                             </div>
                         </div>
                         <x-button type="submit"></x-button>

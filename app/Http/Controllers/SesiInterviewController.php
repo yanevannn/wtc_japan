@@ -28,6 +28,7 @@ class SesiInterviewController extends Controller
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'kuota' => 'required|integer|min:1',
+            'tempat'=> 'required'
         ]);
         SesiInterview::create($request->all());
         return redirect()->route('sesi-interview.index')->with('success', 'Sesi Interview berhasil dibuat.');
@@ -48,6 +49,7 @@ class SesiInterviewController extends Controller
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
             'kuota' => 'required|integer|min:1',
+            'tempat' => 'required'
         ]);
         $sesiInterview = SesiInterview::findOrFail($id);
         $sesiInterview->update($request->all());

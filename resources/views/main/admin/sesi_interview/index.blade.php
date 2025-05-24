@@ -10,7 +10,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Nama Perusahaan', 'Tanggal', 'Jam Interview', 'Kuota', 'Jumlah Pendaftar']" :aligns="['left', 'center', 'center', 'center', 'center']"/>
+                    <x-table-header :columns="['Nama Perusahaan', 'Tanggal', 'Jam Interview','Tempat','Kuota', 'Jumlah Pendaftar']" :aligns="['left', 'center', 'center', 'center', 'center']"/>
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
@@ -22,6 +22,7 @@
                                     <x-table-cell class="justify-center">{{ $sesi_interview->tanggal }}</x-table-cell>
                                     <x-table-cell class="justify-center">{{ \Carbon\Carbon::parse($sesi_interview->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($sesi_interview->jam_selesai)->format('H:i') }}
                                     </x-table-cell>
+                                    <x-table-cell class="justify-center">{{ $sesi_interview->tempat }}</x-table-cell>
                                     <x-table-cell class="justify-center">{{ $sesi_interview->kuota }}</x-table-cell>
                                     <x-table-cell class="justify-center">0</x-table-cell>
                                     <x-table-cell>
