@@ -15,9 +15,8 @@ class Perusahaan extends Model
         'deskripsi',
     ];
 
-    // Relasi dengan sesi interview (jika sudah ada tabel sesi interview)
-    // public function sesiInterview()
-    // {
-    //     return $this->hasMany(SesiInterview::class, 'perusahaan_id');
-    // }
+    public function sesiInterview()
+    {
+        return $this->hasMany(SesiInterview::class, 'perusahaan_id');
+    }
 }

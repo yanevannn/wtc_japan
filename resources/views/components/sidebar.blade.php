@@ -90,8 +90,9 @@
                                 activePath="nilai/seleksi*" />
                             <x-menu-item href="{{ route('nilaipelatihan.index') }}" label="Nilai Pelatihan"
                                 activePath="nilai/pelatihan*" />
-                            <x-menu-item href="" label="Hasil Interview" activePath="" />
                         </x-sidebar-dropdown>
+                        <x-menu-item href="{{ route('interview.index') }}" label="Interview" :icon="file_get_contents(public_path('assets/interview.svg'))"
+                            activePath="interview*" />
                     @endif
                 </ul>
             </div>

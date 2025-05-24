@@ -9,6 +9,7 @@ use App\Http\Controllers\NilaiPelatihanController;
 use App\Http\Controllers\NilaiSeleksiController;
 use App\Http\Controllers\OrangTuaController;
 use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PendaftaranInterviewController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\SesiInterviewController;
@@ -176,6 +177,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/seleksi/pdf', [NilaiSeleksiController::class, 'showNilaiSeleksiPdf'])->name('seleksi.pdf');
             Route::get('/pelatihan', [NilaiPelatihanController::class, 'indexPelatihanSiswa'])->name('pelatihan.index');
             Route::get('/pelatihan/pdf', [NilaiPelatihanController::class, 'showNilaiPelatihanPdf'])->name('pelatihan.pdf');
+        });
+        // SESI INTERVIEW
+        Route::prefix('interview')->name('interview.')->group(function () {
+            Route::get('/', [PendaftaranInterviewController::class, 'index'])->name('index');
+            Route::get('/add', [PendaftaranInterviewController::class, 'create'])->name('create');
+            Route::post('/', [PendaftaranInterviewController::class, 'store'])->name('store');
         });
         // PROGRESS
         Route::get('progress', [SiswaController::class, 'progress'])->name('progress');
