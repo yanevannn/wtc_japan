@@ -42,7 +42,7 @@
                         <x-form-input label="Alamat" name="alamat" placeholder="Masukkan alamat anda" value="{{ $data->alamat }}" />
                         <x-form-input label="Tinggi Badan" name="tinggi_badan" placeholder="Masukkan tinggi badan anda" type="number" value="{{ $data->tinggi_badan }}" />
                         <x-form-input label="Berat Badan" name="berat_badan" placeholder="Masukkan berat badan anda" type="number" value="{{ $data->tinggi_badan }}" />
-                        <x-form-input label="Whatsapp" name="wa" placeholder="Masukkan no wa contoh (082xxxx)" type="text" value="{{ $data->wa }}" />
+                        <x-form-input label="Whatsapp" name="wa" inputType="phone" value="{{ $data->wa }}"/>
                         <x-form-input label="Instagram" name="instagram" placeholder="Masukkan id instagram (ex : @wtcbali)" type="text" value="{{ $data->instagram }}" />
 
                         <x-button type="submit"></x-button>

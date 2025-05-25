@@ -13,18 +13,39 @@
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('pembayaranpendaftaran.update', $data->id)" hasFile="true" method="put">
+                    <form method="POST" action="{{ route('pembayaranpendaftaran.update', $data->id) }}"
+                        enctype="multipart/form-data">
+                        @method('PUT')
+                        @csrf
                         <p class="text-gray-800 dark:text-white/90 text-center">
                             Bukti Pembayaran saat ini
                         </p>
                         <img src="{{ $data->url }}" alt="Bukti Pembayaran"
                             class="w-[400px] h-auto mt-2 border border-gray-300 rounded mx-auto mb-3">
-                        <x-form-input label="Tanggal Pembayaran" name="tanggal_bayar" inputType="date" value="{{ \Carbon\Carbon::parse($data->tanggal_bayar)->format('Y-m-d')}}" />
+                        <x-form-input label="Tanggal Pembayaran" name="tanggal_bayar" inputType="date"
+                            value="{{ \Carbon\Carbon::parse($data->tanggal_bayar)->format('Y-m-d') }}" />
                         <x-form-input label="Upload Ulang Bukti Pembayaran" name="bukti_pembayaran" inputType="file" />
-                        <x-button type="submit">Submit</x-button>
-                    </x-form>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" id="btn-submit"
+                                class="items-center gap-2 px-2 py-2 text-sm font-medium text-white transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600">Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('btn-submit');
+            const form = document.querySelector('form');
+
+            if (form && btn) {
+                form.addEventListener('submit', function() {
+                    btn.disabled = true;
+                    btn.innerText = 'Sedang menyimpan...';
+                });
+            }
+        });
+    </script>
 </x-main-layout>

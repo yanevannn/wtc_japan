@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PendaftaranInterview;
 use Illuminate\Http\Request;
+use App\Models\PendaftaranInterview;
+use Illuminate\Support\Facades\Mail;
 
 class NilaiInterviewController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = PendaftaranInterview::where('status', 'pending')->get();
         return view('main.admin.interview.index', compact('data'));
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
             'id' => 'required|exists:tb_pendaftaran_interview,id',
             'nilai' => 'required|numeric|max:100',
             'status' => 'required|in:lolos,tidak lolos',
-        ],[
+        ], [
             'nilai.required' => 'Nilai harus diisi',
             'nilai.numeric' => 'Nilai harus berupa angka',
             'nilai.max' => 'Nilai maksimal adalah 100',
@@ -52,6 +55,15 @@ class NilaiInterviewController extends Controller
             $siswa->status_siswa_id = 7;
             $siswa->save();
         }
+        // Kirim email notifikasi hasil interview
+        Mail::send('main.auth.email-interview', [
+            'namaSiswa' => $siswa->user->fname . ' ' . $siswa->user->lname,
+            'perusahaan' => $pendaftaran->sesiInterview->perusahaan->nama_perusahaan,
+            'status' => $pendaftaran->status,
+        ], function ($message) use ($siswa) {
+            $message->to($siswa->user->email);
+            $message->subject('Pemberitahuan Hasil Interview');
+        });
         return redirect()->route('hasil-interview.index')->with('success', 'Nilai berhasil disimpan');
     }
 }

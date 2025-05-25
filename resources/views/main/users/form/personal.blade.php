@@ -46,8 +46,7 @@
                             type="number" />
                         <x-form-input label="Berat Badan" name="berat_badan" placeholder="Masukkan berat badan anda"
                             type="number" />
-                        <x-form-input label="Whatsapp" name="wa" placeholder="Masukkan no wa contoh (082xxxx)"
-                            type="text" />
+                        <x-form-input label="Whatsapp" name="wa" inputType="phone"/>
                         <x-form-input label="Instagram" name="instagram"
                             placeholder="Masukkan id instagram (ex : @wtcbali)" type="text" />
 

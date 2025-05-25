@@ -77,11 +77,15 @@ class DokumenController extends Controller
 
                 // Simpan file ke S3
                 $filePath = $request->file($jenisDokumen)->storeAs($folderPath, $fileName, 's3');
+                
+                // Cek apakah dokumen ini sudah ada
+                $existing = Dokumen::where('siswa_id', auth()->user()->siswa->id)
+                    ->where('jenis_dokumen', $jenisDokumen)
+                    ->first();
 
-                // Storage::makeDirectory($folderPath);
-                // Simpan file dan simpan data dokumen
-                // $filePath = $request->file($jenisDokumen)->storeAs($folderPath, $fileName, 'public');
-
+                if ($existing) {
+                    continue; // Lewati jika sudah pernah upload
+                }
                 Dokumen::create([
                     'siswa_id' => auth()->user()->siswa->id,
                     'jenis_dokumen' => $jenisDokumen,

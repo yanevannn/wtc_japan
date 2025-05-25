@@ -34,10 +34,12 @@ class PembayaranController extends Controller
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pendaftaran'
         ])->first();
-        $data->url = Storage::disk('s3')->temporaryUrl(
-            $data->bukti_pembayaran,
-            now()->addMinutes(1)
-        );
+        if ($data){
+            $data->url = Storage::disk('s3')->temporaryUrl(
+                $data->bukti_pembayaran,
+                now()->addMinutes(1)
+            );
+        }
         // dd($data);
         return view('main.users.pembayaran.pendaftaran.index', compact('data'));
     }
@@ -154,10 +156,12 @@ class PembayaranController extends Controller
             'siswa_id' => $siswaId,
             'jenis_pembayaran' => 'pelatihan'
         ])->first();
-        $data->url = Storage::disk('s3')->temporaryUrl(
-            $data->bukti_pembayaran,
-            now()->addMinutes(1)
-        );
+        if ($data){
+            $data->url = Storage::disk('s3')->temporaryUrl(
+                $data->bukti_pembayaran,
+                now()->addMinutes(1)
+            );
+        }
         return view('main.users.pembayaran.pelatihan.index', compact('data'));
     }
 

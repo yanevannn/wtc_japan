@@ -19,13 +19,15 @@
                         <li>Seluruh dokumen harus berformat <strong>PDF</strong>.</li>
                         <li>Ukuran masing-masing file maksimum <strong>1 MB</strong>.</li>
                         <li>Pastikan file dokumen jelas, terbaca, dan tidak buram untuk mempermudah verifikasi.</li>
-                        <li>Untuk Dokumen <strong>Ijazah S1 & Paspor</strong> bersifat opsional (boleh dikosongkan).</li>
+                        <li>Untuk Dokumen <strong>Ijazah S1 & Paspor</strong> bersifat opsional (boleh dikosongkan).
+                        </li>
                     </ul>
                 </div>
 
                 <div
                     class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] p-3 mt-1">
-                    <x-form :action="route('form.dokumen.store')" hasFile="true">
+                    <form method="POST" action="{{ route('form.dokumen.store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <x-form-input label="KTP" name="ktp" inputType="file" />
                             <x-form-input label="Kartu Keluarga" name="kk" inputType="file" />
@@ -36,11 +38,27 @@
                             <x-form-input label="Ijazah S1 (Opsional)" name="ijazah_s1" inputType="file" />
                             <x-form-input label="Paspor (Opsional)" name="paspor" inputType="file" />
                         </div>
-
-                        <x-button type="submit"></x-button>
-                    </x-form>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" id="btn-submit"
+                                class="items-center gap-2 px-2 py-2 text-sm font-medium text-white transition rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600">Simpan
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const btn = document.getElementById('btn-submit');
+            const form = document.querySelector('form');
+    
+            if (form && btn) {
+                form.addEventListener('submit', function () {
+                    btn.disabled = true;
+                    btn.innerText = 'Sedang menyimpan...';
+                });
+            }
+        });
+    </script>
 </x-main-layout>
