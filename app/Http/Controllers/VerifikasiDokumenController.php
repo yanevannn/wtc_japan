@@ -7,6 +7,7 @@ use App\Models\Siswa;
 use App\Models\Dokumen;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VerifikasiDokumenController extends Controller
 {
@@ -23,6 +24,14 @@ class VerifikasiDokumenController extends Controller
     {
         $siswa = Siswa::find($id);
         $data = Dokumen::where('siswa_id', $id)->get();
+        // Tambahkan temporary URL ke setiap dokumen
+        $data->map(function ($dokumen) {
+            $dokumen->url = Storage::disk('s3')->temporaryUrl(
+                $dokumen->file_path,
+                now()->addMinutes(2) // Link hanya berlaku 2 menit
+            );
+            return $dokumen;
+        });
         // return $data;
         return view('main.admin.verifikasi.dokumen.edit', compact('data', 'siswa'));
     }

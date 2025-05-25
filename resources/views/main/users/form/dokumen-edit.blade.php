@@ -32,7 +32,7 @@
                         <div class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Dokumen {{ \App\Models\Dokumen::getJenisDokumenHumanReadable($data->jenis_dokumen) }} saat
                             ini:
-                            <a href="{{ asset('storage/' . $data->file_path) }}" target="_blank"
+                            <a href="{{ $data->url }}" target="_blank"
                                 class="text-blue-600 hover:underline">
                                 Lihat Dokumen (PDF)
                             </a>

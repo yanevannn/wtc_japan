@@ -30,6 +30,15 @@ class DokumenController extends Controller
                 ->with('error', 'Silahkan upload dokumen terlebih dahulu.');
         }
 
+        // Tambahkan temporary URL ke setiap dokumen
+        $data->map(function ($dokumen) {
+            $dokumen->url = Storage::disk('s3')->temporaryUrl(
+                $dokumen->file_path,
+                now()->addMinutes(2) // Link hanya berlaku 2 menit
+            );
+            return $dokumen;
+        });
+
         return view('main.users.dokumen.index', compact('data'));
     }
 
@@ -65,9 +74,13 @@ class DokumenController extends Controller
 
                 // Tentukan path folder dan buat folder jika belum ada
                 $folderPath = 'dokumen/' . $jenisDokumen;
-                Storage::makeDirectory($folderPath);
+
+                // Simpan file ke S3
+                $filePath = $request->file($jenisDokumen)->storeAs($folderPath, $fileName, 's3');
+
+                // Storage::makeDirectory($folderPath);
                 // Simpan file dan simpan data dokumen
-                $filePath = $request->file($jenisDokumen)->storeAs($folderPath, $fileName, 'public');
+                // $filePath = $request->file($jenisDokumen)->storeAs($folderPath, $fileName, 'public');
 
                 Dokumen::create([
                     'siswa_id' => auth()->user()->siswa->id,
@@ -89,6 +102,12 @@ class DokumenController extends Controller
         $data = Dokumen::where('jenis_dokumen', $jenisDokumen)
             ->where('siswa_id', $siswaId)
             ->firstOrFail();
+        // Generate temporary URL dengan durasi 1 menit (bisa disesuaikan)
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->file_path,
+            now()->addMinutes(1)
+        );
+
         return view('main.users.form.dokumen-edit', compact('data'));
     }
 
@@ -111,14 +130,12 @@ class DokumenController extends Controller
         // Tentukan folder berdasarkan jenis dokumen
         $folderPath = 'dokumen/' . $jenisDokumen;
 
-        // Hapus file lama jika ada
-        if ($dokumen->file_path && Storage::disk('public')->exists($dokumen->file_path)) {
-            Storage::disk('public')->delete($dokumen->file_path);
+        // Hapus file lama dari S3 jika ada
+        if ($dokumen->file_path && Storage::disk('s3')->exists($dokumen->file_path)) {
+            Storage::disk('s3')->delete($dokumen->file_path);
         }
-
-        // Simpan file baru ke folder yang sesuai
-        Storage::makeDirectory($folderPath);
-        $filePath = $file->storeAs($folderPath, $fileName, 'public');
+        // Simpan file baru ke S3
+        $filePath = $file->storeAs($folderPath, $fileName, 's3');
 
         // Update data dokumen
         $dokumen->update([

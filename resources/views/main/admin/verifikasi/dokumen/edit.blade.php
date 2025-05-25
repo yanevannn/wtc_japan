@@ -30,7 +30,7 @@
                                                 Dokumen
                                                 {{ \App\Models\Dokumen::getJenisDokumenHumanReadable($dokumen->jenis_dokumen) }}
                                             </p>
-                                            <iframe src="{{ asset('storage/' . $dokumen->file_path) }}"
+                                            <iframe src="{{ $dokumen->url }}"
                                                 class="w-full h-[500px]" type="application/pdf"></iframe>
                                         </td>
                                         <x-table-cell class="justify-center hidden md:block">

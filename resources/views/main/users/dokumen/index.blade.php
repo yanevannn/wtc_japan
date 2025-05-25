@@ -23,7 +23,7 @@
                                     <x-table-cell>{{ \App\Models\Dokumen::getJenisDokumenHumanReadable($dokumen->jenis_dokumen) }}</x-table-cell>
                                     <x-table-cell>{{ $dokumen->status }}</x-table-cell>
                                     <x-table-cell>
-                                        <a href="{{ asset('storage/' . $dokumen->file_path) }}" target="_blank"
+                                        <a href="{{ $dokumen->url }}" target="_blank"
                                             class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2">
                                             Lihat Dokumen</a>
                                     </x-table-cell>
