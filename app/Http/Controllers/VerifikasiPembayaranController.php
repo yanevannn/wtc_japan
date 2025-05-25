@@ -6,6 +6,7 @@ use App\Models\Siswa;
 use App\Models\Dokumen;
 use App\Models\Pembayaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class VerifikasiPembayaranController extends Controller
 {
@@ -27,7 +28,10 @@ class VerifikasiPembayaranController extends Controller
             ->where('status', 'pending')
             ->whereNotNull('siswa_id')
             ->findOrFail($id);
-        // dd($data);
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
         return view('main.admin.verifikasi.pembayaran.pendaftaran.edit', compact('data'));
     }
     
@@ -97,7 +101,10 @@ class VerifikasiPembayaranController extends Controller
             ->where('status', 'pending')
             ->whereNotNull('siswa_id')
             ->findOrFail($id);
-        // dd($data);
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
         return view('main.admin.verifikasi.pembayaran.pelatihan.edit', compact('data'));
     }
 
@@ -128,8 +135,7 @@ class VerifikasiPembayaranController extends Controller
                 $nomorAngkatan = $angkatan->nomor_angkatan;  // Tanpa formatting
 
                 // Cari NIS terakhir di angkatan ini
-                $lastNis = Siswa::where('angkatan_id', $angkatan->id)
-                    ->whereNotNull('nis')
+                $lastNis = Siswa::whereNotNull('nis')
                     ->orderByDesc('nis')
                     ->first();
 

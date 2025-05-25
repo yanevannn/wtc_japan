@@ -14,7 +14,7 @@
                         <h3 class="text-base font-medium text-gray-800 dark:text-white/90 text-center mb-2">
                             Bukti Pembayaran Pendaftaran
                         </h3>
-                        <img src="{{ asset('storage/' . $data->bukti_pembayaran) }}" alt="" class="">
+                        <img src="{{ $data->url }}" alt="{{ $data->bukti_pembayaran }}" class="">
                     </div>
                     <div>
                         <div class="text-md font-medium text-gray-800 dark:text-white/90 text-center mb-2">

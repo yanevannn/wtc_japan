@@ -50,7 +50,7 @@
                             <p class="text-base mb-4">Tanggal Pembayaran : <span
                                     class=" text-sm font-bold">{{ $data->tanggal_bayar }}</span></p>
                             <p class="text-base mb-4">Bukti Pembayaran</p>
-                            <img src="{{ asset('storage/' . $data->bukti_pembayaran) }}" alt="Bukti Pembayaran"
+                            <img src="{{ $data->url }}" alt="Bukti Pembayaran"
                                 class="w-[400px] h-auto mt-2 border border-gray-300 rounded mx-auto mb-3">
                             @if ($data->status == 'pending' || $data->status == 'rejected')
                                 <div class="mx-auto">

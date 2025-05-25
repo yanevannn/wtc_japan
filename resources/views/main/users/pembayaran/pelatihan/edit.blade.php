@@ -17,7 +17,7 @@
                         <p class="text-gray-800 dark:text-white/90 text-center">
                             Bukti Pembayaran saat ini
                         </p>
-                        <img src="{{ asset('storage/' . $data->bukti_pembayaran) }}" alt="Bukti Pembayaran"
+                        <img src="{{ $data->url }}" alt="Bukti Pembayaran"
                             class="w-[400px] h-auto mt-2 border border-gray-300 rounded mx-auto mb-3">
                         <x-form-input label="Tanggal Pembayaran" name="tanggal_bayar" inputType="date" value="{{ \Carbon\Carbon::parse($data->tanggal_bayar)->format('Y-m-d')}}" />
                         <x-form-input label="Upload Ulang Bukti Pembayaran" name="bukti_pembayaran" inputType="file" />

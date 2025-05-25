@@ -34,6 +34,10 @@ class PembayaranController extends Controller
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pendaftaran'
         ])->first();
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
         // dd($data);
         return view('main.users.pembayaran.pendaftaran.index', compact('data'));
     }
@@ -64,7 +68,7 @@ class PembayaranController extends Controller
         $timestamp = time(); // UNIX timestamp detik sekarang
         $fileName = $timestamp . $formattedName .'.'. $extension;
         // Simpan file ke storage/app/public/pengumuman_files
-        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pendaftaran', $fileName, 'public');
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pendaftaran', $fileName, 's3');
 
         $data = [
             'siswa_id' => auth()->user()->siswa->id,
@@ -84,6 +88,10 @@ class PembayaranController extends Controller
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pendaftaran'
         ])->first();
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
 
         return view('main.users.pembayaran.pendaftaran.edit', compact('data'));
     }
@@ -100,8 +108,8 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::findOrFail($id);
 
         // Hapus file lama jika ada
-        if ($pembayaran->bukti_pembayaran && Storage::disk('public')->exists($pembayaran->bukti_pembayaran)) {
-            Storage::disk('public')->delete($pembayaran->bukti_pembayaran);
+        if ($pembayaran->bukti_pembayaran && Storage::disk('s3')->exists($pembayaran->bukti_pembayaran)) {
+            Storage::disk('s3')->delete($pembayaran->bukti_pembayaran);
         }
 
         // Proses file baru
@@ -111,7 +119,7 @@ class PembayaranController extends Controller
         $fileName = $timestamp . $formattedName . '.' . $extension;
 
         // Simpan file
-        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pendaftaran', $fileName, 'public');
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pendaftaran', $fileName, 's3');
 
         // Update data di database
         $pembayaran->update([
@@ -146,7 +154,10 @@ class PembayaranController extends Controller
             'siswa_id' => $siswaId,
             'jenis_pembayaran' => 'pelatihan'
         ])->first();
-
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
         return view('main.users.pembayaran.pelatihan.index', compact('data'));
     }
 
@@ -176,7 +187,7 @@ class PembayaranController extends Controller
         $timestamp = time(); // UNIX timestamp detik sekarang
         $fileName = $timestamp . $formattedName . '.' . $extension;
         // Simpan file ke storage/app/public/pengumuman_files
-        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pelatihan', $fileName, 'public');
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pelatihan', $fileName, 's3');
 
         $data = [
             'siswa_id' => auth()->user()->siswa->id,
@@ -194,6 +205,10 @@ class PembayaranController extends Controller
             'siswa_id' => auth()->user()->siswa->id,
             'jenis_pembayaran' => 'pelatihan'
         ])->first();
+        $data->url = Storage::disk('s3')->temporaryUrl(
+            $data->bukti_pembayaran,
+            now()->addMinutes(1)
+        );
         return view('main.users.pembayaran.pelatihan.edit', compact('data'));
     }
 
@@ -209,8 +224,8 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::findOrFail($id);
 
         // Hapus file lama jika ada
-        if ($pembayaran->bukti_pembayaran && Storage::disk('public')->exists($pembayaran->bukti_pembayaran)) {
-            Storage::disk('public')->delete($pembayaran->bukti_pembayaran);
+        if ($pembayaran->bukti_pembayaran && Storage::disk('s3')->exists($pembayaran->bukti_pembayaran)) {
+            Storage::disk('s3')->delete($pembayaran->bukti_pembayaran);
         }
 
         // Proses file baru
@@ -220,7 +235,7 @@ class PembayaranController extends Controller
         $fileName = $timestamp . $formattedName . '.' . $extension;
 
         // Simpan file
-        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pelatihan', $fileName, 'public');
+        $filePath = $request->file('bukti_pembayaran')->storeAs('pemabayaran-pelatihan', $fileName, 's3');
 
         // Update data di database
         $pembayaran->update([
