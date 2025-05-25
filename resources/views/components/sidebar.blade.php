@@ -48,8 +48,13 @@
                             activePath="pengumuman*" />
                         <x-menu-item href="{{ route('perusahaan.index') }}" label="Perusahaan" :icon="file_get_contents(public_path('assets/company.svg'))"
                             activePath="perusahaan*" />
-                        <x-menu-item href="{{ route('sesi-interview.index') }}" label="Jadwal Sesi Interview" :icon="file_get_contents(public_path('assets/interview.svg'))"
-                            activePath="sesi-interview*" />
+                        <x-sidebar-dropdown label="Interview" menuKey="interview" :icon="file_get_contents(public_path('assets/interview.svg'))" :activePaths="['sesi-interview*', 'hasil-interview*']">
+                            <x-menu-item href="{{ route('sesi-interview.index') }}" label="Jadwal Sesi Interview"
+                                activePath="sesi-interview*" />
+                                <x-menu-item href="{{ route('hasil-interview.index') }}" label="Input Hasil Interview"
+                                activePath="hasil-interview*" />
+                        </x-sidebar-dropdown>
+
 
                         <x-sidebar-dropdown label="Verifikasi" menuKey="verfikasi" :icon="file_get_contents(public_path('assets/verfikasi.svg'))" :activePaths="[
                             'verifikasi/dokumen*',

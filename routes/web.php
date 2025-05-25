@@ -1,10 +1,12 @@
 <?php
+
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AngkatanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\GelombangController;
+use App\Http\Controllers\NilaiInterviewController;
 use App\Http\Controllers\NilaiPelatihanController;
 use App\Http\Controllers\NilaiSeleksiController;
 use App\Http\Controllers\OrangTuaController;
@@ -21,7 +23,9 @@ use App\Http\Controllers\VerifikasiPembayaranController;
 
 // ===================== GUEST ROUTES =====================
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {return redirect('/login');});
+    Route::get('/', function () {
+        return redirect('/login');
+    });
     // Auth Routes
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'doLogin'])->name('dologin');
@@ -116,6 +120,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [SesiInterviewController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SesiInterviewController::class, 'update'])->name('update');
             Route::delete('/{id}', [SesiInterviewController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('hasil-interview')->name('hasil-interview.')->group(function () {
+            Route::get('/', [NilaiInterviewController::class, 'index'])->name('index');
+            Route::post('/', [NilaiInterviewController::class, 'store'])->name('store');
         });
         //  PENGUMUMAN 
         Route::prefix('pengumuman')->name('pengumuman.')->group(function () {

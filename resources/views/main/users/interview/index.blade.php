@@ -18,7 +18,6 @@
                         </a>
                     </div>
                 @else
-                    <h2 class="text-xl font-semibold mb-4">Jadwal Interview Terbaru</h2>
                     <div
                         class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] shadow p-5 mb-8">
                         <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-2">

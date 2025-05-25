@@ -23,7 +23,7 @@
                             {{ auth()->user()->siswa->statusPendaftaran->status }}
                         </span>
                     @else
-                        NIS : 
+                        NIS :
                         <span class="text-gray-700 dark:text-gray-200 font-semibold">
                             {{ auth()->user()->siswa->nis }}
                         </span>
@@ -201,8 +201,108 @@
                     </a>
                 </div>
             @endif
-        @endif
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 6)
+            @php
+                $siswa = auth()->user()->siswa;
+                $pendaftaranPertama = $siswa->pendaftaranInterview()->first();
+            @endphp
 
+            @if (!$pendaftaranPertama)
+                <!-- Belum mendaftar interview -->
+                <div
+                    class="md:col-span-3 bg-yellow-500 dark:bg-yellow-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-yellow-500/90 dark:hover:bg-yellow-400/90">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mb-4 text-white drop-shadow" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M12 18a6 6 0 100-12 6 6 0 000 12z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Belum Mendaftar Interview</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Silakan mendaftar interview terlebih dahulu untuk melanjutkan proses seleksi.
+                    </p>
+                    <a href="{{ route('interview.create') }}"
+                        class="mt-4 px-4 py-2 bg-white text-yellow-700 font-semibold rounded hover:bg-gray-100">
+                        Daftar Interview
+                    </a>
+                </div>
+            @else
+                <!-- Sudah mendaftar interview -->
+                <div
+                    class="md:col-span-3 bg-brand-600 dark:bg-brand-600/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-brand-600/90 dark:hover:bg-brand-600/90">
+                    <h3 class="text-xl font-semibold mb-2">Interview Terjadwal</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Anda telah mendaftar interview. Silakan ikuti interview sesuai jadwal yang telah Anda pilih.
+                        <br>
+                        Pastikan hadir tepat waktu.
+                    </p>
+                </div>
+            @endif
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 7)
+            @php
+                $siswa = auth()->user()->siswa;
+                $semuaPendaftaran = $siswa->pendaftaranInterview()->orderByDesc('created_at')->get();
+                $pendaftaranTerakhir = $semuaPendaftaran->first();
+            @endphp
+
+            @if (!$pendaftaranTerakhir || $pendaftaranTerakhir->status === 'tidak lolos')
+                <!-- Belum mendaftar ulang atau status terakhir tidak lolos -->
+                <div
+                    class="md:col-span-3 bg-red-600 dark:bg-red-600/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-red-600/90 dark:hover:bg-red-600/90">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mb-4 text-white drop-shadow"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Anda Tidak Lolos Interview Sebelumnya</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Silakan mendaftar ulang untuk interview. Klik tombol di bawah untuk melihat jadwal sesi
+                        interview yang tersedia.
+                    </p>
+                    <a href="{{ route('interview.create') }}"
+                        class="mt-4 px-4 py-2 bg-white text-red-600 font-semibold rounded hover:bg-gray-100">
+                        Daftar Interview
+                    </a>
+                </div>
+            @elseif($pendaftaranTerakhir->status === 'pending')
+                <!-- Sudah mendaftar ulang -->
+                <div
+                    class="md:col-span-3 bg-brand-600 dark:bg-brand-600/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-brand-600/90 dark:hover:bg-brand-600/90">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mb-4 text-white drop-shadow"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2l4-4m7 2a9 9 0 11-18 0a9 9 0 0118 0z" />
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Interview Anda Akan Dilaksanakan</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Silakan ikuti interview ulang sesuai jadwal yang telah Anda pilih. <br>
+                        Pastikan hadir tepat waktu.
+                    </p>
+                </div>
+            @endif
+        @elseif(auth()->user()->siswa && auth()->user()->siswa->status_siswa_id === 8)
+            @php
+                $siswa = auth()->user()->siswa;
+                $pendaftaranLolos = $siswa
+                    ->pendaftaranInterview()
+                    ->where('status', 'lolos')
+                    ->latest()
+                    ->with('sesiInterview.perusahaan')
+                    ->first();
+            @endphp
+
+            @if ($pendaftaranLolos)
+                <div
+                    class="md:col-span-3 bg-green-500 dark:bg-green-400/80 text-white rounded-2xl shadow-lg p-8 flex flex-col justify-center items-center h-[220px] transition-all duration-300 hover:bg-green-500/90 dark:hover:bg-green-400/90">
+                    <h3 class="text-xl font-semibold mb-2">🎉 Selamat Anda Lulus Interview!</h3>
+                    <p class="text-center text-sm sm:text-base max-w-lg">
+                        Anda dinyatakan <strong>LOLOS</strong> interview di perusahaan:</p>
+                    <p class="text-center text-lg font-bold underline text-white mt-1">
+                        {{ $pendaftaranLolos->sesiInterview->perusahaan->nama_perusahaan ?? '-' }}</p>
+                    <p class="text-center text-sm sm:text-base max-w-lg mt-2"> Selamat bergabung dan semoga sukses
+                        dalam proses selanjutnya.</p>
+                </div>
+            @endif
+        @endif
 
         <div class="mt-4">
             <h2 class="text-xl font-semibold text-gray-800 dark:text-white/90">Pengumuman</h2>

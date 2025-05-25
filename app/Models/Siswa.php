@@ -71,4 +71,8 @@ class Siswa extends Model
     {
         return $this->hasOne(NilaiPelatihan::class, 'siswa_id');
     }
+    public function pendaftaranInterview()
+    {
+        return $this->hasMany(PendaftaranInterview::class, 'siswa_id');
+    }
 }

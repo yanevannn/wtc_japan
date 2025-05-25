@@ -7,6 +7,7 @@ use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use App\Models\SesiInterview;
 use App\Models\PendaftaranInterview;
+use Illuminate\Support\Facades\Auth;
 
 class PendaftaranInterviewController extends Controller
 {
@@ -22,6 +23,28 @@ class PendaftaranInterviewController extends Controller
 
     public function create()
     {
+        $siswa = Auth::user()->siswa;
+        // Cek status_siswa_id
+        if (!in_array($siswa->status_siswa_id, [6, 7])) {
+            return redirect()->route('dashboard')->with('error', 'Anda tidak diizinkan mendaftar interview.');
+        }
+        // Ambil pendaftaran terakhir (jika ada)
+        $pendaftaranTerakhir = $siswa->pendaftaranInterview()->latest()->first();
+
+        // Jika pernah mendaftar
+        if ($pendaftaranTerakhir) {
+            $status = $pendaftaranTerakhir->status;
+            if ($status === 'pending') {
+                return redirect()->route('dashboard')->with('error', 'Anda sudah mendaftar interview dan masih menunggu hasil.');
+            }
+
+            if ($status === 'lolos') {
+                return redirect()->route('dashboard')->with('error', 'Anda sudah dinyatakan lolos interview dan tidak dapat mendaftar lagi.');
+            }
+        }
+
+        // Ambil sesi interview yang masih tersedia kuota
+
         $today = Carbon::today();
 
         $data = Perusahaan::whereHas('sesiInterview', function ($query) use ($today) {

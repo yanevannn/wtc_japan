@@ -58,8 +58,16 @@ class SesiInterviewController extends Controller
 
     public function destroy($id)
     {
-        $sesiInterview = SesiInterview::findOrFail($id);
+        $sesiInterview = SesiInterview::withCount('pendaftaranInterview')->findOrFail($id);
+
+        if ($sesiInterview->pendaftaran_interview_count > 0) {
+            return redirect()->route('sesi-interview.index')
+                ->with('error', 'Sesi interview tidak dapat dihapus karena masih sudah ada pendaftar.');
+        }
+
         $sesiInterview->delete();
-        return redirect()->route('sesi-interview.index')->with('success', 'Sesi Interview berhasil dihapus.');
+
+        return redirect()->route('sesi-interview.index')
+            ->with('success', 'Sesi interview berhasil dihapus.');
     }
 }

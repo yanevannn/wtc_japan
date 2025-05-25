@@ -18,12 +18,6 @@
                             Nilai Pelatihan
                         </button>
                     </a>
-                
-                    <a href="">
-                        <button class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
-                            Hasil Wawancara
-                        </button>
-                    </a>
                 </div>
                 
             </div>
