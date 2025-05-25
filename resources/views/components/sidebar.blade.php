@@ -78,7 +78,7 @@
                     @else
                         <x-menu-item href="{{ route('dashboard') }}" label="Dashboard" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
                             activePath="dashboard*" />
-                        <x-menu-item href="{{ route('progress') }}" label="Progress" :icon="file_get_contents(public_path('assets/dashboard.svg'))"
+                        <x-menu-item href="{{ route('progress') }}" label="Progress" :icon="file_get_contents(public_path('assets/progress.svg'))"
                             activePath="progress-siswa*" />
 
                         <x-menu-item href="{{ route('dokumen.index') }}" label="Dokumen Pendaftaran" :icon="file_get_contents(public_path('assets/dokumen-stack.svg'))"
