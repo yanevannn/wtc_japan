@@ -16,11 +16,11 @@
                     <x-form :action="route('form.orang-tua.store')">
                         <x-form-input label="Nama Ayah" name="nama_ayah" placeholder="Masukkan nama ayah anda" />
                         <x-form-input label="Alamat Ayah" name="alamat_ayah" placeholder="Masukkan alamat ayah anda" />
-                        <x-form-input label="Nomor Telepon Ayah" name="no_telp_ayah" placeholder="Masukkan nomor telepon contoh (082xxxx)" />
+                        <x-form-input label="Nomor Telepon Ayah" name="no_telp_ayah" inputType="phone"/>
                         <x-form-input label="Pekerjaan Ayah" name="pekerjaan_ayah" placeholder="Masukkan pekerjaan ayah anda" />
                         <x-form-input label="Nama Ibu" name="nama_ibu" placeholder="Masukkan nama ibu anda" />
                         <x-form-input label="Alamat Ibu" name="alamat_ibu" placeholder="Masukkan alamat ibu anda" />
-                        <x-form-input label="Nomor Telepon Ibu" name="no_telp_ibu" placeholder="Masukkan nomor telepon contoh (082xxxx)" />
+                        <x-form-input label="Nomor Telepon Ibu" name="no_telp_ibu" inputType="phone"/>
                         <x-form-input label="Pekerjaan Ibu" name="pekerjaan_ibu" placeholder="Masukkan pekerjaan ibu anda" />
                         <x-button type="submit">Submit</x-button>
                     </x-form>

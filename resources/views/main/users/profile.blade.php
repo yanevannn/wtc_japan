@@ -199,7 +199,7 @@
                                 Nomor Telepon
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                {{ $orangtua->no_telp_ayah }}
+                               +62{{ $orangtua->no_telp_ayah }}
                             </p>
                         </div>
                         <div>
@@ -234,7 +234,7 @@
                                 Nomor Telepon
                             </p>
                             <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                                {{ $orangtua->no_telp_ibu }}
+                                +62{{ $orangtua->no_telp_ibu }}
                             </p>
                         </div>
                         <div>
