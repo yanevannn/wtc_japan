@@ -139,7 +139,7 @@ class VerifikasiPembayaranController extends Controller
                     ->orderByDesc('nis')
                     ->first();
 
-                $nomorUrut = 800; // Default awal
+                $nomorUrut = config('custom.nomor_urut_awal');; // Default awal melalui config
                 if ($lastNis && preg_match('/\d{4}$/', $lastNis->nis, $matches)) {
                     $nomorUrut = (int)$matches[0] + 1;
                 }
