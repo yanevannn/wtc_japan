@@ -31,12 +31,21 @@ class AngkatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'angkatan' => 'required|unique:tb_angkatan,angkatan',
+            'nomor_angkatan' => 'required|unique:tb_angkatan,nomor_angkatan',
             'tahun' => 'required|integer|min:2020|max:2100',
+            'status' => 'required|in:open,closed',
+            'link_grup' => 'nullable|url|max:255',
         ]);
+        if($request->status === 'open') {
+            // Tutup (close) angkatan yang sebelumnya statusnya masih open
+            Angkatan::where('status', 'open')->update(['status' => 'closed']);
+        }
+
         $data = [
-            'angkatan' => $request->input('angkatan'),
+            'nomor_angkatan' => $request->input('nomor_angkatan'),
             'tahun' => $request->input('tahun'),
+            'status' => $request->input('status'),
+            'link_grup' => $request->input('link_grup'),
         ];
         Angkatan::create($data);
         return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Ditambahkan');
@@ -48,7 +57,7 @@ class AngkatanController extends Controller
      */
     public function edit(Angkatan $angkatan, String $id)
     {
-        $data = Angkatan::find($id);
+        $data = Angkatan::findOrFail($id);
         return view('main.admin.angkatan.edit', compact('data'));
     }
 
@@ -57,15 +66,39 @@ class AngkatanController extends Controller
      */
     public function update(Request $request, String $id)
     {
+        $angkatan = Angkatan::findOrFail($id);
+
         $request->validate([
-            'angkatan' => 'required|unique:tb_angkatan,angkatan,' . $id,
+            'nomor_angkatan' => 'required|unique:tb_angkatan,nomor_angkatan,' . $id,
             'tahun' => 'required|integer|min:2020|max:2100',
+            'status' => 'required|in:open,closed',
+            'link_grup' => 'required|url|max:255',
         ]);
-        $data = [
-            'angkatan' => $request->input('angkatan'),
+        if ($request->status === 'open') {
+            // Tutup (close) angkatan yang sebelumnya statusnya masih open
+            Angkatan::where('status', 'open')
+            ->where('id','!=', $angkatan->id)
+            ->update(['status' => 'closed']);
+        }
+        // Jika status = closed
+        if($request->status === 'closed') {
+            // Cek apakah ada angkatan lain yang 'open', kecuali angkatan yang sedang diubah
+            $angkatanOpenexist = Angkatan::where('status', 'open')
+                ->where('id', '!=', $angkatan->id)
+                ->exists();
+            //jika tidak ada angaktan ipen tampilkan eroro
+            if (!$angkatanOpenexist) {
+                return redirect()->back()->with('error', 'Tidak ada angkatan yang sedang open, silakan ubah status angkatan lain terlebih dahulu.');
+            }
+        }
+
+
+        $angkatan ->update( [
+            'nomor_angkatan' => $request->input('nomor_angkatan'),
             'tahun' => $request->input('tahun'),
-        ];
-        Angkatan::where('id', $id)->update($data);
+            'status' => $request->input('status'),
+            'link_grup' => $request->input('link_grup'),
+        ]);
         return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Diubah');
     }
 
@@ -75,12 +108,17 @@ class AngkatanController extends Controller
     public function destroy($id)
     {
         $angkatan = Angkatan::find($id);
-        if ($angkatan) {
-            $angkatan->delete();
-            return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Dihapus');
-        } else {
+        if (!$angkatan) {
             return redirect()->route('angkatan.index')->with('error', 'Data Angkatan Tidak Ditemukan');
         }
+
+        // Cek apakah ada siswa yang berelasi dengan angkatan ini
+        if ($angkatan->siswa()->exists()) {
+            return redirect()->route('angkatan.index')->with('error', 'Data Angkatan tidak bisa dihapus karena terdapat data siswa.');
+        }
+
+        $angkatan->delete();
+        return redirect()->route('angkatan.index')->with('success', 'Data Angkatan Berhasil Dihapus');
     }
 
     public function indexData($id)
