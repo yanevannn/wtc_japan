@@ -39,7 +39,12 @@ class DokumenController extends Controller
             return $dokumen;
         });
 
-        return view('main.users.dokumen.index', compact('data'));
+        // Cek apakah semua dokumen berstatus 'verified'
+        $allVerified = $data->every(function ($doc) {
+            return $doc->status === 'verified';
+        });
+
+        return view('main.users.dokumen.index', compact('data', 'allVerified'));
     }
 
 

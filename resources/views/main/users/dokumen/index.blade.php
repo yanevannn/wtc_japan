@@ -12,7 +12,7 @@
             </div>
             <div class="p-5 border-t border-gray-100 dark:border-gray-800 sm:p-6">
                 <x-table>
-                    <x-table-header :columns="['Jenis Dokumen', 'Status verifikasi', 'File']" :widths="['w-18', '', '']" />
+                    <x-table-header :columns="['Jenis Dokumen', 'Status verifikasi', 'File']" :widths="['w-18', '', '']" :showActionRow="!$allVerified"/>
                     <x-table-body>
                         @if ($data->isEmpty())
                             <x-table-empty-row />
@@ -27,12 +27,14 @@
                                             class="text-sm text-blue-600 hover:text-blue-500 underline underline-offset-1 hover:underline-offset-2">
                                             Lihat Dokumen</a>
                                     </x-table-cell>
+                                    @if (!$allVerified)
                                     <x-table-cell>
                                         <div class="flex justify-center gap-2">
                                             <x-button type="edit"
                                                 route="{{ route('form.dokumen.edit', $dokumen->jenis_dokumen) }}" />
                                         </div>
                                     </x-table-cell>
+                                    @endif
                                 </tr>
                             @endforeach
                         @endif
