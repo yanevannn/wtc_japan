@@ -26,6 +26,12 @@ class AuthController extends Controller
         return view('main.auth.login');
     }
 
+    function generateToken()
+    {
+        $number = '1234567890';
+        return substr(str_shuffle($number), 0, 4);
+    }
+
     function doLogin(Request $request)
     {
         $data = [
@@ -34,26 +40,45 @@ class AuthController extends Controller
         ];
 
         if (Auth::attempt($data)) {
-            if (Auth::user()->email_verified_at == null) {
+            $user = Auth::user();
+
+            // Cek apakah email sudah diverifikasi
+            if (is_null($user->email_verified_at)) {
                 Auth::logout();
-                return redirect()->route('login')->withInput()->with('warning', 'Akun belum diverifikasi, silahkan cek email untuk verifikasi akun !');
-            } else {
-                return redirect()->route('dashboard');
+
+                // Cek apakah token sudah ada
+                $verify = UserVerify::where('email', $user->email)->first();
+                if (!$verify) {
+                    // Buat token baru jika belum ada
+                    $token = $this->generateToken();
+                    $verify = UserVerify::create([
+                        'email' => $user->email,
+                        'token' => $token,
+                    ]);
+                }
+                // Kirim ulang email verifikasi
+                Mail::send(
+                    'main.auth.email-verification',
+                    ['token' => $verify->token],
+                    function ($message) use ($user) {
+                        $message->to($user->email);
+                        $message->subject('Verifikasi Ulang Email');
+                    }
+                );
+                return redirect()->route('login')->withInput()->with(
+                    'warning',
+                    "Akun belum diverifikasi. Kami telah mengirim email verifikasi ke email {$user->email}, silakan cek email atau folder spam."
+                );
             }
-        } else {
-            return redirect()->route('login')->withInput()->with('error', 'Email dan Password salah !');
-        }
+            // Jika email sudah diverifikasi, lanjut ke dashboard
+            return redirect()->route('dashboard');
+        } // Jika login gagal
+        return redirect()->route('login')->withInput()->with('error', 'Email dan Password salah!');
     }
 
     function register()
     {
         return view('main.auth.register');
-    }
-
-    function generateToken()
-    {
-        $number = '1234567890';
-        return substr(str_shuffle($number), 0, 4);
     }
 
     function doRegister(Request $request)
