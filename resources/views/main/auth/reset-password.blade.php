@@ -16,6 +16,9 @@
                 <form action="{{ route('doResetPassword') }}" method="POST">
                     @csrf
                     <div class="space-y-5">
+                        @if ($errors->any())
+                            <x-alert type="error" :message="$errors->first()" />
+                        @endif
                         @if (session('error'))
                             <x-alert type="error" :message="session('error')" />
                         @elseif (session('warning'))
