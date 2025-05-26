@@ -220,4 +220,87 @@ class AuthController extends Controller
 
         return view('main.admin.dashboard-admin', compact('data'));
     }
+
+    public function forgotPassword()
+    {
+        return view('main.auth.forgot-password');
+    }
+
+    public function doForgotPassword(Request $request)
+    {
+        // Validasi input email
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.exists' => 'Email tidak ditemukan dalam sistem.',
+        ]);
+
+        $email = $request->email;
+        $token = $this->generateToken();
+
+        // Membuat record untuk verifikasi reset password
+        UserVerify::updateOrInsert(
+            ['email' => $email,], 
+            ['token' => $token]);
+
+        // Kirim email reset password
+        Mail::send('main.auth.email-reset-password', ['token' => $token, 'email' => $email], function ($message) use ($email) {
+            $message->to($email);
+            $message->subject('Reset Password');
+        });
+
+        return redirect()->route('login')->with('success', 'Link reset password telah dikirm, silahkan mengecek email atau spam!');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $token = $request->query('token');
+        $email = $request->query('email');
+
+        return view('main.auth.reset-password', compact('email', 'token'));
+
+    }
+
+    public function doResetPassword(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'regex:/[A-Z]/',       // Harus ada huruf besar
+                'regex:/[a-z]/',       // Harus ada huruf kecil
+                'regex:/[0-9]/',       // Harus ada angka
+                'regex:/[@$!%*?&#]/',  // Harus ada karakter spesial
+            ],
+            'confirm-password' => 'required|same:password',
+        ], [
+            'password.regex' => 'Password harus mengandung huruf besar, huruf kecil, angka, dan karakter spesial.',
+            'confirm-password.same' => 'Konfirmasi password tidak cocok.',
+        ]);
+
+        $email = $request->email;
+        $token = $request->token;
+
+        // Cek token valid
+        $verify = UserVerify::where('email', $email)->where('token', $token)->first();
+        if (!$verify) {
+            return back()->with('error', 'Token tidak valid atau sudah kadaluarsa.');
+        }
+
+        // Update password user
+        $user = User::where('email', $email)->first();
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        // Hapus token setelah reset password berhasil
+        UserVerify::where('email', $email)->delete();
+
+        return redirect()->route('login')->with('success', 'Password berhasil direset. Silakan login dengan password baru Anda.');
+    }
 }

@@ -32,6 +32,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/register', [AuthController::class, 'doRegister'])->name('doregister');
     Route::get('/verifyaccount/{token}', [AuthController::class, 'verifyAccount'])->name('verifyaccount');
+    Route::get('/forgotpassword', [AuthController::class, 'forgotPassword'])->name('forgotPassword');
+    Route::post('/forgotpassword', [AuthController::class, 'doForgotPassword'])->name('doForgotPassword');
+    Route::get('/resetpassword', [AuthController::class, 'resetPassword'])->name('resetPassword');
+    Route::post('/resetpassword', [AuthController::class, 'doResetPassword'])->name('doResetPassword');
 });
 
 // ===================== AUTH ROUTES =====================
