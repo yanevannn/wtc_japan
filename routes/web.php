@@ -62,7 +62,14 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [StatusPendaftaranController::class, 'destroy'])->name('destroy');
         });
         //  STATUS PENDAFTARAN  
-        Route::get('/status-siswa', [StatusSiswaController::class, 'index'])->name('status-siswa.index');
+        Route::prefix('status-siswa')->name('status-siswa.')->group(function (){
+            Route::get('/', [StatusSiswaController::class, 'index'])->name('index');
+            Route::get('/add', [StatusSiswaController::class, 'create'])->name('create');
+            Route::post('/', [StatusSiswaController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [StatusSiswaController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [StatusSiswaController::class, 'update'])->name('update');
+            Route::delete('/{id}', [StatusSiswaController::class, 'destroy'])->name('destroy');
+        });
         //  VERIFIKASI
         Route::prefix('verifikasi')->name('verifikasi.')->group(function () {
             //Verfikasi Dokumen
