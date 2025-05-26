@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use App\Models\StatusPendaftaran;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,15 +52,18 @@ class SiswaController extends Controller
 
     public function edit()
     {
-        $data = Siswa::where('user_id', auth()->id())->firstOrFail();
+        $data = Siswa::where('user_id', auth()->id())->with('user')->firstOrFail();
         return view('main.users.form.personal-edit', compact('data'));
     }
 
     public function update(Request $request, $id)
     {
         $siswa = Siswa::where('id', $id)->first();
+        $user = User::where('id', $siswa->user_id)->first();
         // dd($siswa);
         $request->validate([
+            'fname' => 'required|string',
+            'lname' => 'required|string',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required|string',
             'alamat' => 'required|string|max:255',
@@ -83,6 +87,10 @@ class SiswaController extends Controller
             'agama' => $request->input('agama'),
             'wa' => $request->input('wa'),
             'instagram' => $request->input('instagram')
+        ]);
+        $user->update([
+            'fname' => $request->input('fname'),
+            'lname' => $request->input('lname'),
         ]);
 
         return redirect()->route('profile')->with('success', 'Status pendaftaran berhasil diperbarui.');
