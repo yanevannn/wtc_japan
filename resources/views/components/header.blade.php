@@ -80,9 +80,6 @@
             <div class="relative" x-data="{ dropdownOpen: false }" @click.outside="dropdownOpen = false">
                 <a class="flex items-center text-gray-700 dark:text-gray-400" href="#"
                     @click.prevent="dropdownOpen = ! dropdownOpen">
-                    <span class="mr-3 overflow-hidden rounded-full h-11 w-11 border border-gray-300 dark:border-none">
-                        <img src="{{ asset('src/images/user/profile.png') }}" alt="User" />
-                    </span>
 
                     <span class="block mr-1 font-medium text-theme-sm"> {{ auth()->user()->fname }} </span>
 

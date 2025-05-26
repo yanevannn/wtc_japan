@@ -6,9 +6,9 @@
             class="rounded-xl flex flex-col md:col-span-2 border border-gray-200 p-5 dark:border-gray-800 dark:bg-white/[0.03] text-white">
             <div class="bg-gradient-to-br bg-brand-600 w-full h-32 rounded-t-lg mb-12 relative shadow-xl">
                 <div class="absolute -bottom-12 left-1/2 transform -translate-x-1/2">
-                    <div class="bg-blue-500 dark:bg-gray-900 rounded-full p-1">
-                        <img src="{{ asset('src/images/user/profile.png') }}" alt="Avatar"
-                            class="w-24 h-24 rounded-full border-4 border-white shadow-2xl">
+                    <div class="bg-brand-600  rounded-full p-1">
+                        <img src="{{ asset('assets/profile.png') }}" alt="Avatar"
+                            class="w-24 h-24 rounded-full border-white shadow-2xl">
                     </div>
                 </div>
             </div>
