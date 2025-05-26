@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Siswa;
 use App\Models\OrangTua;
 use App\Models\Pembayaran;
+use App\Models\PendaftaranInterview;
 use App\Models\Pengumuman;
 use App\Models\UserVerify;
 use Illuminate\Http\Request;
@@ -214,6 +215,7 @@ class AuthController extends Controller
             })->count(),
             'verif_pembayaran_pendaftaran' => Pembayaran::where('jenis_pembayaran', 'pendaftaran')->where('status', 'pending')->count(),
             'verif_pembayaran_pelatihan' => Pembayaran::where('jenis_pembayaran', 'pelatihan')->where('status', 'pending')->count(),
+            'input_interview' => PendaftaranInterview::where('status', 'pending')->count(),
         ];
 
         return view('main.admin.dashboard-admin', compact('data'));
